@@ -2,11 +2,13 @@
 local mod_gui = require('mod-gui')
 local crash_site= require('crash-site')
 
-local main_elements = {}
-
-local current_settings = {}
-local game_state  = "in_lobby"
-local has_seed_changed = false
+global.main_elements = {}
+global.current_settings = {
+  biter_regen = false,
+  pitch_black = false,
+}
+global.game_state  = "in_lobby"
+global.has_seed_changed = false
 local respawn_items = { ["pistol"] = 1, ["firearm-magazine"] = 5 }
 
 local function format_play_time(ticks)
@@ -20,14 +22,13 @@ local function format_play_time(ticks)
     return result
 end
 
-local function refresh_player_gui() 
-  for _, p in pairs(game.connected_players) do 
-    main_elements[p.index].players_content.clear()
-    for _, p in pairs(game.connected_players) do 
-      main_elements[p.index].players_content.add{type="label", caption=p.name}
+local function refresh_player_gui(player_index) 
+    global.main_elements[player_index].players_content.clear()
+    for _, player in pairs(game.connected_players) do 
+      global.main_elements[player_index].players_content.add{type="label", caption=player.name}
     end
-  end
 end
+
 
 function add_gui_to_player(player_index)
   player = game.get_player(player_index)
@@ -35,30 +36,30 @@ function add_gui_to_player(player_index)
   button_flow.add{type="sprite-button", name="interface_toggle", sprite="item/iron-gear-wheel"}
 
   -- Main in-game panel that shows stats, current settings and can be used to go back to the lobby.
-  main_elements[player_index].main_dialog = player.gui.left.add{type="frame", visible=false, name="main_dialog"}
-  main_elements[player_index].main_dialog.caption = "Survival World"
-  local inner_frame = main_elements[player_index].main_dialog.add{type="frame", style="inside_shallow_frame_with_padding",name="game_info", direction="vertical"}
+  global.main_elements[player_index].main_dialog = player.gui.left.add{type="frame", visible=false, name="main_dialog"}
+  global.main_elements[player_index].main_dialog.caption = "Survival World"
+  local inner_frame = global.main_elements[player_index].main_dialog.add{type="frame", style="inside_shallow_frame_with_padding",name="game_info", direction="vertical"}
   inner_frame.add{type="label", caption={"sw.welcome"}}
   inner_frame.add{type="line"}
 
   local time_row = inner_frame.add{type="flow"}
   time_row.add{type="label", caption={"sw.time"}, name="time_label"}
-  main_elements[player_index].time_value = time_row.add{type="label", caption="", name="time_value"}
+  global.main_elements[player_index].time_value = time_row.add{type="label", caption="", name="time_value"}
 
   local evo_row = inner_frame.add{type="flow"}
   evo_row.style.horizontal_spacing = 78
   local evo_label = evo_row.add{type="label", caption={"sw.evo"}, name="evo"}
-  main_elements[player_index].evo_value = evo_row.add{type="label", caption="", name="evo_value"}
-  main_elements[player_index].reset_button = inner_frame.add{type="button", caption="Reset", name="reset_button"}
-  main_elements[player_index].reset_button.style.width = 0
-  main_elements[player_index].reset_button.style.top_margin = 5
-  main_elements[player_index].reset_button.style.horizontally_stretchable = "on"
+  global.main_elements[player_index].evo_value = evo_row.add{type="label", caption="", name="evo_value"}
+  global.main_elements[player_index].reset_button = inner_frame.add{type="button", caption="Reset", name="reset_button"}
+  global.main_elements[player_index].reset_button.style.width = 0
+  global.main_elements[player_index].reset_button.style.top_margin = 5
+  global.main_elements[player_index].reset_button.style.horizontally_stretchable = "on"
 
   -- Lobby modal for setting map settings and starting the game.
-  main_elements[player_index].lobby_modal = player.gui.screen.add{type="frame", visible=true, name="lobby_modal", caption={"sw.lobby"}, direction="vertical"}
-  main_elements[player_index].lobby_modal.auto_center = true
+  global.main_elements[player_index].lobby_modal = player.gui.screen.add{type="frame", visible=true, name="lobby_modal", caption={"sw.lobby"}, direction="vertical"}
+  global.main_elements[player_index].lobby_modal.auto_center = true
 
-  local inner_frame = main_elements[player_index].lobby_modal.add{type="frame", style="inside_deep_frame", name="game_info", direction="vertical"}
+  local inner_frame = global.main_elements[player_index].lobby_modal.add{type="frame", style="inside_deep_frame", name="game_info", direction="vertical"}
 
   local game_info_frame = inner_frame.add{type="frame", style="inner_frame"}
   local text_box = game_info_frame.add{type="text-box", text="Welcome to Survival World. In this lobby you can vote on changing the game settings. When you're read, press start to start the game.", style="map_generator_preset_description"}
@@ -74,27 +75,26 @@ function add_gui_to_player(player_index)
   local settings_content = tabbed_pane.add{type="flow", direction="vertical"}
   settings_content.style.padding = 5;
 
-  main_elements[player_index].biter_regen_checkbox = settings_content.add{type="checkbox", state=false, caption="Biter Regen", name="biter_regen_checkbox"}
-  main_elements[player_index].pitch_black_checkbox = settings_content.add{type="checkbox", state=false, caption="Pitch Black Night", name="pitch_black_checkbox"}
+  global.main_elements[player_index].biter_regen_checkbox = settings_content.add{type="checkbox", state=global.current_settings.biter_regen, caption="Biter Regen", name="biter_regen_checkbox"}
+  global.main_elements[player_index].pitch_black_checkbox = settings_content.add{type="checkbox", state=global.current_settings.pitch_black, caption="Pitch Black Night", name="pitch_black_checkbox"}
 
   local players = tabbed_pane.add{type="tab", caption="Players"}
-  main_elements[player_index].players_content = tabbed_pane.add{type="flow", name="players_content", direction="vertical"}
-  main_elements[player_index].players_content.style.padding = 5;
+  global.main_elements[player_index].players_content = tabbed_pane.add{type="flow", name="players_content", direction="vertical"}
+  global.main_elements[player_index].players_content.style.padding = 5;
 
   tabbed_pane.add_tab(settings, settings_content)
-  tabbed_pane.add_tab(players, main_elements[player_index].players_content)
+  tabbed_pane.add_tab(players, global.main_elements[player_index].players_content)
   tabbed_pane.selected_tab_index = 1
-  local bottom_buttons_flow = main_elements[player_index].lobby_modal.add{type="flow"}
-  main_elements[player_index].preview_button = bottom_buttons_flow.add{type="button", caption={"sw.preview"}, name="preview_button"}
-  main_elements[player_index].start_button = bottom_buttons_flow.add{type="button", caption={"sw.start_game"}, name="start_button"}
-  main_elements[player_index].start_button.style.width = 0
-  main_elements[player_index].start_button.style.top_margin = 5
-  main_elements[player_index].start_button.style.horizontally_stretchable = "on"
+  local bottom_buttons_flow = global.main_elements[player_index].lobby_modal.add{type="flow"}
+  global.main_elements[player_index].preview_button = bottom_buttons_flow.add{type="button", caption={"sw.preview"}, name="preview_button"}
+  global.main_elements[player_index].start_button = bottom_buttons_flow.add{type="button", caption={"sw.start_game"}, name="start_button"}
+  global.main_elements[player_index].start_button.style.width = 0
+  global.main_elements[player_index].start_button.style.top_margin = 5
+  global.main_elements[player_index].start_button.style.horizontally_stretchable = "on"
 
-  main_elements[player_index].preview_button.style.width = 0
-  main_elements[player_index].preview_button.style.top_margin = 5
-  main_elements[player_index].preview_button.style.horizontally_stretchable = "on"
-  refresh_player_gui()
+  global.main_elements[player_index].preview_button.style.width = 0
+  global.main_elements[player_index].preview_button.style.top_margin = 5
+  global.main_elements[player_index].preview_button.style.horizontally_stretchable = "on"
 end
 
 local function set_normal_daytime(surface)
@@ -116,7 +116,7 @@ script.on_event(defines.events.on_surface_cleared,
 
       -- make sure its daytime
 
-    if game_state  == "in_lobby" then
+    if global.game_state  == "in_lobby" then
         local mgs = surface.map_gen_settings 
         mgs.seed = math.random(1111,999999999)
         mgs.width = 1
@@ -131,7 +131,7 @@ script.on_event(defines.events.on_surface_cleared,
       			player.character.destroy()
       		end
       	end
-    elseif game_state  == "in_preview_lobby" then
+    elseif global.game_state  == "in_preview_lobby" then
       local mgs = surface.map_gen_settings 
       mgs.seed = math.random(1111,999999999)
       mgs.width = 500
@@ -162,18 +162,18 @@ script.on_event(defines.events.on_surface_cleared,
       surface.map_gen_settings = mgs
       surface.request_to_generate_chunks({0, 0}, 10)
       surface.force_generate_chunk_requests()
-    elseif game_state  == "in_game" then
+    elseif global.game_state  == "in_game" then
     	for _, player in pairs(game.players) do
     		  player.teleport({0,0}, 1)
       end
 
-      if not has_seed_changed then
+      if not global.has_seed_changed then
         local mgs = surface.map_gen_settings 
         mgs.seed = math.random(1111,999999999)
         mgs.width = 0
         mgs.height = 0
         surface.map_gen_settings = mgs
-        has_seed_changed = true
+        global.has_seed_changed = true
       end
 
       -- We need to kill all players _before_ the surface is cleared, so that
@@ -207,7 +207,7 @@ script.on_event(defines.events.on_surface_cleared,
     	local debris_items = { ["iron-plate"] = 8, ["burner-mining-drill"] = 15, ["stone-furnace"] = 15 }
     	crash_site.create_crash_site(surface, {-5,-6}, ship_items, debris_items, crash_site.default_ship_parts())
 
-    	if current_settings.pitch_black then
+    	if global.current_settings.pitch_black then
     		surface.brightness_visual_weights = { 1, 1, 1 }
     		surface.min_brightness = 0
     		surface.dawn = 0.80
@@ -225,14 +225,36 @@ script.on_event(defines.events.on_surface_cleared,
     end
   end
 )
+script.on_event(defines.events.on_gui_checked_state_changed, 
+  function(event)
+    if event.element.name == "biter_regen_checkbox" then
+      global.current_settings.biter_regen = true
+
+      for _, player in pairs(game.connected_players) do 
+        if global.main_elements[player.index] ~= nil then
+          global.main_elements[player.index].biter_regen_checkbox.state = event.element.state
+        end 
+      end
+    elseif event.element.name == "pitch_black_checkbox" then
+      global.current_settings.pitch_black = true
+
+      for _, player in pairs(game.connected_players) do 
+        if global.main_elements[player.index] ~= nil then
+          global.main_elements[player.index].pitch_black_checkbox.state = event.element.state
+        end 
+      end
+    end
+
+  end
+)
 
 script.on_event(defines.events.on_gui_click, 
   function(event)
     local player = game.get_player(event.player_index)
 
     if event.element.name == "interface_toggle" then
-      if game_state == "in_game" then
-        local main_dialog = main_elements[event.player_index].main_dialog
+      if global.game_state == "in_game" then
+        local main_dialog = global.main_elements[event.player_index].main_dialog
         if main_dialog.visible then
           main_dialog.visible = false
         else 
@@ -240,32 +262,33 @@ script.on_event(defines.events.on_gui_click,
         end
       end
     elseif event.element.name == "preview_button" then
-      has_seed_changed = true
-      game_state = "in_preview_lobby"
+      global.has_seed_changed = true
+      global.game_state = "in_preview_lobby"
       game.surfaces[1].clear()
       game.forces["player"].rechart()
     elseif event.element.name == "reset_button" then
-      has_seed_changed = false
-      game_state  = "in_lobby"
-      current_settings = {}
+      global.has_seed_changed = false
+      global.game_state  = "in_lobby"
+      global.current_settings = {}
       game.surfaces[1].clear()
-      main_elements[event.player_index].main_dialog.visible = false
-      main_elements[event.player_index].lobby_modal.visible = true
+
+      for _, player in pairs(game.connected_players) do 
+        if global.main_elements[player.index] ~= nil then
+          global.main_elements[player.index].main_dialog.visible = false
+          global.main_elements[player.index].lobby_modal.visible = true
+        end 
+      end 
     elseif event.element.name == "start_button" then
-      game_state  = "in_game"
+      print("Now in_game")
+      global.game_state  = "in_game"
       local surface = game.surfaces[1]
 
-      -- Get settings off of the players gui
-      if main_elements[event.player_index].biter_regen_checkbox.state then
-        current_settings.biter_regen = true
-      end
-
-      if main_elements[event.player_index].pitch_black_checkbox.state then
-        current_settings.pitch_black = true
-      end
-
       surface.clear()
-      main_elements[event.player_index].lobby_modal.visible = false
+      for _, player in pairs(game.connected_players) do 
+        if global.main_elements[player.index] ~= nil then
+            global.main_elements[player.index].lobby_modal.visible = false
+        end 
+      end
     end
   end
 )
@@ -273,27 +296,35 @@ script.on_event(defines.events.on_gui_click,
 script.on_nth_tick(
   60,
   function(event)
-    if game_state == "in_preview_lobby" then
+    if global.game_state == "in_preview_lobby" then
       game.forces["player"].chart(1, {{-250, -250},{250,250}})
       game.forces["player"].chart_all()
       game.forces["player"].rechart()
     end
-    local percent_evo_factor = game.forces.enemy.evolution_factor * 100
-    for _, elements in pairs(main_elements) do 
-      elements.evo_value.caption = string.format("%.1f%%", percent_evo_factor)
-      elements.time_value.caption = format_play_time(game.ticks_played) 
+    for _, player in pairs(game.connected_players) do 
+      if global.main_elements[player.index] ~= nil then
+        local percent_evo_factor = game.forces.enemy.evolution_factor * 100
+        global.main_elements[player.index].evo_value.caption = string.format("%.1f%%", percent_evo_factor)
+        global.main_elements[player.index].time_value.caption = format_play_time(game.ticks_played) 
+      end
     end
   end
 )
 
-script.on_event(defines.events.on_player_left_game,
-function(event)
-  refresh_player_gui()
-end)
+local function refresh_all_players_list(event)
+    for _, p in pairs(game.connected_players) do
+      refresh_player_gui(p.index)
+    end
+end
+
+script.on_event(defines.events.on_player_joined_game, refresh_all_players_list)
+script.on_event(defines.events.on_player_left_game, refresh_all_players_list)
+
 script.on_event(defines.events.on_player_created,
   function(event)
-    main_elements[event.player_index] = {}
+    global.main_elements[event.player_index] = {}
     add_gui_to_player(event.player_index)
+    refresh_player_gui(event.player_index)
   end
 )
 
