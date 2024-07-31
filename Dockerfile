@@ -21,12 +21,12 @@ RUN set -ox pipefail \
     && chmod ugo=rwx /opt/factorio \
     && rm "$archive" \
     && rm -rf /var/lib/apt/lists/* \
-    && ln -s "$SAVES" /opt/factorio/saves \
-    && ln -s "$CONFIG" /opt/factorio/config
+    && ln -s "$SAVES" /opt/factorio/saves
 
 COPY scenarios/tester /opt/factorio/scenarios/tester
+COPY scenario.sh scenario.sh 
 COPY config.ini /opt/factorio/config/config.ini
 
 VOLUME /factorio
 EXPOSE $PORT/udp $RCON_PORT/tcp
-CMD ["/opt/factorio/bin/x64/factorio", "--start-server-load-scenario", "survival-world/tester"]
+CMD ["/scenario.sh", "tester"]
