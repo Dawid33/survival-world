@@ -11,7 +11,9 @@ global.current_settings = {
 global.game_state  = "in_lobby"
 global.has_seed_changed = false
 global.converted_shallow_water = false
--- local shallow_water_conversion_delay = 10
+global.previous_surface_clear_tick = 0
+local just_cleared_surface = false
+
 local respawn_items = { ["pistol"] = 1, ["firearm-magazine"] = 5 }
 
 local function format_play_time(ticks)
@@ -42,8 +44,8 @@ function add_gui_to_player(player_index)
   global.main_elements[player_index].main_dialog = player.gui.left.add{type="frame", visible=false, name="main_dialog"}
   global.main_elements[player_index].main_dialog.caption = "Survival World"
   local inner_frame = global.main_elements[player_index].main_dialog.add{type="frame", style="inside_shallow_frame_with_padding",name="game_info", direction="vertical"}
-  inner_frame.add{type="label", caption={"sw.welcome"}}
-  inner_frame.add{type="line"}
+  -- inner_frame.add{type="label", caption={"sw.welcome"}}
+  -- inner_frame.add{type="line"}
 
   local time_row = inner_frame.add{type="flow"}
   time_row.add{type="label", caption={"sw.time"}, name="time_label"}
@@ -65,11 +67,11 @@ function add_gui_to_player(player_index)
   local inner_frame = global.main_elements[player_index].lobby_modal.add{type="frame", style="inside_deep_frame", name="game_info", direction="vertical"}
 
   local game_info_frame = inner_frame.add{type="frame", style="inner_frame"}
-  local text_box = game_info_frame.add{type="text-box", text="Welcome to Survival World. In this lobby you can vote on changing the game settings. When you're read, press start to start the game.", style="map_generator_preset_description"}
+  local text_box = game_info_frame.add{type="text-box", text="Welcome to Survival World. Take a look at the settings and pick your poison. The game resets if biters settle on your spawn point. It also resets unconditionally if it hasn't reset for 7 days.", style="map_generator_preset_description"}
   text_box.read_only = true
   text_box.word_wrap= true
-  text_box.style.minimal_width = 300
-  text_box.style.minimal_height = 80
+  text_box.style.minimal_width = 350
+  text_box.style.minimal_height = 100
   game_info_frame.style.horizontally_stretchable = true
   local tabbed_pane = inner_frame.add{type="tabbed-pane"}
   tabbed_pane.style.horizontally_stretchable = true
@@ -79,8 +81,11 @@ function add_gui_to_player(player_index)
   settings_content.style.padding = 5;
 
   global.main_elements[player_index].biter_regen_checkbox = settings_content.add{type="checkbox", state=global.current_settings.biter_regen, caption="Biter Regen", name="biter_regen_checkbox"}
+  global.main_elements[player_index].biter_regen_checkbox.tooltip = {"sw.biter_regen_tooltip"}
   global.main_elements[player_index].pitch_black_checkbox = settings_content.add{type="checkbox", state=global.current_settings.pitch_black, caption="Pitch Black Night", name="pitch_black_checkbox"}
+  global.main_elements[player_index].pitch_black_checkbox.tooltip = {"sw.pitch_black_tooltip"}
   global.main_elements[player_index].shallow_water_checkbox = settings_content.add{type="checkbox", state=global.current_settings.shallow_water, caption="Shallow Water", name="shallow_water_checkbox"}
+  global.main_elements[player_index].shallow_water_checkbox.tooltip = {"sw.shallow_water_tooltip"}
 
   local players = tabbed_pane.add{type="tab", caption="Players"}
   global.main_elements[player_index].players_content = tabbed_pane.add{type="flow", name="players_content", direction="vertical"}
@@ -111,6 +116,21 @@ local function set_normal_daytime(surface)
   		surface.morning = 0.60
   		surface.daytime = 0.75
   		surface.freeze_daytime = false
+end
+
+
+function convert_shallow_water_in_area(target_area)
+	local surface = game.surfaces[1]
+	local set_water_shallow = {}
+	local set_water_mud = {}
+	for k, tile in pairs (surface.find_tiles_filtered{name = "water", area = target_area}) do
+		set_water_shallow[#set_water_shallow + 1] = {name = "water-shallow", position = tile.position}
+	end
+	for k, tile in pairs (surface.find_tiles_filtered{name = "deepwater", area = target_area}) do
+		set_water_mud[#set_water_mud + 1] = {name = "water-mud", position = tile.position}
+	end
+	surface.set_tiles(set_water_shallow)
+	surface.set_tiles(set_water_mud)
 end
 
 script.on_event(defines.events.on_surface_cleared,
@@ -233,19 +253,7 @@ script.on_event(defines.events.on_surface_cleared,
 
 		  -- Convert shallow water
 		if global.current_settings.shallow_water then
-  		for chunk in surface.get_chunks() do
-      	local surface = game.surfaces[1]
-      	local set_water_shallow = {}
-      	local set_water_mud = {}
-      	for k, tile in pairs (surface.find_tiles_filtered{name = "water", area = target_area}) do
-      		set_water_shallow[#set_water_shallow + 1] = {name = "water-shallow", position = tile.position}
-      	end
-      	for k, tile in pairs (surface.find_tiles_filtered{name = "deepwater", area = target_area}) do
-      		set_water_mud[#set_water_mud + 1] = {name = "water-mud", position = tile.position}
-      	end
-      	surface.set_tiles(set_water_shallow)
-      	surface.set_tiles(set_water_mud)
-  		end
+		  convert_shallow_water_in_area({{-250, -250},{250, 250}})
 		end
   end
 )
@@ -254,6 +262,7 @@ script.on_event(defines.events.on_gui_checked_state_changed,
   function(event)
     if event.element.name == "biter_regen_checkbox" then
       global.current_settings.biter_regen =  event.element.state
+      game.print(game.get_player(event.player_index).name .. " toggled biter regen.")
 
       for _, player in pairs(game.connected_players) do 
         if global.main_elements[player.index] ~= nil then
@@ -262,6 +271,7 @@ script.on_event(defines.events.on_gui_checked_state_changed,
       end
     elseif event.element.name == "pitch_black_checkbox" then
       global.current_settings.pitch_black =  event.element.state
+      game.print(game.get_player(event.player_index).name .. " toggled pitch black.")
 
       for _, player in pairs(game.connected_players) do 
         if global.main_elements[player.index] ~= nil then
@@ -269,6 +279,7 @@ script.on_event(defines.events.on_gui_checked_state_changed,
         end 
       end
     elseif event.element.name == "shallow_water_checkbox" then
+      game.print(game.get_player(event.player_index).name .. " toggled shallow water.")
       global.current_settings.shallow_water = event.element.state
 
       for _, player in pairs(game.connected_players) do 
@@ -292,15 +303,17 @@ script.on_event(defines.events.on_gui_click,
           main_dialog.visible = true
         end
       end
-    elseif event.element.name == "preview_button" then
+    elseif event.element.name == "preview_button" and global.previous_surface_clear_tick ~= event.tick then
+      game.print(game.get_player(event.player_index).name .. " changed the seed.")
       global.has_seed_changed = true
       global.game_state = "in_preview_lobby"
       game.surfaces[1].clear()
-      game.forces["player"].rechart()
-    elseif event.element.name == "reset_button" then
+      previous_surface_clear_tick = event.tick
+    elseif event.element.name == "reset_button" and global.previous_surface_clear_tick ~= event.tick then
       go_to_lobby()
-    elseif event.element.name == "start_button" then
-      print("Now in_game")
+      previous_surface_clear_tick = event.tick
+    elseif event.element.name == "start_button" and global.previous_surface_clear_tick ~= event.tick  then
+      game.print(game.get_player(event.player_index).name .. " started the game.")
       global.game_state  = "in_game"
       local surface = game.surfaces[1]
 
@@ -310,6 +323,7 @@ script.on_event(defines.events.on_gui_click,
             global.main_elements[player.index].lobby_modal.visible = false
         end 
       end
+      previous_surface_clear_tick = event.tick
     end
   end
 )
@@ -338,6 +352,7 @@ script.on_nth_tick(
   	end
   end
 )
+
 script.on_nth_tick(
   60,
   function(event)
@@ -357,6 +372,15 @@ script.on_nth_tick(
         global.main_elements[player.index].time_value.caption = format_play_time(game.ticks_played) 
       end
     end
+  end
+)
+
+script.on_event(defines.events.on_biter_base_built, 
+  function(event)
+  	if (event.entity.position.x > -32 and event.entity.position.x< 32 and event.entity.position.y > -32 and event.entity.position.y < 32) then
+  		game.print("Uh oh... The biters have overtaken your spawn!")
+  		go_to_lobby()
+  	end
   end
 )
 
