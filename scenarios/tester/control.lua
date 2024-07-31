@@ -1,11 +1,13 @@
 ---@diagnostic disable
 local mod_gui = require('mod-gui')
+local crash_site= require('crash-site')
+
 local main_elements = {}
 
 local current_settings = {}
 local game_state  = "in_lobby"
 local has_seed_changed = false
-local charted_preview = false
+local respawn_items = { ["pistol"] = 1, ["firearm-magazine"] = 5 }
 
 local function format_play_time(ticks)
     local seconds = math.floor(ticks / 60)
@@ -206,6 +208,9 @@ script.on_event(defines.events.on_surface_cleared,
     	game.difficulty_settings.technology_price_multiplier = 1
     	game.difficulty_settings.recipe_difficulty = 0
     	surface.solar_power_multiplier = 1
+    	local ship_items = 	{ ["firearm-magazine"] = 30, ["gun-turret"] = 2 }
+    	local debris_items = { ["iron-plate"] = 8, ["burner-mining-drill"] = 15, ["stone-furnace"] = 15 }
+    	crash_site.create_crash_site(surface, {-5,-6}, ship_items, debris_items, crash_site.default_ship_parts())
 
     	if current_settings.pitch_black then
     		surface.brightness_visual_weights = { 1, 1, 1 }
@@ -243,7 +248,6 @@ script.on_event(defines.events.on_gui_click,
       has_seed_changed = true
       game_state = "in_preview_lobby"
       game.surfaces[1].clear()
-      charted_preview = false
       game.forces["player"].rechart()
     elseif event.element.name == "reset_button" then
       has_seed_changed = false
@@ -272,7 +276,7 @@ script.on_event(defines.events.on_gui_click,
 )
 
 script.on_nth_tick(
-  50,
+  60,
   function(event)
     if game_state == "in_preview_lobby" then
       game.forces["player"].chart(1, {{-250, -250},{250,250}})
@@ -289,7 +293,7 @@ script.on_nth_tick(
 
 script.on_event(defines.events.on_player_left_game,
 function(event)
-    remove_gui_to_player(event.player_index)
+   remove_player_to_lobby_gui(event.player_index)
 end)
 script.on_event(defines.events.on_player_created,
   function(event)
