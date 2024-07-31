@@ -12,6 +12,7 @@ global.game_state  = "in_lobby"
 global.has_seed_changed = false
 global.converted_shallow_water = false
 global.previous_surface_clear_tick = 0
+global.biter_regen_odds = 2
 local just_cleared_surface = false
 
 local respawn_items = { ["pistol"] = 1, ["firearm-magazine"] = 5 }
@@ -44,8 +45,6 @@ function add_gui_to_player(player_index)
   global.main_elements[player_index].main_dialog = player.gui.left.add{type="frame", visible=false, name="main_dialog"}
   global.main_elements[player_index].main_dialog.caption = "Survival World"
   local inner_frame = global.main_elements[player_index].main_dialog.add{type="frame", style="inside_shallow_frame_with_padding",name="game_info", direction="vertical"}
-  -- inner_frame.add{type="label", caption={"sw.welcome"}}
-  -- inner_frame.add{type="line"}
 
   local time_row = inner_frame.add{type="flow"}
   time_row.add{type="label", caption={"sw.time"}, name="time_label"}
@@ -57,7 +56,7 @@ function add_gui_to_player(player_index)
   global.main_elements[player_index].evo_value = evo_row.add{type="label", caption="", name="evo_value"}
   global.main_elements[player_index].reset_button = inner_frame.add{type="button", caption="Reset", name="reset_button"}
   global.main_elements[player_index].reset_button.style.width = 0
-  global.main_elements[player_index].reset_button.style.top_margin = 5
+  global.main_elements[player_index].reset_button.style.top_margin = 10
   global.main_elements[player_index].reset_button.style.horizontally_stretchable = "on"
 
   -- Lobby modal for setting map settings and starting the game.
@@ -258,6 +257,15 @@ script.on_event(defines.events.on_surface_cleared,
   end
 )
 
+script.set_event_filter(defines.events.on_entity_damaged, {{filter = "type", type = "unit"}, {filter = "final-health", comparison = "=", value = 0, mode = "and"}})
+script.on_event(defines.events.on_entity_damaged,
+function(event)
+	if global.current_settings.biter_regen and math.random(1, global.biter_regen_odds) ~= global.biter_hp then
+		event.entity.health = 3000
+	end
+end
+)
+
 script.on_event(defines.events.on_gui_checked_state_changed, 
   function(event)
     if event.element.name == "biter_regen_checkbox" then
@@ -342,12 +350,22 @@ function go_to_lobby()
 end
 
 script.on_nth_tick(
-  3600,
+  36000,
   function(event)
     if global.game_state == "in_game" then
     	if game.ticks_played > 36288000 then
     		game.print("Game has reached its maximum playtime of 7 days.")
     	  go_to_lobby()
+    	end
+
+    	if global.current_settings.biter_regen then 
+      	local red_sci = game.forces["player"].item_production_statistics.get_output_count "automation-science-pack" * 3
+      	local green_sci = game.forces["player"].item_production_statistics.get_output_count "logistic-science-pack" * 7
+      	local blue_sci = game.forces["player"].item_production_statistics.get_output_count "chemical-science-pack" * 60
+      	local purple_sci = game.forces["player"].item_production_statistics.get_output_count "production-science-pack" * 155
+      	local yellow_sci = game.forces["player"].item_production_statistics.get_output_count "utility-science-pack" * 195
+      	local adjusted_sci = math.ceil(math.min((((red_sci + green_sci + blue_sci + purple_sci + yellow_sci) * 0.0001) + 1.5), 77))
+      	global.biter_hp = math.max(adjusted_sci + math.ceil(math.max(((game.ticks_played - 1296000) * 0.00002777), 0)), 2)
     	end
   	end
   end
