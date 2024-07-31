@@ -228,7 +228,7 @@ script.on_event(defines.events.on_surface_cleared,
 script.on_event(defines.events.on_gui_checked_state_changed, 
   function(event)
     if event.element.name == "biter_regen_checkbox" then
-      global.current_settings.biter_regen = true
+      -- global.current_settings.biter_regen =  event.element.state
 
       for _, player in pairs(game.connected_players) do 
         if global.main_elements[player.index] ~= nil then
@@ -236,7 +236,7 @@ script.on_event(defines.events.on_gui_checked_state_changed,
         end 
       end
     elseif event.element.name == "pitch_black_checkbox" then
-      global.current_settings.pitch_black = true
+      global.current_settings.pitch_black =  event.element.state
 
       for _, player in pairs(game.connected_players) do 
         if global.main_elements[player.index] ~= nil then
