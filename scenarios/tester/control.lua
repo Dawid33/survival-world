@@ -30,7 +30,9 @@ end
 local function remove_player_to_lobby_gui(player_index) 
   local name = game.get_player(player_index).name
   for _, element in pairs(main_elements) do 
+    if element ~= nil and element.players_content ~= nil then
       element.players_content[name].destroy()
+    end
   end
 end
 
