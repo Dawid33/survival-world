@@ -22,9 +22,11 @@ RUN set -ox pipefail \
     && rm "$archive" \
     && rm -rf /var/lib/apt/lists/* \
     && ln -s "$SAVES" /opt/factorio/saves \
+    && ln -s "$CONFIG" /opt/factorio/config \
     && mkdir -p /opt/factorio/config/
 
 COPY scenarios/tester /opt/factorio/scenarios/tester
+COPY locale /opt/factorio/scenarios/tester
 COPY config.ini /opt/factorio/config/config.ini
 
 VOLUME /factorio
