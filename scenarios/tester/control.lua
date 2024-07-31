@@ -117,7 +117,7 @@ script.on_event(defines.events.on_surface_cleared,
       local mgs = surface.map_gen_settings 
     	mgs.water = "1"
     	mgs.terrain_segmentation = "1"
-    	mgs.starting_area = "large"
+    	mgs.starting_area = "big"
     	mgs.autoplace_controls["iron-ore"].size = "10"
     	mgs.autoplace_controls["iron-ore"].frequency = "1"
     	mgs.autoplace_controls["iron-ore"].richness = "1"
