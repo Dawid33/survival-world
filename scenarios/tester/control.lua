@@ -114,7 +114,7 @@ script.on_event(defines.events.on_surface_cleared,
       local surface = game.surfaces[1]
       set_normal_daytime(surface)
 
-      -- make sure its daytime
+      local mgs = surface.map_gen_settings 
     	mgs.water = "1"
     	mgs.terrain_segmentation = "1"
     	mgs.starting_area = "large"
