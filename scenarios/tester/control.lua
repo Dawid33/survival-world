@@ -10,10 +10,9 @@ global.current_settings = {
 }
 global.game_state  = "in_lobby"
 global.has_seed_changed = false
-global.converted_shallow_water = false
+global.charted_surface = false
 global.previous_surface_clear_tick = 0
 global.biter_regen_odds = 2
-local just_cleared_surface = false
 
 local respawn_items = { ["pistol"] = 1, ["firearm-magazine"] = 5 }
 
@@ -117,25 +116,10 @@ local function set_normal_daytime(surface)
   		surface.freeze_daytime = false
 end
 
-
-function convert_shallow_water_in_area(target_area)
-	local surface = game.surfaces[1]
-	local set_water_shallow = {}
-	local set_water_mud = {}
-	for k, tile in pairs (surface.find_tiles_filtered{name = "water", area = target_area}) do
-		set_water_shallow[#set_water_shallow + 1] = {name = "water-shallow", position = tile.position}
-	end
-	for k, tile in pairs (surface.find_tiles_filtered{name = "deepwater", area = target_area}) do
-		set_water_mud[#set_water_mud + 1] = {name = "water-mud", position = tile.position}
-	end
-	surface.set_tiles(set_water_shallow)
-	surface.set_tiles(set_water_mud)
-end
-
 script.on_event(defines.events.on_surface_cleared,
   function(event)
       local surface = game.surfaces[1]
-  		global.converted_shallow_water = false
+  		global.charted_surface = false
       set_normal_daytime(surface)
 
       local mgs = surface.map_gen_settings 
@@ -249,11 +233,6 @@ script.on_event(defines.events.on_surface_cleared,
     else 
       log("Failed to reset surface: bad game state")
     end
-
-		  -- Convert shallow water
-		if global.current_settings.shallow_water then
-		  convert_shallow_water_in_area({{-250, -250},{250, 250}})
-		end
   end
 )
 
@@ -374,10 +353,8 @@ script.on_nth_tick(
 script.on_nth_tick(
   60,
   function(event)
-  	if not global.converted_shallow_water then
+  	if not global.charted_surface then
     	local surface = game.surfaces[1]
-  		global.converted_shallow_water = true
-
       game.forces["player"].chart(1, {{-250, -250},{250,250}})
       game.forces["player"].chart_all()
       game.forces["player"].rechart()
@@ -390,6 +367,25 @@ script.on_nth_tick(
         global.main_elements[player.index].time_value.caption = format_play_time(game.ticks_played) 
       end
     end
+  end
+)
+
+script.on_event(defines.events.on_chunk_generated, 
+  function(event)
+    -- Convert all water to shallow water
+    if global.current_settings.shallow_water then
+    	local surface = game.surfaces[1]
+    	local set_water_shallow = {}
+    	local set_water_mud = {}
+    	for k, tile in pairs (surface.find_tiles_filtered{name = "water", area = target_area}) do
+    		set_water_shallow[#set_water_shallow + 1] = {name = "water-shallow", position = tile.position}
+    	end
+    	for k, tile in pairs (surface.find_tiles_filtered{name = "deepwater", area = target_area}) do
+    		set_water_mud[#set_water_mud + 1] = {name = "water-mud", position = tile.position}
+    	end
+    	surface.set_tiles(set_water_shallow)
+    	surface.set_tiles(set_water_mud)
+  	end
   end
 )
 
@@ -410,6 +406,12 @@ end
 
 script.on_event(defines.events.on_player_joined_game, refresh_all_players_list)
 script.on_event(defines.events.on_player_left_game, refresh_all_players_list)
+
+script.on_event(defines.events.on_unit_group_finished_gathering, 
+  function(event)
+    print("finished gathering")
+  end
+)
 
 script.on_event(defines.events.on_player_created,
   function(event)
