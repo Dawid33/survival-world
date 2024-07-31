@@ -20,18 +20,13 @@ local function format_play_time(ticks)
     return result
 end
 
-local function add_player_to_lobby_gui(player_index) 
-    local name = game.get_player(player_index).name
-  for _, element in pairs(main_elements) do 
-      element.players_content.add{type="label", caption=name, name=name}
-  end
-end
-
-local function remove_player_to_lobby_gui(player_index) 
-  local name = game.get_player(player_index).name
+local function refresh_player_gui() 
   for _, element in pairs(main_elements) do 
     if element ~= nil and element.players_content ~= nil then
-      element.players_content[name].destroy()
+      element.players_content.clear()
+      for _, p in pairs(game.players) do 
+        element.players_content.add{type="label", caption=p.name}
+      end
     end
   end
 end
@@ -87,7 +82,6 @@ function add_gui_to_player(player_index)
   local players = tabbed_pane.add{type="tab", caption="Players"}
   main_elements[player_index].players_content = tabbed_pane.add{type="flow", name="players_content", direction="vertical"}
   main_elements[player_index].players_content.style.padding = 5;
-  add_player_to_lobby_gui(player_index)
 
   tabbed_pane.add_tab(settings, settings_content)
   tabbed_pane.add_tab(players, main_elements[player_index].players_content)
@@ -102,6 +96,7 @@ function add_gui_to_player(player_index)
   main_elements[player_index].preview_button.style.width = 0
   main_elements[player_index].preview_button.style.top_margin = 5
   main_elements[player_index].preview_button.style.horizontally_stretchable = "on"
+  refresh_player_gui()
 end
 
 local function set_normal_daytime(surface)
@@ -295,7 +290,7 @@ script.on_nth_tick(
 
 script.on_event(defines.events.on_player_left_game,
 function(event)
-   remove_player_to_lobby_gui(event.player_index)
+  refresh_player_gui()
 end)
 script.on_event(defines.events.on_player_created,
   function(event)
