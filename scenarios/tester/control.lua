@@ -358,6 +358,7 @@ script.on_nth_tick(
       game.forces["player"].chart(1, {{-250, -250},{250,250}})
       game.forces["player"].chart_all()
       game.forces["player"].rechart()
+      -- game.forces["player"].add_chart_tag(1, {position={200, -200}, icon={type="virtual", name="signal-green"}, text="Deathworld Survival Discord https://discord.gg/xYGNBaWEuC"} )
   	end
 
     for _, player in pairs(game.connected_players) do 
