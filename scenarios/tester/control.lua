@@ -6,9 +6,12 @@ global.main_elements = {}
 global.current_settings = {
   biter_regen = false,
   pitch_black = false,
+  shallow_water = false,
 }
 global.game_state  = "in_lobby"
 global.has_seed_changed = false
+global.converted_shallow_water = false
+-- local shallow_water_conversion_delay = 10
 local respawn_items = { ["pistol"] = 1, ["firearm-magazine"] = 5 }
 
 local function format_play_time(ticks)
@@ -77,6 +80,7 @@ function add_gui_to_player(player_index)
 
   global.main_elements[player_index].biter_regen_checkbox = settings_content.add{type="checkbox", state=global.current_settings.biter_regen, caption="Biter Regen", name="biter_regen_checkbox"}
   global.main_elements[player_index].pitch_black_checkbox = settings_content.add{type="checkbox", state=global.current_settings.pitch_black, caption="Pitch Black Night", name="pitch_black_checkbox"}
+  global.main_elements[player_index].shallow_water_checkbox = settings_content.add{type="checkbox", state=global.current_settings.shallow_water, caption="Shallow Water", name="shallow_water_checkbox"}
 
   local players = tabbed_pane.add{type="tab", caption="Players"}
   global.main_elements[player_index].players_content = tabbed_pane.add{type="flow", name="players_content", direction="vertical"}
@@ -112,6 +116,7 @@ end
 script.on_event(defines.events.on_surface_cleared,
   function(event)
       local surface = game.surfaces[1]
+  		global.converted_shallow_water = false
       set_normal_daytime(surface)
 
       local mgs = surface.map_gen_settings 
@@ -156,6 +161,7 @@ script.on_event(defines.events.on_surface_cleared,
       		end
       	end
     elseif global.game_state  == "in_preview_lobby" then
+     	game.reset_time_played()
       local mgs = surface.map_gen_settings 
       mgs.seed = math.random(1111,999999999)
       mgs.width = 500
@@ -224,12 +230,30 @@ script.on_event(defines.events.on_surface_cleared,
     else 
       log("Failed to reset surface: bad game state")
     end
+
+		  -- Convert shallow water
+		if global.current_settings.shallow_water then
+  		for chunk in surface.get_chunks() do
+      	local surface = game.surfaces[1]
+      	local set_water_shallow = {}
+      	local set_water_mud = {}
+      	for k, tile in pairs (surface.find_tiles_filtered{name = "water", area = target_area}) do
+      		set_water_shallow[#set_water_shallow + 1] = {name = "water-shallow", position = tile.position}
+      	end
+      	for k, tile in pairs (surface.find_tiles_filtered{name = "deepwater", area = target_area}) do
+      		set_water_mud[#set_water_mud + 1] = {name = "water-mud", position = tile.position}
+      	end
+      	surface.set_tiles(set_water_shallow)
+      	surface.set_tiles(set_water_mud)
+  		end
+		end
   end
 )
+
 script.on_event(defines.events.on_gui_checked_state_changed, 
   function(event)
     if event.element.name == "biter_regen_checkbox" then
-      -- global.current_settings.biter_regen =  event.element.state
+      global.current_settings.biter_regen =  event.element.state
 
       for _, player in pairs(game.connected_players) do 
         if global.main_elements[player.index] ~= nil then
@@ -244,6 +268,14 @@ script.on_event(defines.events.on_gui_checked_state_changed,
           global.main_elements[player.index].pitch_black_checkbox.state = event.element.state
         end 
       end
+    elseif event.element.name == "shallow_water_checkbox" then
+      global.current_settings.shallow_water = event.element.state
+
+      for _, player in pairs(game.connected_players) do 
+        if global.main_elements[player.index] ~= nil then
+          global.main_elements[player.index].shallow_water_checkbox .state = event.element.state
+        end 
+      end
     end
 
   end
@@ -251,8 +283,6 @@ script.on_event(defines.events.on_gui_checked_state_changed,
 
 script.on_event(defines.events.on_gui_click, 
   function(event)
-    local player = game.get_player(event.player_index)
-
     if event.element.name == "interface_toggle" then
       if global.game_state == "in_game" then
         local main_dialog = global.main_elements[event.player_index].main_dialog
@@ -268,17 +298,7 @@ script.on_event(defines.events.on_gui_click,
       game.surfaces[1].clear()
       game.forces["player"].rechart()
     elseif event.element.name == "reset_button" then
-      global.has_seed_changed = false
-      global.game_state  = "in_lobby"
-      global.current_settings = {}
-      game.surfaces[1].clear()
-
-      for _, player in pairs(game.connected_players) do 
-        if global.main_elements[player.index] ~= nil then
-          global.main_elements[player.index].main_dialog.visible = false
-          global.main_elements[player.index].lobby_modal.visible = true
-        end 
-      end 
+      go_to_lobby()
     elseif event.element.name == "start_button" then
       print("Now in_game")
       global.game_state  = "in_game"
@@ -294,14 +314,42 @@ script.on_event(defines.events.on_gui_click,
   end
 )
 
+function go_to_lobby()
+    global.has_seed_changed = false
+    global.game_state  = "in_lobby"
+    global.current_settings = {}
+    game.surfaces[1].clear()
+    for _, player in pairs(game.connected_players) do 
+      if global.main_elements[player.index] ~= nil then
+        global.main_elements[player.index].main_dialog.visible = false
+        global.main_elements[player.index].lobby_modal.visible = true
+      end 
+    end 
+end
+
+script.on_nth_tick(
+  3600,
+  function(event)
+    if global.game_state == "in_game" then
+    	if game.ticks_played > 36288000 then
+    		game.print("Game has reached its maximum playtime of 7 days.")
+    	  go_to_lobby()
+    	end
+  	end
+  end
+)
 script.on_nth_tick(
   60,
   function(event)
-    if global.game_state == "in_preview_lobby" then
+  	if not global.converted_shallow_water then
+    	local surface = game.surfaces[1]
+  		global.converted_shallow_water = true
+
       game.forces["player"].chart(1, {{-250, -250},{250,250}})
       game.forces["player"].chart_all()
       game.forces["player"].rechart()
-    end
+  	end
+
     for _, player in pairs(game.connected_players) do 
       if global.main_elements[player.index] ~= nil then
         local percent_evo_factor = game.forces.enemy.evolution_factor * 100
