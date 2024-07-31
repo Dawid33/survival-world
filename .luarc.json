@@ -1,0 +1,9 @@
+{
+    "diagnostics.globals": [
+        "data",
+        "log",
+        "defines",
+        "script",
+        "game"
+    ]
+}
