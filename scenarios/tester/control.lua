@@ -21,12 +21,10 @@ local function format_play_time(ticks)
 end
 
 local function refresh_player_gui() 
-  for _, element in pairs(main_elements) do 
-    if element ~= nil and element.players_content ~= nil then
-      element.players_content.clear()
-      for _, p in pairs(game.players) do 
-        element.players_content.add{type="label", caption=p.name}
-      end
+  for _, p in pairs(game.connected_players) do 
+    main_elements[p.index].players_content.clear()
+    for _, p in pairs(game.connected_players) do 
+      main_elements[p.index].players_content.add{type="label", caption=p.name}
     end
   end
 end
