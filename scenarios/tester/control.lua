@@ -42,7 +42,7 @@ function add_gui_to_player(player_index)
 
   -- Main in-game panel that shows stats, current settings and can be used to go back to the lobby.
   global.main_elements[player_index].main_dialog = player.gui.left.add{type="frame", visible=false, name="main_dialog"}
-  global.main_elements[player_index].main_dialog.caption = "Survival World"
+  global.main_elements[player_index].main_dialog.caption = {"sw.main_dialog_caption"}
   local inner_frame = global.main_elements[player_index].main_dialog.add{type="frame", style="inside_shallow_frame_with_padding",name="game_info", direction="vertical"}
 
   local time_row = inner_frame.add{type="flow"}
