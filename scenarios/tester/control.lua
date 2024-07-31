@@ -115,29 +115,9 @@ script.on_event(defines.events.on_surface_cleared,
       set_normal_daytime(surface)
 
       -- make sure its daytime
-
-    if global.game_state  == "in_lobby" then
-        local mgs = surface.map_gen_settings 
-        mgs.seed = math.random(1111,999999999)
-        mgs.width = 1
-        mgs.height = 1
-        surface.map_gen_settings = mgs
-        surface.set_tiles({{position={0,0}, name="out-of-map"}})
-        -- Not setting the status makes normal world gen take over which overrides the out-of-map tile.
-        surface.set_chunk_generated_status({0,0}, defines.chunk_generated_status.entities) 
-
-      	for _, player in pairs(game.players) do
-      		if player.connected and player.character ~= nil then
-      			player.character.destroy()
-      		end
-      	end
-    elseif global.game_state  == "in_preview_lobby" then
-      local mgs = surface.map_gen_settings 
-      mgs.seed = math.random(1111,999999999)
-      mgs.width = 500
-      mgs.height = 500
     	mgs.water = "1"
     	mgs.terrain_segmentation = "1"
+    	mgs.starting_area = "large"
     	mgs.autoplace_controls["iron-ore"].size = "10"
     	mgs.autoplace_controls["iron-ore"].frequency = "1"
     	mgs.autoplace_controls["iron-ore"].richness = "1"
@@ -159,6 +139,27 @@ script.on_event(defines.events.on_surface_cleared,
     	mgs.autoplace_controls["enemy-base"].size = "6"
     	mgs.autoplace_controls["enemy-base"].frequency = "1"
     	surface.map_gen_settings = mgs
+
+    if global.game_state  == "in_lobby" then
+        local mgs = surface.map_gen_settings 
+        mgs.seed = math.random(1111,999999999)
+        mgs.width = 1
+        mgs.height = 1
+        surface.map_gen_settings = mgs
+        surface.set_tiles({{position={0,0}, name="out-of-map"}})
+        -- Not setting the status makes normal world gen take over which overrides the out-of-map tile.
+        surface.set_chunk_generated_status({0,0}, defines.chunk_generated_status.entities) 
+
+      	for _, player in pairs(game.players) do
+      		if player.connected and player.character ~= nil then
+      			player.character.destroy()
+      		end
+      	end
+    elseif global.game_state  == "in_preview_lobby" then
+      local mgs = surface.map_gen_settings 
+      mgs.seed = math.random(1111,999999999)
+      mgs.width = 500
+      mgs.height = 500
       surface.map_gen_settings = mgs
       surface.request_to_generate_chunks({0, 0}, 10)
       surface.force_generate_chunk_requests()
