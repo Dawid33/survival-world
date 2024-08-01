@@ -372,6 +372,7 @@ script.on_event(defines.events.on_player_respawned,
     	if global.current_settings.robots then
     	  if global.has_player_recieved_robots[event.player_index] == nil then
     	    give_player_robots(event.player_index)
+    	    global.has_player_recieved_robots[event.player_index] = {}
     	  end
     	end
   end
