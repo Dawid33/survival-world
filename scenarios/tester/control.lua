@@ -104,6 +104,7 @@ local function end_vote(value, player_index)
     if global.vote_tally.yes_total > global.vote_tally.no_total then
       result = "Yes Majority. Reseting..."
       go_to_lobby()
+      global.next_valid_vote_time = game.tick
     elseif global.vote_tally.yes_total == global.vote_tally.no_total then
       result = "Its a tie. Not reseting."
     else
