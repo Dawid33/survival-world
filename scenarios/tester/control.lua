@@ -44,6 +44,7 @@ end
 local function start_vote()
   if global.next_valid_vote_time >= game.tick then
     game.print(string.format("Please wait 10 minutes before voting again. Cooldown remaining: %s", format_play_time(global.next_valid_vote_time - game.tick)))
+    return
   end
     
   for _, elements in pairs(global.main_elements) do
@@ -160,7 +161,7 @@ function add_gui_to_player(player_index)
   local inner_frame = global.main_elements[player_index].lobby_modal.add{type="frame", style="inside_deep_frame", name="game_info", direction="vertical"}
 
   local game_info_frame = inner_frame.add{type="frame", style="inner_frame"}
-  local text_box = game_info_frame.add{type="text-box", text="Welcome to Deathworld Survival. Take a look at the settings and pick your poison. The game resets if biters settle on your spawn point. It also resets unconditionally if it hasn't been reset for 7 days.", style="map_generator_preset_description"}
+  local text_box = game_info_frame.add{type="text-box", text="Welcome to Deathworld Survival. Take a look at the settings and pick your poison. The game resets if biters settle on your spawn point. It also resets unconditionally if it hasn't been reset for 7 days. This scenario is WIP so expect some bugs.", style="map_generator_preset_description"}
   text_box.read_only = true
   text_box.word_wrap= true
   text_box.style.minimal_width = 350
