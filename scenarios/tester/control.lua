@@ -93,24 +93,28 @@ local function vote(value, player_index)
         global.main_elements[player.index].vote_results.caption = string.format("Yes/No: %d/%d, Time Remaining: %s", global.vote_tally.yes_total, global.vote_tally.no_total, format_play_time(global.vote_tally.tick_to_finish_voting - game.tick))
     end
   end
-  print("Tally: ", serpent.line(global.vote_tally))
 end
 
 local function end_vote(value, player_index)
-    local should_reset = false
     for _, p in pairs(game.connected_players) do
       global.main_elements[p.index].vote_frame.visible = false
       global.main_elements[p.index].reset_button.visible = true
     end
     local result = ""
-    if global.vote_tally.yes_total > global.vote_tally.no_total then
-      result = "Yes Majority. Reseting..."
+    local player_count = 0
+    for p in pairs(game.connected_players) do
+      player_count = player_count + 1
+    end
+    local half = math.ceil(0.5 * player_count)
+    print("half: ", half)
+    if global.vote_tally.yes_total > global.vote_tally.no_total and global.vote_tally.yes_total >= half then
+      result = "Yes majority of all players. Reseting..."
       go_to_lobby()
       global.next_valid_vote_time = game.tick
     elseif global.vote_tally.yes_total == global.vote_tally.no_total then
       result = "Its a tie. Not reseting."
     else
-      result = "No Majority. Not reseting."
+      result = "No majority of all players. Not reseting."
     end
     game.print(string.format("Vote Results: %d/%d. %s", global.vote_tally.yes_total, global.vote_tally.no_total,  result))
     global.vote_tally.tick_to_finish_voting = nil
@@ -167,8 +171,8 @@ function add_gui_to_player(player_index)
   local text_box = game_info_frame.add{type="text-box", text="Welcome to Deathworld Survival. Take a look at the settings and pick your poison. The game resets if biters settle on your spawn point. It also resets unconditionally if it hasn't been reset for 7 days. This scenario is WIP so expect some bugs.", style="map_generator_preset_description"}
   text_box.read_only = true
   text_box.word_wrap= true
-  text_box.style.minimal_width = 350
-  text_box.style.minimal_height = 100
+  text_box.style.minimal_width = 380
+  text_box.style.minimal_height = 110
   game_info_frame.style.horizontally_stretchable = true
   local tabbed_pane = inner_frame.add{type="tabbed-pane"}
   tabbed_pane.style.horizontally_stretchable = true
