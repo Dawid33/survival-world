@@ -52,6 +52,8 @@ local function start_vote()
     global.vote_tally.tick_to_finish_voting = game.tick + 3600
     elements.reset_button.visible = false
     elements.vote_frame.visible = true
+    elements.main_dialog.visible = true
+    elements.vote_frame.visible = true
     elements.vote_results.caption = string.format("Yes/No: %d/%d, Time Remaining: %s", global.vote_tally.yes_total, global.vote_tally.no_total, format_play_time(global.vote_tally.tick_to_finish_voting - game.tick))
   end
 end
