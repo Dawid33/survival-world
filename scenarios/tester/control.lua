@@ -7,7 +7,9 @@ global.current_settings = {
   biter_regen = false,
   pitch_black = false,
   shallow_water = false,
+  robots = false,
 }
+global.has_player_recieved_robots = {}
 global.game_state  = "in_lobby"
 global.has_seed_changed = false
 global.charted_surface = false
@@ -187,6 +189,8 @@ function add_gui_to_player(player_index)
   global.main_elements[player_index].pitch_black_checkbox.tooltip = {"sw.pitch_black_tooltip"}
   global.main_elements[player_index].shallow_water_checkbox = settings_content.add{type="checkbox", state=global.current_settings.shallow_water, caption="Shallow Water", name="shallow_water_checkbox"}
   global.main_elements[player_index].shallow_water_checkbox.tooltip = {"sw.shallow_water_tooltip"}
+  global.main_elements[player_index].robots_checkbox = settings_content.add{type="checkbox", state=global.current_settings.robots, caption="Construction Robot Start", name="robots_checkbox"}
+  global.main_elements[player_index].robots_checkbox .tooltip = {"sw.robots_tooltip"}
 
   local players = tabbed_pane.add{type="tab", caption="Players"}
   global.main_elements[player_index].players_content = tabbed_pane.add{type="flow", name="players_content", direction="vertical"}
@@ -223,6 +227,7 @@ script.on_event(defines.events.on_surface_cleared,
   function(event)
       local surface = game.surfaces[1]
   		global.charted_surface = false
+      has_player_recieved_robots = {}
       set_normal_daytime(surface)
 
       local mgs = surface.map_gen_settings 
@@ -339,6 +344,39 @@ script.on_event(defines.events.on_surface_cleared,
   end
 )
 
+function give_player_robots(player_index)
+	  local p = game.get_player(player_index)
+    p.character.insert{ name = "modular-armor", count = 1 }
+    p.character.insert{ name = "construction-robot", count = 25 }
+    local armor_inventory = p.character.get_inventory(defines.inventory.character_armor)
+    local armor = armor_inventory.find_item_stack("modular-armor")
+    local grid = armor.grid
+    grid.put({
+        name = "battery-mk2-equipment"
+    })
+    grid.put({
+        name = "battery-mk2-equipment"
+    })
+    for i=1, 11 do
+      grid.put({
+          name = "solar-panel-equipment"
+      })
+    end
+    grid.put({
+        name = "personal-roboport-mk2-equipment"
+    })
+end
+
+script.on_event(defines.events.on_player_respawned,
+  function(event)
+    	if global.current_settings.robots then
+    	  if global.has_player_recieved_robots[event.player_index] == nil then
+    	    give_player_robots(event.player_index)
+    	  end
+    	end
+  end
+)
+
 script.set_event_filter(defines.events.on_entity_damaged, {{filter = "type", type = "unit"}, {filter = "final-health", comparison = "=", value = 0, mode = "and"}})
 script.on_event(defines.events.on_entity_damaged,
 function(event)
@@ -350,7 +388,6 @@ end
 
 script.on_event(defines.events.on_gui_checked_state_changed, 
   function(event)
-    print("Event: ", event.element.name,  event.element.state)
     if event.element.name == "biter_regen_checkbox" then
       global.current_settings.biter_regen =  event.element.state
       game.print(game.get_player(event.player_index).name .. " toggled biter regen.")
@@ -364,6 +401,13 @@ script.on_event(defines.events.on_gui_checked_state_changed,
 
       for _, player in pairs(game.connected_players) do 
         global.main_elements[player.index].pitch_black_checkbox.state = event.element.state
+      end
+    elseif event.element.name == "robots_checkbox" then
+      global.current_settings.robots = event.element.state
+      game.print(game.get_player(event.player_index).name .. " toggled construction robot start.")
+
+      for _, player in pairs(game.connected_players) do 
+        global.main_elements[player.index].robots_checkbox.state = event.element.state
       end
     elseif event.element.name == "shallow_water_checkbox" then
       game.print(game.get_player(event.player_index).name .. " toggled shallow water.")
