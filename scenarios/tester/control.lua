@@ -11,8 +11,14 @@ global.current_settings = {
 global.game_state  = "in_lobby"
 global.has_seed_changed = false
 global.charted_surface = false
-global.previous_surface_clear_tick = 0
 global.biter_regen_odds = 2
+global.vote_tally = {
+  tick_to_finish_voting = nil,
+  yes_total = 0,
+  no_total = 0,
+  yes = {},
+  no = {},
+}
 
 local respawn_items = { ["pistol"] = 1, ["firearm-magazine"] = 5 }
 
@@ -34,6 +40,75 @@ local function refresh_player_gui(player_index)
     end
 end
 
+local function start_vote()
+  for _, elements in pairs(global.main_elements) do
+    global.vote_tally.tick_to_finish_voting = game.tick + 3600
+    elements.reset_button.visible = false
+    elements.vote_frame.visible = true
+    elements.vote_results.caption = string.format("Yes/No: %d/%d, Time Remaining: %s", global.vote_tally.yes_total, global.vote_tally.no_total, format_play_time(global.vote_tally.tick_to_finish_voting - game.tick))
+  end
+end
+
+local function vote(value, player_index)
+  if value == true then
+    if global.vote_tally.yes[player_index] == nil then
+      global.vote_tally.yes[player_index] = game.get_player(player_index).name
+      global.vote_tally.yes_total = global.vote_tally.yes_total + 1
+    end
+    if global.vote_tally.no[player_index] ~= nil then 
+      global.vote_tally.no_total = global.vote_tally.no_total - 1
+    end
+    global.vote_tally.no[player_index] = nil
+  elseif value == false then
+    if global.vote_tally.no[player_index] == nil then
+      global.vote_tally.no[player_index] = game.get_player(player_index).name
+      global.vote_tally.no_total = global.vote_tally.no_total + 1
+    end
+    if global.vote_tally.yes[player_index] ~= nil then 
+      global.vote_tally.yes_total = global.vote_tally.yes_total - 1
+    end
+    global.vote_tally.yes[player_index] = nil
+  elseif value == nil then
+    if global.vote_tally.yes[player_index] ~= nil then 
+      global.vote_tally.yes_total = global.vote_tally.yes_total - 1
+    end
+    if global.vote_tally.no[player_index] ~= nil then 
+      global.vote_tally.no_total = global.vote_tally.no_total - 1
+    end
+    global.vote_tally.yes[player_index] = nil
+    global.vote_tally.no[player_index] = nil
+  end
+
+  if global.vote_tally.tick_to_finish_voting ~= nil and global.vote_tally.tick_to_finish_voting > game.tick then
+    for _, player in pairs(game.connected_players) do 
+        global.main_elements[player.index].vote_results.caption = string.format("Yes/No: %d/%d, Time Remaining: %s", global.vote_tally.yes_total, global.vote_tally.no_total, format_play_time(global.vote_tally.tick_to_finish_voting - game.tick))
+    end
+  end
+  print("Tally: ", serpent.line(global.vote_tally))
+end
+
+local function end_vote(value, player_index)
+    local should_reset = false
+    for _, p in pairs(game.connected_players) do
+      global.main_elements[p.index].vote_frame.visible = false
+      global.main_elements[p.index].reset_button.visible = true
+    end
+    local result = ""
+    if global.vote_tally.yes_total > global.vote_tally.no_total then
+      result = "Yes Majority. Reseting..."
+      go_to_lobby()
+    elseif global.vote_tally.yes_total == global.vote_tally.no_total then
+      result = "Its a tie. Not reseting."
+    else
+      result = "No Majority. Not reseting."
+    end
+    game.print(string.format("Vote Results: %d/%d. %s", global.vote_tally.yes_total, global.vote_tally.no_total,  result))
+    global.vote_tally.tick_to_finish_voting = nil
+    global.vote_tally.yes = {}
+    global.vote_tally.no = {}
+    global.vote_tally.yes_total = 0
+    global.vote_tally.no_total = 0
+end
 
 function add_gui_to_player(player_index)
   player = game.get_player(player_index)
@@ -41,22 +116,36 @@ function add_gui_to_player(player_index)
   button_flow.add{type="sprite-button", name="interface_toggle", sprite="item/iron-gear-wheel"}
 
   -- Main in-game panel that shows stats, current settings and can be used to go back to the lobby.
-  global.main_elements[player_index].main_dialog = player.gui.left.add{type="frame", visible=false, name="main_dialog"}
+  global.main_elements[player_index].main_dialog = player.gui.left.add{type="frame", visible=false, name="main_dialog", direction="vertical"}
   global.main_elements[player_index].main_dialog.caption = {"sw.main_dialog_caption"}
-  local inner_frame = global.main_elements[player_index].main_dialog.add{type="frame", style="inside_shallow_frame_with_padding",name="game_info", direction="vertical"}
-
-  local time_row = inner_frame.add{type="flow"}
+  global.main_elements[player_index].main_dialog_inner_frame = global.main_elements[player_index].main_dialog.add{type="frame", style="inside_shallow_frame_with_padding",name="game_info", direction="vertical"}
+  local time_row = global.main_elements[player_index].main_dialog_inner_frame.add{type="flow"}
   time_row.add{type="label", caption={"sw.time"}, name="time_label"}
   global.main_elements[player_index].time_value = time_row.add{type="label", caption="", name="time_value"}
 
-  local evo_row = inner_frame.add{type="flow"}
+  local evo_row = global.main_elements[player_index].main_dialog_inner_frame.add{type="flow"}
   evo_row.style.horizontal_spacing = 78
   local evo_label = evo_row.add{type="label", caption={"sw.evo"}, name="evo"}
   global.main_elements[player_index].evo_value = evo_row.add{type="label", caption="", name="evo_value"}
-  global.main_elements[player_index].reset_button = inner_frame.add{type="button", caption="Reset", name="reset_button"}
+  global.main_elements[player_index].reset_button = global.main_elements[player_index].main_dialog_inner_frame.add{type="button", caption={"sw.vote_reset"}, name="reset_button"}
   global.main_elements[player_index].reset_button.style.width = 0
   global.main_elements[player_index].reset_button.style.top_margin = 10
   global.main_elements[player_index].reset_button.style.horizontally_stretchable = "on"
+
+  global.main_elements[player_index].vote_frame = global.main_elements[player_index].main_dialog.add{type="frame", direction="vertical", visible=false, style="inside_shallow_frame_with_padding"}
+  global.main_elements[player_index].vote_frame.style.top_margin = 10
+  global.main_elements[player_index].vote_label = global.main_elements[player_index].vote_frame.add{type="label", caption={"sw.vote_label"}}
+  global.main_elements[player_index].vote_results = global.main_elements[player_index].vote_frame.add{type="label", caption=""}
+  global.main_elements[player_index].vote_flow= global.main_elements[player_index].vote_frame.add{type="frame", style="invisible_frame"}
+  global.main_elements[player_index].yes_button = global.main_elements[player_index].vote_flow.add{type="button", caption={"sw.yes_button"}, name="yes_button"}
+  global.main_elements[player_index].abstain_button = global.main_elements[player_index].vote_flow.add{type="button", caption={"sw.abstain_button"}, name="abstain_button"}
+  global.main_elements[player_index].no_button = global.main_elements[player_index].vote_flow.add{type="button", caption={"sw.no_button"}, name="no_button"}
+  global.main_elements[player_index].yes_button.style.top_margin = 10
+  global.main_elements[player_index].yes_button.style.horizontally_stretchable = "on"
+  global.main_elements[player_index].abstain_button.style.top_margin = 10
+  global.main_elements[player_index].abstain_button.style.horizontally_stretchable = "on"
+  global.main_elements[player_index].no_button.style.top_margin = 10
+  global.main_elements[player_index].no_button.style.horizontally_stretchable = "on"
 
   -- Lobby modal for setting map settings and starting the game.
   global.main_elements[player_index].lobby_modal = player.gui.screen.add{type="frame", visible=true, name="lobby_modal", caption={"sw.lobby"}, direction="vertical"}
@@ -65,7 +154,7 @@ function add_gui_to_player(player_index)
   local inner_frame = global.main_elements[player_index].lobby_modal.add{type="frame", style="inside_deep_frame", name="game_info", direction="vertical"}
 
   local game_info_frame = inner_frame.add{type="frame", style="inner_frame"}
-  local text_box = game_info_frame.add{type="text-box", text="Welcome to Deathworld Survival. Take a look at the settings and pick your poison. The game resets if biters settle on your spawn point. It also resets unconditionally if it hasn't been reset for 7 days. VERY WIP.", style="map_generator_preset_description"}
+  local text_box = game_info_frame.add{type="text-box", text="Welcome to Deathworld Survival. Take a look at the settings and pick your poison. The game resets if biters settle on your spawn point. It also resets unconditionally if it hasn't been reset for 7 days.", style="map_generator_preset_description"}
   text_box.read_only = true
   text_box.word_wrap= true
   text_box.style.minimal_width = 350
@@ -239,7 +328,7 @@ script.on_event(defines.events.on_surface_cleared,
 script.set_event_filter(defines.events.on_entity_damaged, {{filter = "type", type = "unit"}, {filter = "final-health", comparison = "=", value = 0, mode = "and"}})
 script.on_event(defines.events.on_entity_damaged,
 function(event)
-	if global.current_settings.biter_regen and math.random(1, global.biter_regen_odds) ~= global.biter_hp then
+	if global.current_settings.biter_regen and event.final_health <= 0 and event.entity.name == "medium-biter" and math.random(1, global.biter_regen_odds) ~= global.biter_regen_odds then
 		event.entity.health = 3000
 	end
 end
@@ -247,32 +336,27 @@ end
 
 script.on_event(defines.events.on_gui_checked_state_changed, 
   function(event)
+    print("Event: ", event.element.name,  event.element.state)
     if event.element.name == "biter_regen_checkbox" then
       global.current_settings.biter_regen =  event.element.state
       game.print(game.get_player(event.player_index).name .. " toggled biter regen.")
 
       for _, player in pairs(game.connected_players) do 
-        if global.main_elements[player.index] ~= nil then
-          global.main_elements[player.index].biter_regen_checkbox.state = event.element.state
-        end 
+        global.main_elements[player.index].biter_regen_checkbox.state = event.element.state
       end
     elseif event.element.name == "pitch_black_checkbox" then
       global.current_settings.pitch_black =  event.element.state
       game.print(game.get_player(event.player_index).name .. " toggled pitch black.")
 
       for _, player in pairs(game.connected_players) do 
-        if global.main_elements[player.index] ~= nil then
-          global.main_elements[player.index].pitch_black_checkbox.state = event.element.state
-        end 
+        global.main_elements[player.index].pitch_black_checkbox.state = event.element.state
       end
     elseif event.element.name == "shallow_water_checkbox" then
       game.print(game.get_player(event.player_index).name .. " toggled shallow water.")
       global.current_settings.shallow_water = event.element.state
 
       for _, player in pairs(game.connected_players) do 
-        if global.main_elements[player.index] ~= nil then
-          global.main_elements[player.index].shallow_water_checkbox .state = event.element.state
-        end 
+        global.main_elements[player.index].shallow_water_checkbox .state = event.element.state
       end
     end
 
@@ -290,16 +374,20 @@ script.on_event(defines.events.on_gui_click,
           main_dialog.visible = true
         end
       end
-    elseif event.element.name == "preview_button" and global.previous_surface_clear_tick ~= event.tick then
+    elseif event.element.name == "preview_button" then
       game.print(game.get_player(event.player_index).name .. " changed the seed.")
       global.has_seed_changed = true
       global.game_state = "in_preview_lobby"
       game.surfaces[1].clear()
-      previous_surface_clear_tick = event.tick
-    elseif event.element.name == "reset_button" and global.previous_surface_clear_tick ~= event.tick then
-      go_to_lobby()
-      previous_surface_clear_tick = event.tick
-    elseif event.element.name == "start_button" and global.previous_surface_clear_tick ~= event.tick  then
+    elseif event.element.name == "no_button" then
+      vote(false, event.player_index)
+    elseif event.element.name == "abstain_button" then
+      vote(nil, event.player_index)
+    elseif event.element.name == "yes_button" then
+      vote(true, event.player_index)
+    elseif event.element.name == "reset_button" then
+      start_vote()
+    elseif event.element.name == "start_button" then
       game.print(game.get_player(event.player_index).name .. " started the game.")
       global.game_state  = "in_game"
       local surface = game.surfaces[1]
@@ -310,7 +398,6 @@ script.on_event(defines.events.on_gui_click,
             global.main_elements[player.index].lobby_modal.visible = false
         end 
       end
-      previous_surface_clear_tick = event.tick
     end
   end
 )
@@ -338,13 +425,14 @@ script.on_nth_tick(
     	end
 
     	if global.current_settings.biter_regen then 
-      	local red_sci = game.forces["player"].item_production_statistics.get_output_count "automation-science-pack" * 3
-      	local green_sci = game.forces["player"].item_production_statistics.get_output_count "logistic-science-pack" * 7
-      	local blue_sci = game.forces["player"].item_production_statistics.get_output_count "chemical-science-pack" * 60
-      	local purple_sci = game.forces["player"].item_production_statistics.get_output_count "production-science-pack" * 155
-      	local yellow_sci = game.forces["player"].item_production_statistics.get_output_count "utility-science-pack" * 195
-      	local adjusted_sci = math.ceil(math.min((((red_sci + green_sci + blue_sci + purple_sci + yellow_sci) * 0.0001) + 1.5), 77))
-      	global.biter_hp = math.max(adjusted_sci + math.ceil(math.max(((game.ticks_played - 1296000) * 0.00002777), 0)), 2)
+    	  -- TODO: Test this scaling.
+      	-- local red_sci = game.forces["player"].item_production_statistics.get_output_count "automation-science-pack" * 3
+      	-- local green_sci = game.forces["player"].item_production_statistics.get_output_count "logistic-science-pack" * 7
+      	-- local blue_sci = game.forces["player"].item_production_statistics.get_output_count "chemical-science-pack" * 60
+      	-- local purple_sci = game.forces["player"].item_production_statistics.get_output_count "production-science-pack" * 155
+      	-- local yellow_sci = game.forces["player"].item_production_statistics.get_output_count "utility-science-pack" * 195
+      	-- local adjusted_sci = math.ceil(math.min((((red_sci + green_sci + blue_sci + purple_sci + yellow_sci) * 0.0001) + 1.5), 77))
+      	-- global.biter_hp = math.max(adjusted_sci + math.ceil(math.max(((game.ticks_played - 1296000) * 0.00002777), 0)), 2)
     	end
   	end
   end
@@ -356,12 +444,18 @@ script.on_nth_tick(
   	if not global.charted_surface then
     	local surface = game.surfaces[1]
       game.forces["player"].chart(1, {{-250, -250},{250,250}})
-      game.forces["player"].chart_all()
       game.forces["player"].rechart()
-      -- game.forces["player"].add_chart_tag(1, {position={200, -200}, icon={type="virtual", name="signal-green"}, text="Deathworld Survival Discord https://discord.gg/xYGNBaWEuC"} )
+      game.forces["player"].add_chart_tag(1, {position={200, -200}, icon={type="virtual", name="signal-green"}, text="Deathworld Survival Discord https://discord.gg/xYGNBaWEuC"} )
   	end
 
     for _, player in pairs(game.connected_players) do 
+      if global.vote_tally.tick_to_finish_voting ~= nil then
+        if global.vote_tally.tick_to_finish_voting <= game.tick then
+            end_vote()
+        else
+            global.main_elements[player.index].vote_results.caption = string.format("Yes/No: %d/%d, Time Remaining: %s", global.vote_tally.yes_total, global.vote_tally.no_total, format_play_time(global.vote_tally.tick_to_finish_voting - game.tick))
+        end
+      end
       if global.main_elements[player.index] ~= nil then
         local percent_evo_factor = game.forces.enemy.evolution_factor * 100
         global.main_elements[player.index].evo_value.caption = string.format("%.1f%%", percent_evo_factor)
