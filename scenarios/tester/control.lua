@@ -23,7 +23,6 @@ global.vote_tally = {
   no = {},
 }
 
-local respawn_items = { ["pistol"] = 1, ["firearm-magazine"] = 5 }
 
 local function format_play_time(ticks)
     local seconds = math.floor(ticks / 60)
@@ -344,11 +343,10 @@ script.on_event(defines.events.on_surface_cleared,
   end
 )
 
-function give_player_robots(player_index)
-	  local p = game.get_player(player_index)
-    p.character.insert{ name = "modular-armor", count = 1 }
-    p.character.insert{ name = "construction-robot", count = 25 }
-    local armor_inventory = p.character.get_inventory(defines.inventory.character_armor)
+function give_player_robots(player)
+    player.character.insert{ name = "modular-armor", count = 1 }
+    player.character.insert{ name = "construction-robot", count = 25 }
+    local armor_inventory = player.character.get_inventory(defines.inventory.character_armor)
     local armor = armor_inventory.find_item_stack("modular-armor")
     local grid = armor.grid
     grid.put({
@@ -369,12 +367,15 @@ end
 
 script.on_event(defines.events.on_player_respawned,
   function(event)
-    	if global.current_settings.robots then
-    	  if global.has_player_recieved_robots[event.player_index] == nil then
-    	    give_player_robots(event.player_index)
-    	    global.has_player_recieved_robots[event.player_index] = {}
-    	  end
-    	end
+    print("has_robots ", serpent.line(global.has_player_recieved_robots[event.player_index]))
+    print("settings", serpent.line(global.current_settings))
+	  local player = game.get_player(event.player_index)
+    	if global.current_settings.robots and global.has_player_recieved_robots[event.player_index] == nil or global.has_player_recieved_robots[event.player_index] == false then
+    	    give_player_robots(player)
+    	    global.has_player_recieved_robots[event.player_index] = true
+  	  end
+      player.character.insert{ name = "pistol", count = 1 }
+      player.character.insert{ name = "firearm-magazine", count = 5 }
   end
 )
 
@@ -461,8 +462,7 @@ script.on_event(defines.events.on_gui_click,
 
 function go_to_lobby()
     global.has_seed_changed = false
-    global.game_state  = "in_lobby"
-    global.current_settings = {}
+    global.game_state = "in_lobby"
     game.surfaces[1].clear()
     for _, player in pairs(game.connected_players) do 
       if global.main_elements[player.index] ~= nil then
