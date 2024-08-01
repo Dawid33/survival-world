@@ -227,7 +227,7 @@ script.on_event(defines.events.on_surface_cleared,
   function(event)
       local surface = game.surfaces[1]
   		global.charted_surface = false
-      has_player_recieved_robots = {}
+      global.has_player_recieved_robots = {}
       set_normal_daytime(surface)
 
       local mgs = surface.map_gen_settings 
