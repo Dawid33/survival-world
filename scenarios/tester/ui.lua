@@ -94,48 +94,49 @@ ui.add_gui_to_player = function(player_index)
   map_settings_content.add{type="label", caption="Richness"}
 
   map_settings_content.add{type="label", caption="Iron", name="iron_label"}
-  global.main_elements[player_index].iron_size_slider = map_settings_content.add{type="slider", minimum_value=0, maximum_value=6, value=global.current_settings.iron_size, style="map_generator_13_notch_slider"}
-  global.main_elements[player_index].iron_frequency_slider = map_settings_content.add{type="slider", minimum_value=0, maximum_value=6, value=global.current_settings.iron_frequency, style="map_generator_13_notch_slider"}
-  global.main_elements[player_index].iron_richness_slider = map_settings_content.add{type="slider", minimum_value=0, maximum_value=6, value=global.current_settings.iron_richness, style="map_generator_13_notch_slider"}
+  global.main_elements[player_index].iron_size_slider = map_settings_content.add{type="textfield", numeric=true, allow_decimal=true, text=global.current_settings.iron_size}
+  global.main_elements[player_index].iron_frequency_slider = map_settings_content.add{type="textfield", numeric=true, allow_decimal=true, text=global.current_settings.iron_frequency}
+  global.main_elements[player_index].iron_richness_slider = map_settings_content.add{type="textfield", numeric=true, allow_decimal=true, text=global.current_settings.iron_richness}
 
   map_settings_content.add{type="label", caption="Copper", name="copper_label"}
-  global.main_elements[player_index].copper_size_slider = map_settings_content.add{type="slider", minimum_value=0, maximum_value=6, value=global.current_settings.copper_size, style="map_generator_13_notch_slider"}
-  global.main_elements[player_index].copper_frequency_slider = map_settings_content.add{type="slider", minimum_value=0, maximum_value=6, value=global.current_settings.copper_frequency, style="map_generator_13_notch_slider"}
-  global.main_elements[player_index].copper_richness_slider = map_settings_content.add{type="slider", minimum_value=0, maximum_value=6, value=global.current_settings.copper_richness, style="map_generator_13_notch_slider"}
+  global.main_elements[player_index].copper_size_slider = map_settings_content.add{type="textfield", numeric=true, allow_decimal=true, text=global.current_settings.copper_size}
+  global.main_elements[player_index].copper_frequency_slider = map_settings_content.add{type="textfield", numeric=true, allow_decimal=true, text=global.current_settings.copper_frequency}
+  global.main_elements[player_index].copper_richness_slider = map_settings_content.add{type="textfield", numeric=true, allow_decimal=true, text=global.current_settings.copper_richness}
 
   map_settings_content.add{type="label", caption="Coal", name="coal_label"}
-  global.main_elements[player_index].coal_size_slider = map_settings_content.add{type="slider", minimum_value=0, maximum_value=6, value=global.current_settings.coal_size, style="map_generator_13_notch_slider"}
-  global.main_elements[player_index].coal_frequency_slider = map_settings_content.add{type="slider", minimum_value=0, maximum_value=6, value=global.current_settings.coal_frequency, style="map_generator_13_notch_slider"}
-  global.main_elements[player_index].coal_richness_slider = map_settings_content.add{type="slider", minimum_value=0, maximum_value=6, value=global.current_settings.coal_richness, style="map_generator_13_notch_slider"}
+  global.main_elements[player_index].coal_size_slider = map_settings_content.add{type="textfield", numeric=true, allow_decimal=true, text=global.current_settings.coal_size}
+  global.main_elements[player_index].coal_frequency_slider = map_settings_content.add{type="textfield", numeric=true, allow_decimal=true, text=global.current_settings.coal_frequency}
+  global.main_elements[player_index].coal_richness_slider = map_settings_content.add{type="textfield", numeric=true, allow_decimal=true, text=global.current_settings.coal_richness}
 
   map_settings_content.add{type="label", caption="Stone", name="stone_label"}
-  global.main_elements[player_index].stone_size_slider = map_settings_content.add{type="slider", minimum_value=0, maximum_value=6, value=global.current_settings.stone_size, style="map_generator_13_notch_slider"}
-  global.main_elements[player_index].stone_frequency_slider = map_settings_content.add{type="slider", minimum_value=0, maximum_value=6, value=global.current_settings.stone_frequency, style="map_generator_13_notch_slider"}
-  global.main_elements[player_index].stone_richness_slider = map_settings_content.add{type="slider", minimum_value=0, maximum_value=6, value=global.current_settings.stone_richness, style="map_generator_13_notch_slider"}
+  global.main_elements[player_index].stone_size_slider = map_settings_content.add{type="textfield", numeric=true, allow_decimal=true, text=global.current_settings.stone_size}
+  global.main_elements[player_index].stone_frequency_slider = map_settings_content.add{type="textfield", numeric=true, allow_decimal=true, text=global.current_settings.stone_frequency}
+  global.main_elements[player_index].stone_richness_slider = map_settings_content.add{type="textfield", numeric=true, allow_decimal=true, text=global.current_settings.stone_richness}
 
   map_settings_content.add{type="label", caption="Oil", name="oil_label"}
-  global.main_elements[player_index].oil_size_slider = map_settings_content.add{type="slider", minimum_value=0, maximum_value=6, value=global.current_settings.oil_size, style="map_generator_13_notch_slider"}
-  global.main_elements[player_index].oil_frequency_slider = map_settings_content.add{type="slider", minimum_value=0, maximum_value=6, value=global.current_settings.oil_frequency, style="map_generator_13_notch_slider"}
-  global.main_elements[player_index].oil_richness_slider = map_settings_content.add{type="slider", minimum_value=0, maximum_value=6, value=global.current_settings.oil_richness, style="map_generator_13_notch_slider"}
+  global.main_elements[player_index].oil_size_slider = map_settings_content.add{type="textfield", numeric=true, allow_decimal=true, text=global.current_settings.oil_size}
+  global.main_elements[player_index].oil_frequency_slider = map_settings_content.add{type="textfield", numeric=true, allow_decimal=true, text=global.current_settings.oil_frequency}
+  global.main_elements[player_index].oil_richness_slider = map_settings_content.add{type="textfield", numeric=true, allow_decimal=true, text=global.current_settings.oil_richness}
 
   map_settings_content.add{type="label", caption="Uranium", name="uranium_label"}
-  global.main_elements[player_index].uranium_size_slider = map_settings_content.add{type="slider", minimum_value=0, maximum_value=6, value=global.current_settings.uranium_size, style="map_generator_13_notch_slider"}
-  global.main_elements[player_index].uranium_frequency_slider = map_settings_content.add{type="slider", minimum_value=0, maximum_value=6, value=global.current_settings.uranium_frequency, style="map_generator_13_notch_slider"}
-  global.main_elements[player_index].uranium_richness_slider = map_settings_content.add{type="slider", minimum_value=0, maximum_value=6, value=global.current_settings.uranium_richness, style="map_generator_13_notch_slider"}
+  global.main_elements[player_index].uranium_size_slider = map_settings_content.add{type="textfield", numeric=true, allow_decimal=true, text=global.current_settings.uranium_size}
+  global.main_elements[player_index].uranium_frequency_slider = map_settings_content.add{type="textfield", numeric=true, allow_decimal=true, text=global.current_settings.uranium_frequency}
+  global.main_elements[player_index].uranium_richness_slider = map_settings_content.add{type="textfield", numeric=true, allow_decimal=true, text=global.current_settings.uranium_richness}
 
   map_settings_content.add{type="label", caption="Trees", name="trees_label"}
-  global.main_elements[player_index].trees_size_slider = map_settings_content.add{type="slider", minimum_value=0, maximum_value=3, value_step=0.5, value=global.current_settings.trees_size, style="map_generator_13_notch_slider"}
-  global.main_elements[player_index].trees_frequency_slider = map_settings_content.add{type="slider", minimum_value=0, maximum_value=3, value_step=0.5, value=global.current_settings.trees_frequency, style="map_generator_13_notch_slider"}
-  global.main_elements[player_index].trees_richness_slider = map_settings_content.add{type="slider", minimum_value=0, maximum_value=3, value_step=0.5, value=global.current_settings.trees_richness, style="map_generator_13_notch_slider"}
+  global.main_elements[player_index].trees_size_slider = map_settings_content.add{type="textfield", numeric=true, allow_decimal=true, text=global.current_settings.trees_size}
+  global.main_elements[player_index].trees_frequency_slider = map_settings_content.add{type="textfield", numeric=true, allow_decimal=true, text=global.current_settings.trees_frequency}
+  global.main_elements[player_index].trees_richness_slider = map_settings_content.add{type="textfield", numeric=true, allow_decimal=true, text=global.current_settings.trees_richness}
 
   map_settings_content.add{type="label", caption="Biters", name="biter_label"}
-  global.main_elements[player_index].biter_size_slider = map_settings_content.add{type="slider", minimum_value=0, maximum_value=6, value=global.current_settings.biter_size, style="map_generator_13_notch_slider"}
-  global.main_elements[player_index].biter_frequency_slider = map_settings_content.add{type="slider", minimum_value=0, maximum_value=6, value=global.current_settings.biter_frequency, style="map_generator_13_notch_slider"}
+  global.main_elements[player_index].biter_size_slider = map_settings_content.add{type="textfield", numeric=true, allow_decimal=true, text=global.current_settings.biter_size}
+  global.main_elements[player_index].biter_frequency_slider = map_settings_content.add{type="textfield", numeric=true, allow_decimal=true, text=global.current_settings.biter_frequency}
 
   for i, c in pairs(map_settings_content.children) do 
     if c.type ~= "label" then
       c.style.top_margin = 4
       c.style.right_margin = 2
+      c.style.width = 60
     else
       c.style.bottom_margin = 4
     end
@@ -205,122 +206,122 @@ script.on_event(defines.events.on_gui_checked_state_changed,
   end
 )
 
-script.on_event(defines.events.on_gui_value_changed, 
+script.on_event(defines.events.on_gui_text_changed, 
   function(event)
     if event.element.index == global.main_elements[event.player_index].iron_size_slider.index then
-      global.current_settings.iron_size = global.main_elements[event.player_index].iron_size_slider.slider_value 
+      global.current_settings.iron_size = global.main_elements[event.player_index].iron_size_slider.text
       for _, player in pairs(game.connected_players) do 
-      	global.main_elements[player.index].iron_size_slider.slider_value = global.current_settings.iron_size 
+      	global.main_elements[player.index].iron_size_slider.text = global.current_settings.iron_size 
       end
   	elseif event.element.index == global.main_elements[event.player_index].iron_frequency_slider.index then
-    	global.current_settings.iron_frequency = global.main_elements[event.player_index].iron_frequency_slider.slider_value
+    	global.current_settings.iron_frequency = global.main_elements[event.player_index].iron_frequency_slider.text
       for _, player in pairs(game.connected_players) do 
-      	global.main_elements[player.index].iron_frequency_slider.slider_value = global.current_settings.iron_frequency 
+      	global.main_elements[player.index].iron_frequency_slider.text = global.current_settings.iron_frequency 
       end
   	elseif event.element.index == global.main_elements[event.player_index].iron_richness_slider.index then
-    	global.current_settings.iron_richness = global.main_elements[event.player_index].iron_richness_slider.slider_value
+    	global.current_settings.iron_richness = global.main_elements[event.player_index].iron_richness_slider.text
       for _, player in pairs(game.connected_players) do 
-      	global.main_elements[player.index].iron_richness_slider.slider_value = global.current_settings.iron_richness 
+      	global.main_elements[player.index].iron_richness_slider.text = global.current_settings.iron_richness 
       end
   	elseif event.element.index == global.main_elements[event.player_index].copper_size_slider.index then
-    	global.current_settings.copper_size = global.main_elements[event.player_index].copper_size_slider.slider_value
+    	global.current_settings.copper_size = global.main_elements[event.player_index].copper_size_slider.text
       for _, player in pairs(game.connected_players) do 
-      	global.main_elements[player.index].copper_size_slider.slider_value = global.current_settings.copper_size 
+      	global.main_elements[player.index].copper_size_slider.text = global.current_settings.copper_size 
       end
   	elseif event.element.index == global.main_elements[event.player_index].copper_frequency_slider.index then
-      	global.current_settings.copper_frequency = global.main_elements[event.player_index].copper_frequency_slider.slider_value
+      	global.current_settings.copper_frequency = global.main_elements[event.player_index].copper_frequency_slider.text
       for _, player in pairs(game.connected_players) do 
-      	global.main_elements[player.index].copper_frequency_slider.slider_value = global.current_settings.copper_frequency 
+      	global.main_elements[player.index].copper_frequency_slider.text = global.current_settings.copper_frequency 
       end
   	elseif event.element.index == global.main_elements[event.player_index].copper_richness_slider.index then
-      	global.current_settings.copper_richness = global.main_elements[event.player_index].copper_richness_slider.slider_value
+      	global.current_settings.copper_richness = global.main_elements[event.player_index].copper_richness_slider.text
       for _, player in pairs(game.connected_players) do 
-      	global.main_elements[player.index].copper_richness_slider.slider_value = global.current_settings.copper_richness 
+      	global.main_elements[player.index].copper_richness_slider.text = global.current_settings.copper_richness 
       end
   	elseif event.element.index == global.main_elements[event.player_index].coal_size_slider.index then
-      	global.current_settings.coal_size = global.main_elements[event.player_index].coal_size_slider.slider_value
+      	global.current_settings.coal_size = global.main_elements[event.player_index].coal_size_slider.text
       for _, player in pairs(game.connected_players) do 
-      	global.main_elements[player.index].coal_size_slider.slider_value = global.current_settings.coal_size 
+      	global.main_elements[player.index].coal_size_slider.text = global.current_settings.coal_size 
       end
   	elseif event.element.index == global.main_elements[event.player_index].coal_frequency_slider.index then
-      global.current_settings.coal_frequency = global.main_elements[event.player_index].coal_frequency_slider.slider_value
+      global.current_settings.coal_frequency = global.main_elements[event.player_index].coal_frequency_slider.text
       for _, player in pairs(game.connected_players) do 
-      	global.main_elements[player.index].coal_frequency_slider.slider_value = global.current_settings.coal_frequency 
+      	global.main_elements[player.index].coal_frequency_slider.text = global.current_settings.coal_frequency 
       end
   	elseif event.element.index == global.main_elements[event.player_index].coal_richness_slider.index then
-      	global.current_settings.coal_richness = global.main_elements[event.player_index].coal_richness_slider.slider_value
+      	global.current_settings.coal_richness = global.main_elements[event.player_index].coal_richness_slider.text
       for _, player in pairs(game.connected_players) do 
-      	global.main_elements[player.index].coal_richness_slider.slider_value = global.current_settings.coal_richness 
+      	global.main_elements[player.index].coal_richness_slider.text = global.current_settings.coal_richness 
       end
   	elseif event.element.index == global.main_elements[event.player_index].stone_size_slider.index then
-      	global.current_settings.stone_size = global.main_elements[event.player_index].stone_size_slider.slider_value
+      	global.current_settings.stone_size = global.main_elements[event.player_index].stone_size_slider.text
       for _, player in pairs(game.connected_players) do 
-      	global.main_elements[player.index].stone_size_slider.slider_value = global.current_settings.stone_size 
+      	global.main_elements[player.index].stone_size_slider.text = global.current_settings.stone_size 
       end
   	elseif event.element.index == global.main_elements[event.player_index].stone_frequency_slider.index then
-      	global.current_settings.stone_frequency = global.main_elements[event.player_index].stone_frequency_slider.slider_value
+      	global.current_settings.stone_frequency = global.main_elements[event.player_index].stone_frequency_slider.text
       for _, player in pairs(game.connected_players) do 
-      	global.main_elements[player.index].stone_frequency_slider.slider_value = global.current_settings.stone_frequency 
+      	global.main_elements[player.index].stone_frequency_slider.text = global.current_settings.stone_frequency 
       end
   	elseif event.element.index == global.main_elements[event.player_index].stone_richness_slider.index then
-      	global.current_settings.stone_richness = global.main_elements[event.player_index].stone_richness_slider.slider_value
+      	global.current_settings.stone_richness = global.main_elements[event.player_index].stone_richness_slider.text
       for _, player in pairs(game.connected_players) do 
-      	global.main_elements[player.index].stone_richness_slider.slider_value = global.current_settings.stone_richness 
+      	global.main_elements[player.index].stone_richness_slider.text = global.current_settings.stone_richness 
       end
   	elseif event.element.index == global.main_elements[event.player_index].oil_size_slider.index then
-      	global.current_settings.oil_size = global.main_elements[event.player_index].oil_size_slider.slider_value
+      	global.current_settings.oil_size = global.main_elements[event.player_index].oil_size_slider.text
       for _, player in pairs(game.connected_players) do 
-      	global.main_elements[player.index].oil_size_slider.slider_value = global.current_settings.oil_size 
+      	global.main_elements[player.index].oil_size_slider.text = global.current_settings.oil_size 
       end
   	elseif event.element.index == global.main_elements[event.player_index].oil_frequency_slider.index then
-      	global.current_settings.oil_frequency = global.main_elements[event.player_index].oil_frequency_slider.slider_value
+      	global.current_settings.oil_frequency = global.main_elements[event.player_index].oil_frequency_slider.text
       for _, player in pairs(game.connected_players) do 
-      	global.main_elements[player.index].oil_frequency_slider.slider_value = global.current_settings.oil_frequency 
+      	global.main_elements[player.index].oil_frequency_slider.text = global.current_settings.oil_frequency 
       end
   	elseif event.element.index == global.main_elements[event.player_index].oil_richness_slider.index then
-      	global.current_settings.oil_richness = global.main_elements[event.player_index].oil_richness_slider.slider_value
+      	global.current_settings.oil_richness = global.main_elements[event.player_index].oil_richness_slider.text
       for _, player in pairs(game.connected_players) do 
-      	global.main_elements[player.index].oil_richness_slider.slider_value = global.current_settings.oil_richness 
+      	global.main_elements[player.index].oil_richness_slider.text = global.current_settings.oil_richness 
       end
   	elseif event.element.index == global.main_elements[event.player_index].uranium_size_slider.index then
-      	global.current_settings.uranium_size = global.main_elements[event.player_index].uranium_size_slider.slider_value
+      	global.current_settings.uranium_size = global.main_elements[event.player_index].uranium_size_slider.text
       for _, player in pairs(game.connected_players) do 
-      	global.main_elements[player.index].uranium_size_slider.slider_value = global.current_settings.uranium_size 
+      	global.main_elements[player.index].uranium_size_slider.text = global.current_settings.uranium_size 
       end
   	elseif event.element.index == global.main_elements[event.player_index].uranium_frequency_slider.index then
-      	global.current_settings.uranium_frequency = global.main_elements[event.player_index].uranium_frequency_slider.slider_value
+      	global.current_settings.uranium_frequency = global.main_elements[event.player_index].uranium_frequency_slider.text
       for _, player in pairs(game.connected_players) do 
-      	global.main_elements[player.index].uranium_frequency_slider.slider_value = global.current_settings.uranium_frequency 
+      	global.main_elements[player.index].uranium_frequency_slider.text = global.current_settings.uranium_frequency 
       end
   	elseif event.element.index == global.main_elements[event.player_index].uranium_richness_slider.index then
-      	global.current_settings.uranium_richness = global.main_elements[event.player_index].uranium_richness_slider.slider_value
+      	global.current_settings.uranium_richness = global.main_elements[event.player_index].uranium_richness_slider.text
       for _, player in pairs(game.connected_players) do 
-      	global.main_elements[player.index].uranium_richness_slider.slider_value = global.current_settings.uranium_richness 
+      	global.main_elements[player.index].uranium_richness_slider.text = global.current_settings.uranium_richness 
       end
   	elseif event.element.index == global.main_elements[event.player_index].trees_size_slider.index then
-      	global.current_settings.trees_size = global.main_elements[event.player_index].trees_size_slider.slider_value
+      	global.current_settings.trees_size = global.main_elements[event.player_index].trees_size_slider.text
       for _, player in pairs(game.connected_players) do 
-      	global.main_elements[player.index].trees_size_slider.slider_value = global.current_settings.trees_size 
+      	global.main_elements[player.index].trees_size_slider.text = global.current_settings.trees_size 
       end
   	elseif event.element.index == global.main_elements[event.player_index].trees_frequency_slider.index then
-      	global.current_settings.trees_frequency = global.main_elements[event.player_index].trees_frequency_slider.slider_value
+      	global.current_settings.trees_frequency = global.main_elements[event.player_index].trees_frequency_slider.text
       for _, player in pairs(game.connected_players) do 
-      	global.main_elements[player.index].trees_frequency_slider.slider_value = global.current_settings.trees_frequency 
+      	global.main_elements[player.index].trees_frequency_slider.text = global.current_settings.trees_frequency 
       end
   	elseif event.element.index == global.main_elements[event.player_index].trees_richness_slider.index then
-      	global.current_settings.trees_richness = global.main_elements[event.player_index].trees_richness_slider.slider_value
+      	global.current_settings.trees_richness = global.main_elements[event.player_index].trees_richness_slider.text
       for _, player in pairs(game.connected_players) do 
-      	global.main_elements[player.index].trees_richness_slider.slider_value = global.current_settings.trees_richness 
+      	global.main_elements[player.index].trees_richness_slider.text = global.current_settings.trees_richness 
       end
   	elseif event.element.index == global.main_elements[event.player_index].biter_size_slider.index then
-      	global.current_settings.biter_size = global.main_elements[event.player_index].biter_size_slider.slider_value
+      	global.current_settings.biter_size = global.main_elements[event.player_index].biter_size_slider.text
       for _, player in pairs(game.connected_players) do 
-      	global.main_elements[player.index].biter_size_slider.slider_value = global.current_settings.biter_size 
+      	global.main_elements[player.index].biter_size_slider.text = global.current_settings.biter_size 
       end
   	elseif event.element.index == global.main_elements[event.player_index].biter_frequency_slider.index then
-      	global.current_settings.biter_frequency = global.main_elements[event.player_index].biter_frequency_slider.slider_value
+      	global.current_settings.biter_frequency = global.main_elements[event.player_index].biter_frequency_slider.text
       for _, player in pairs(game.connected_players) do 
-      	global.main_elements[player.index].biter_frequency_slider.slider_value = global.current_settings.biter_frequency 
+      	global.main_elements[player.index].biter_frequency_slider.text = global.current_settings.biter_frequency 
   	  end
   	end
   end
