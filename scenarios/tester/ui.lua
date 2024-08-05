@@ -146,9 +146,9 @@ ui.add_gui_to_player = function(player_index)
   global.main_elements[player_index].preview_button.style.top_margin = 5
   global.main_elements[player_index].preview_button.style.horizontally_stretchable = "on"
 
-    if global.game_state == "in_game" then
-     global.main_elements[event.player_index].lobby_modal.visible = false 
-    end
+  if global.game_state == "in_game" then
+   global.main_elements[player_index].lobby_modal.visible = false 
+  end
 end
 
 script.on_event(defines.events.on_gui_checked_state_changed, 
