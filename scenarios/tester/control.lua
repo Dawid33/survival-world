@@ -55,7 +55,7 @@ end
 
 local function start_vote()
   if global.next_valid_vote_time >= game.tick then
-    game.print(string.format("Please wait 10 minutes before voting again. Cooldown remaining: %s", format_play_time(global.next_valid_vote_time - game.tick)))
+    game.print(string.format("Please wait 10 minutes before voting again. Cooldown remaining: %s", ui.format_play_time(global.next_valid_vote_time - game.tick)))
     return
   end
     
