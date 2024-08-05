@@ -460,6 +460,7 @@ end
 script.on_event(defines.events.on_player_left_game, refresh_all_players_list)
 script.on_event(defines.events.on_player_joined_game, 
   function(event)
+    player = game.get_player(event.player_index)
     if global.game_state == "in_game" then
        global.main_elements[event.player_index].lobby_modal.visible = false 
       if tick_to_finish_voting == nil then 
