@@ -6,6 +6,29 @@ global.current_settings = {
   pitch_black = false,
   shallow_water = false,
   robots = false,
+	iron_size = 3,
+	iron_frequency = 3,
+	iron_richness = 3,
+	copper_size = 3,
+	copper_frequency = 3,
+	copper_richness = 3,
+	coal_size = 3,
+	coal_frequency = 3,
+	coal_richness = 3,
+	stone_size = 3,
+	stone_frequency = 3,
+	stone_richness = 3,
+	oil_size = 3,
+	oil_frequency = 3,
+	oil_richness = 3,
+	uranium_size = 3,
+	uranium_frequency = 3,
+	uranium_richness = 3,
+	trees_size = 1,
+	trees_frequency = 1,
+	trees_richness = 1,
+	biter_size = 6,
+	biter_frequency = 6,
 }
 global.has_player_recieved_robots = {}
 global.game_state  = "in_lobby"
@@ -156,6 +179,7 @@ script.on_event(defines.events.on_gui_click,
       surface.clear()
       for _, player in pairs(game.connected_players) do 
           global.main_elements[player.index].lobby_modal.visible = false
+          player.gui.top.visible = true
       end
     end
   end
@@ -167,9 +191,10 @@ function go_to_lobby()
     game.surfaces[1].clear()
     for _, player in pairs(game.connected_players) do 
       if global.main_elements[player.index] ~= nil then
+        player.gui.top.visible = false
         global.main_elements[player.index].main_dialog.visible = false
         global.main_elements[player.index].lobby_modal.visible = true
-      end 
+        end 
     end 
 end
 
@@ -184,26 +209,29 @@ script.on_event(defines.events.on_surface_cleared,
     	mgs.water = "1"
     	mgs.terrain_segmentation = "1"
     	mgs.starting_area = "big"
-    	mgs.autoplace_controls["iron-ore"].size = "10"
-    	mgs.autoplace_controls["iron-ore"].frequency = "1"
-    	mgs.autoplace_controls["iron-ore"].richness = "1"
-    	mgs.autoplace_controls["copper-ore"].size = "10"
-    	mgs.autoplace_controls["copper-ore"].frequency = "1"
-    	mgs.autoplace_controls["copper-ore"].richness = "1"
-    	mgs.autoplace_controls["coal"].size = "10"
-    	mgs.autoplace_controls["coal"].frequency = "1"
-    	mgs.autoplace_controls["coal"].richness = "1"
-    	mgs.autoplace_controls["stone"].size = "10"
-    	mgs.autoplace_controls["stone"].frequency = "1"
-    	mgs.autoplace_controls["stone"].richness = "1"
-    	mgs.autoplace_controls["crude-oil"].size = "10"
-    	mgs.autoplace_controls["crude-oil"].frequency = "10"
-    	mgs.autoplace_controls["crude-oil"].richness = "0.05"
-    	mgs.autoplace_controls["uranium-ore"].size = "4"
-    	mgs.autoplace_controls["uranium-ore"].frequency = "0.1"
-    	mgs.autoplace_controls["uranium-ore"].richness = "1"
-    	mgs.autoplace_controls["enemy-base"].size = "6"
-    	mgs.autoplace_controls["enemy-base"].frequency = "1"
+    	mgs.autoplace_controls["iron-ore"].size = global.current_settings.iron_size
+    	mgs.autoplace_controls["iron-ore"].frequency = global.current_settings.iron_frequency
+    	mgs.autoplace_controls["iron-ore"].richness = global.current_settings.iron_richness
+    	mgs.autoplace_controls["copper-ore"].size = global.current_settings.copper_size
+    	mgs.autoplace_controls["copper-ore"].frequency = global.current_settings.copper_frequency
+    	mgs.autoplace_controls["copper-ore"].richness = global.current_settings.copper_richness
+    	mgs.autoplace_controls["coal"].size = global.current_settings.coal_size
+    	mgs.autoplace_controls["coal"].frequency = global.current_settings.coal_frequency
+    	mgs.autoplace_controls["coal"].richness = global.current_settings.coal_richness
+    	mgs.autoplace_controls["stone"].size = global.current_settings.stone_size
+    	mgs.autoplace_controls["stone"].frequency = global.current_settings.stone_frequency
+    	mgs.autoplace_controls["stone"].richness = global.current_settings.stone_richness
+    	mgs.autoplace_controls["crude-oil"].size = global.current_settings.oil_size
+    	mgs.autoplace_controls["crude-oil"].frequency = global.current_settings.oil_frequency
+    	mgs.autoplace_controls["crude-oil"].richness = global.current_settings.oil_richness
+    	mgs.autoplace_controls["uranium-ore"].size = global.current_settings.uranium_size
+    	mgs.autoplace_controls["uranium-ore"].frequency = global.current_settings.uranium_frequency
+    	mgs.autoplace_controls["uranium-ore"].richness = global.current_settings.uranium_richness
+    	mgs.autoplace_controls["trees"].size = global.current_settings.trees_size
+    	mgs.autoplace_controls["trees"].frequency = global.current_settings.trees_frequency
+    	mgs.autoplace_controls["trees"].richness = global.current_settings.trees_richness
+    	mgs.autoplace_controls["enemy-base"].size = global.current_settings.biter_size
+    	mgs.autoplace_controls["enemy-base"].frequency = global.current_settings.biter_frequency
     	surface.map_gen_settings = mgs
 
     if global.game_state  == "in_lobby" then
@@ -235,14 +263,14 @@ script.on_event(defines.events.on_surface_cleared,
     		  player.teleport({0,0}, 1)
       end
 
+      local mgs = surface.map_gen_settings 
       if not global.has_seed_changed then
-        local mgs = surface.map_gen_settings 
         mgs.seed = math.random(1111,999999999)
-        mgs.width = 0
-        mgs.height = 0
-        surface.map_gen_settings = mgs
-        global.has_seed_changed = true
+        global.has_seed_changed = false
       end
+      mgs.width = 0
+      mgs.height = 0
+      surface.map_gen_settings = mgs
 
       -- We need to kill all players _before_ the surface is cleared, so that
     	-- their inventory, and crafting queue, end up on the old surface
@@ -330,10 +358,7 @@ end
 
 script.on_event(defines.events.on_player_respawned,
   function(event)
-    print("player respawned: " .. game.get_player(event.player_index).name)
-    print("has_robots ", serpent.line(global.has_player_recieved_robots[event.player_index]))
-    print("settings", serpent.line(global.current_settings))
-	  give_player_items(event.player_index)
+  give_player_items(event.player_index)
   end
 )
 
@@ -437,15 +462,18 @@ script.on_event(defines.events.on_player_joined_game,
   function(event)
     if global.game_state == "in_game" then
        global.main_elements[event.player_index].lobby_modal.visible = false 
-    end
-    if global.game_state == "in_game" then
       if tick_to_finish_voting == nil then 
         global.main_elements[event.player_index].main_dialog.visible = false
         ui.reset_main_ui(event.player_index)
       else
         global.main_elements[player.index].main_dialog.visible = true
       end
+      player.gui.top.visible = true
     end 
+    if global.game_state == "in_lobby" or global.game_state == "in_preview_lobby" then
+        player.gui.top.visible = false
+        global.main_elements[event.player_index].main_dialog.visible = false
+    end
     refresh_all_players_list(event)
   end
 )
@@ -463,6 +491,7 @@ script.on_event(defines.events.on_player_created,
     if global.game_state == "in_game" then
   	  give_player_items(event.player_index)
 	  end
+	  player = game.get_player(event.player_index)
   end
 )
 
