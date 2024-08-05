@@ -288,6 +288,14 @@ script.on_event(defines.events.on_surface_cleared,
         set_normal_daytime(surface)
     	end
 
+    	if global.current_settings.robots == true then
+    	  game.forces["player"].technologies["construction-robotics"].researched = true
+    	  game.forces["player"].technologies["worker-robots-speed-1"].researched = true
+    	  game.forces["player"].technologies["worker-robots-speed-2"].researched = true
+    	  game.forces["player"].technologies["worker-robots-speed-3"].researched = true
+    	  game.forces["player"].technologies["worker-robots-speed-4"].researched = true
+    	end
+
     else 
       log("Failed to reset surface: bad game state")
     end
@@ -296,24 +304,18 @@ script.on_event(defines.events.on_surface_cleared,
 
 function give_player_robots(player)
     player.character.insert{ name = "modular-armor", count = 1 }
-    player.character.insert{ name = "construction-robot", count = 25 }
+    player.character.insert{ name = "construction-robot", count = 10 }
     local armor_inventory = player.character.get_inventory(defines.inventory.character_armor)
     local armor = armor_inventory.find_item_stack("modular-armor")
     local grid = armor.grid
     grid.put({
-        name = "battery-mk2-equipment"
+        name = "personal-roboport-equipment"
     })
-    grid.put({
-        name = "battery-mk2-equipment"
-    })
-    for i=1, 11 do
+    for i=1, 19 do
       grid.put({
           name = "solar-panel-equipment"
       })
     end
-    grid.put({
-        name = "personal-roboport-mk2-equipment"
-    })
 end
 
 script.on_event(defines.events.on_player_respawned,
