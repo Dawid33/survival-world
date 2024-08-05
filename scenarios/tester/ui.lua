@@ -132,6 +132,15 @@ ui.add_gui_to_player = function(player_index)
   global.main_elements[player_index].biter_size_slider = map_settings_content.add{type="slider", minimum_value=0, maximum_value=6, value=global.current_settings.biter_size, style="map_generator_13_notch_slider"}
   global.main_elements[player_index].biter_frequency_slider = map_settings_content.add{type="slider", minimum_value=0, maximum_value=6, value=global.current_settings.biter_frequency, style="map_generator_13_notch_slider"}
 
+  for i, c in pairs(map_settings_content.children) do 
+    if c.type ~= "label" then
+      c.style.top_margin = 4
+      c.style.right_margin = 2
+    else
+      c.style.bottom_margin = 4
+    end
+  end
+
   local presets = tabbed_pane.add{type="tab", caption="Presets"}
   local presets_content = tabbed_pane.add{type="flow", direction="vertical"}
   presets_content.style.padding = 5;
