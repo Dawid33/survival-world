@@ -403,7 +403,7 @@ script.on_nth_tick(
     	local surface = game.surfaces[1]
       game.forces["player"].chart(1, {{-250, -250},{250,250}})
       game.forces["player"].rechart()
-      game.forces["player"].add_chart_tag(1, {position={25, -25}, icon={type="virtual", name="signal-green"}, text="Welcome to Deathworld Survival!"} )
+      game.forces["player"].add_chart_tag(1, {position={25, -25}, icon={type="virtual", name="signal-green"}, text="Deathworld Survival Discord: https://discord.gg/6szRFxDntU"} )
   	end
 
     for _, player in pairs(game.connected_players) do 
