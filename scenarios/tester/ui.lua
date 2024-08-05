@@ -1,6 +1,5 @@
 local mod_gui = require('mod-gui')
 
-
 ui = {}
 
 ui.format_play_time = function (ticks)
@@ -15,8 +14,8 @@ ui.format_play_time = function (ticks)
 end
 
 ui.reset_main_ui = function(player_index)
-      global.main_elements[player_index].vote_frame.visible = false
-      global.main_elements[player_index].reset_button.visible = true
+    global.main_elements[player_index].vote_frame.visible = false
+    global.main_elements[player_index].reset_button.visible = true
 end
 
 ui.add_gui_to_player = function(player_index)

@@ -1,7 +1,5 @@
 ---@diagnostic disable
 local crash_site = require('crash-site')
-local ui = require('ui')
-
 global.main_elements = {}
 global.current_settings = {
   biter_regen = false,
@@ -22,6 +20,8 @@ global.vote_tally = {
   yes = {},
   no = {},
 }
+
+local ui = require('ui')
 
 local function refresh_player_gui(player_index) 
     global.main_elements[player_index].players_content.clear()
@@ -318,18 +318,22 @@ function give_player_robots(player)
     end
 end
 
+function give_player_items(player_index)
+	  local player = game.get_player(player_index)
+  	if global.current_settings.robots and global.has_player_recieved_robots[player_index] == nil or global.has_player_recieved_robots[player_index] == false then
+  	    give_player_robots(player)
+  	    global.has_player_recieved_robots[player_index] = true
+	  end
+    player.character.insert{ name = "pistol", count = 1 }
+    player.character.insert{ name = "firearm-magazine", count = 5 }
+end
+
 script.on_event(defines.events.on_player_respawned,
   function(event)
     print("player respawned: " .. game.get_player(event.player_index).name)
     print("has_robots ", serpent.line(global.has_player_recieved_robots[event.player_index]))
     print("settings", serpent.line(global.current_settings))
-	  local player = game.get_player(event.player_index)
-    	if global.current_settings.robots and global.has_player_recieved_robots[event.player_index] == nil or global.has_player_recieved_robots[event.player_index] == false then
-    	    give_player_robots(player)
-    	    global.has_player_recieved_robots[event.player_index] = true
-  	  end
-      player.character.insert{ name = "pistol", count = 1 }
-      player.character.insert{ name = "firearm-magazine", count = 5 }
+	  give_player_items(event.player_index)
   end
 )
 
@@ -436,8 +440,8 @@ script.on_event(defines.events.on_player_joined_game,
     end
     if global.game_state == "in_game" then
       if tick_to_finish_voting == nil then 
-        global.main_elements[player.index].main_dialog.visible = false
-        ui.reset_main_ui()
+        global.main_elements[event.player_index].main_dialog.visible = false
+        ui.reset_main_ui(event.player_index)
       else
         global.main_elements[player.index].main_dialog.visible = true
       end
@@ -456,6 +460,9 @@ script.on_event(defines.events.on_player_created,
     global.main_elements[event.player_index] = {}
     ui.add_gui_to_player(event.player_index)
     refresh_player_gui(event.player_index)
+    if global.game_state == "in_game" then
+  	  give_player_items(event.player_index)
+	  end
   end
 )
 
