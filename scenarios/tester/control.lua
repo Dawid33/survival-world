@@ -401,12 +401,14 @@ script.on_nth_tick(
   	if not storage.charted_surface then
     	storage.charted_surface = true
     	local surface = game.surfaces[1]
+      game.forces["player"].chart(1, {{-250, -250},{250,250}})
+      game.forces["player"].rechart()
+  	  log("charting surface")
     	if not storage.has_created_discord_link then
+    	  log("creating chart tag")
         game.forces["player"].add_chart_tag(1, {position={0, 0}, icon={type="virtual", name="signal-green"}, text="Discord Link: https://discord.gg/SavhUfjg6K"} )
         storage.has_created_discord_link = true
     	end
-      game.forces["player"].chart(1, {{-250, -250},{250,250}})
-      game.forces["player"].rechart()
   	end
 
     for _, player in pairs(game.connected_players) do 
