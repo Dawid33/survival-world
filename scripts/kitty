@@ -1,0 +1,17 @@
+new_tab code
+layout horizontal
+launch --title "pls-helix" bash 
+
+new_tab terminal 
+layout horizontal 
+launch bash
+
+new_tab terminal-2
+layout horizontal 
+launch bash
+
+new_tab ranger
+enabled_layouts horizontal,stack
+layout horizontal 
+launch ranger
+

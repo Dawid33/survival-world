@@ -1,7 +1,8 @@
 ---@diagnostic disable
 local crash_site = require('crash-site')
-global.main_elements = {}
-global.current_settings = {
+-- Game State
+storage.main_elements = {}
+storage.current_settings = {
   biter_regen = false,
   pitch_black = false,
   shallow_water = false,
@@ -30,13 +31,13 @@ global.current_settings = {
 	biter_size = 6,
 	biter_frequency = 6,
 }
-global.has_player_recieved_robots = {}
-global.game_state  = "in_lobby"
-global.has_seed_changed = false
-global.charted_surface = false
-global.biter_regen_odds = 2
-global.next_valid_vote_time = 0
-global.vote_tally = {
+storage.has_player_recieved_robots = {}
+storage.game_state  = "in_lobby"
+storage.has_seed_changed = false
+storage.charted_surface = false
+storage.biter_regen_odds = 2
+storage.next_valid_vote_time = 0
+storage.vote_tally = {
   tick_to_finish_voting = nil,
   yes_total = 0,
   no_total = 0,
@@ -47,62 +48,62 @@ global.vote_tally = {
 local ui = require('ui')
 
 local function refresh_player_gui(player_index) 
-    global.main_elements[player_index].players_content.clear()
+    storage.main_elements[player_index].players_content.clear()
     for _, player in pairs(game.connected_players) do 
-      global.main_elements[player_index].players_content.add{type="label", caption=player.name}
+      storage.main_elements[player_index].players_content.add{type="label", caption=player.name}
     end
 end
 
 local function start_vote()
-  if global.next_valid_vote_time >= game.tick then
-    game.print(string.format("Please wait 10 minutes before voting again. Cooldown remaining: %s", ui.format_play_time(global.next_valid_vote_time - game.tick)))
+  if storage.next_valid_vote_time >= game.tick then
+    game.print(string.format("Please wait 10 minutes before voting again. Cooldown remaining: %s", ui.format_play_time(storage.next_valid_vote_time - game.tick)))
     return
   end
     
-  for _, elements in pairs(global.main_elements) do
-    global.next_valid_vote_time = game.tick + 36000
-    global.vote_tally.tick_to_finish_voting = game.tick + 3600
+  for _, elements in pairs(storage.main_elements) do
+    storage.next_valid_vote_time = game.tick + 36000
+    storage.vote_tally.tick_to_finish_voting = game.tick + 3600
     elements.reset_button.visible = false
     elements.vote_frame.visible = true
     elements.main_dialog.visible = true
     elements.vote_frame.visible = true
-    elements.vote_results.caption = string.format("Yes/No: %d/%d, Time Remaining: %s", global.vote_tally.yes_total, global.vote_tally.no_total, ui.format_play_time(global.vote_tally.tick_to_finish_voting - game.tick))
+    elements.vote_results.caption = string.format("Yes/No: %d/%d, Time Remaining: %s", storage.vote_tally.yes_total, storage.vote_tally.no_total, ui.format_play_time(storage.vote_tally.tick_to_finish_voting - game.tick))
   end
 end
 
 local function vote(value, player_index)
   if value == true then
-    if global.vote_tally.yes[player_index] == nil then
-      global.vote_tally.yes[player_index] = game.get_player(player_index).name
-      global.vote_tally.yes_total = global.vote_tally.yes_total + 1
+    if storage.vote_tally.yes[player_index] == nil then
+      storage.vote_tally.yes[player_index] = game.get_player(player_index).name
+      storage.vote_tally.yes_total = storage.vote_tally.yes_total + 1
     end
-    if global.vote_tally.no[player_index] ~= nil then 
-      global.vote_tally.no_total = global.vote_tally.no_total - 1
+    if storage.vote_tally.no[player_index] ~= nil then 
+      storage.vote_tally.no_total = storage.vote_tally.no_total - 1
     end
-    global.vote_tally.no[player_index] = nil
+    storage.vote_tally.no[player_index] = nil
   elseif value == false then
-    if global.vote_tally.no[player_index] == nil then
-      global.vote_tally.no[player_index] = game.get_player(player_index).name
-      global.vote_tally.no_total = global.vote_tally.no_total + 1
+    if storage.vote_tally.no[player_index] == nil then
+      storage.vote_tally.no[player_index] = game.get_player(player_index).name
+      storage.vote_tally.no_total = storage.vote_tally.no_total + 1
     end
-    if global.vote_tally.yes[player_index] ~= nil then 
-      global.vote_tally.yes_total = global.vote_tally.yes_total - 1
+    if storage.vote_tally.yes[player_index] ~= nil then 
+      storage.vote_tally.yes_total = storage.vote_tally.yes_total - 1
     end
-    global.vote_tally.yes[player_index] = nil
+    storage.vote_tally.yes[player_index] = nil
   elseif value == nil then
-    if global.vote_tally.yes[player_index] ~= nil then 
-      global.vote_tally.yes_total = global.vote_tally.yes_total - 1
+    if storage.vote_tally.yes[player_index] ~= nil then 
+      storage.vote_tally.yes_total = storage.vote_tally.yes_total - 1
     end
-    if global.vote_tally.no[player_index] ~= nil then 
-      global.vote_tally.no_total = global.vote_tally.no_total - 1
+    if storage.vote_tally.no[player_index] ~= nil then 
+      storage.vote_tally.no_total = storage.vote_tally.no_total - 1
     end
-    global.vote_tally.yes[player_index] = nil
-    global.vote_tally.no[player_index] = nil
+    storage.vote_tally.yes[player_index] = nil
+    storage.vote_tally.no[player_index] = nil
   end
 
-  if global.vote_tally.tick_to_finish_voting ~= nil and global.vote_tally.tick_to_finish_voting > game.tick then
+  if storage.vote_tally.tick_to_finish_voting ~= nil and storage.vote_tally.tick_to_finish_voting > game.tick then
     for _, player in pairs(game.connected_players) do 
-        global.main_elements[player.index].vote_results.caption = string.format("Yes/No: %d/%d, Time Remaining: %s", global.vote_tally.yes_total, global.vote_tally.no_total, ui.format_play_time(global.vote_tally.tick_to_finish_voting - game.tick))
+        storage.main_elements[player.index].vote_results.caption = string.format("Yes/No: %d/%d, Time Remaining: %s", storage.vote_tally.yes_total, storage.vote_tally.no_total, ui.format_play_time(storage.vote_tally.tick_to_finish_voting - game.tick))
     end
   end
 end
@@ -118,21 +119,21 @@ local function end_vote(value, player_index)
     end
     local half = math.ceil(0.5 * player_count)
     print("half: ", half)
-    if global.vote_tally.yes_total > global.vote_tally.no_total and global.vote_tally.yes_total >= half then
+    if storage.vote_tally.yes_total > storage.vote_tally.no_total and storage.vote_tally.yes_total >= half then
       result = "Yes majority of all players. Reseting..."
       go_to_lobby()
-      global.next_valid_vote_time = game.tick
-    elseif global.vote_tally.yes_total == global.vote_tally.no_total then
+      storage.next_valid_vote_time = game.tick
+    elseif storage.vote_tally.yes_total == storage.vote_tally.no_total then
       result = "Its a tie. Not reseting."
     else
       result = "No majority of all players. Not reseting."
     end
-    game.print(string.format("Vote Results: %d/%d. %s", global.vote_tally.yes_total, global.vote_tally.no_total,  result))
-    global.vote_tally.tick_to_finish_voting = nil
-    global.vote_tally.yes = {}
-    global.vote_tally.no = {}
-    global.vote_tally.yes_total = 0
-    global.vote_tally.no_total = 0
+    game.print(string.format("Vote Results: %d/%d. %s", storage.vote_tally.yes_total, storage.vote_tally.no_total,  result))
+    storage.vote_tally.tick_to_finish_voting = nil
+    storage.vote_tally.yes = {}
+    storage.vote_tally.no = {}
+    storage.vote_tally.yes_total = 0
+    storage.vote_tally.no_total = 0
 end
 
 local function set_normal_daytime(surface)
@@ -150,8 +151,8 @@ end
 script.on_event(defines.events.on_gui_click, 
   function(event)
     if event.element.name == "interface_toggle" then
-      if global.game_state == "in_game" then
-        local main_dialog = global.main_elements[event.player_index].main_dialog
+      if storage.game_state == "in_game" then
+        local main_dialog = storage.main_elements[event.player_index].main_dialog
         if main_dialog.visible then
           main_dialog.visible = false
         else 
@@ -160,8 +161,8 @@ script.on_event(defines.events.on_gui_click,
       end
     elseif event.element.name == "preview_button" then
       game.print(game.get_player(event.player_index).name .. " changed the seed.")
-      global.has_seed_changed = true
-      global.game_state = "in_preview_lobby"
+      storage.has_seed_changed = true
+      storage.game_state = "in_preview_lobby"
       game.surfaces[1].clear()
     elseif event.element.name == "no_button" then
       vote(false, event.player_index)
@@ -173,12 +174,12 @@ script.on_event(defines.events.on_gui_click,
       start_vote()
     elseif event.element.name == "start_button" then
       game.print(game.get_player(event.player_index).name .. " started the game.")
-      global.game_state  = "in_game"
+      storage.game_state  = "in_game"
       local surface = game.surfaces[1]
 
       surface.clear()
       for _, player in pairs(game.connected_players) do 
-          global.main_elements[player.index].lobby_modal.visible = false
+          storage.main_elements[player.index].lobby_modal.visible = false
           player.gui.top.visible = true
       end
     end
@@ -186,14 +187,14 @@ script.on_event(defines.events.on_gui_click,
 )
 
 function go_to_lobby()
-    global.has_seed_changed = false
-    global.game_state = "in_lobby"
+    storage.has_seed_changed = false
+    storage.game_state = "in_lobby"
     game.surfaces[1].clear()
     for _, player in pairs(game.connected_players) do 
-      if global.main_elements[player.index] ~= nil then
+      if storage.main_elements[player.index] ~= nil then
         player.gui.top.visible = false
-        global.main_elements[player.index].main_dialog.visible = false
-        global.main_elements[player.index].lobby_modal.visible = true
+        storage.main_elements[player.index].main_dialog.visible = false
+        storage.main_elements[player.index].lobby_modal.visible = true
         end 
     end 
 end
@@ -201,40 +202,40 @@ end
 script.on_event(defines.events.on_surface_cleared,
   function(event)
       local surface = game.surfaces[1]
-  		global.charted_surface = false
-      global.has_player_recieved_robots = {}
+  		storage.charted_surface = false
+      storage.has_player_recieved_robots = {}
       set_normal_daytime(surface)
 
       local mgs = surface.map_gen_settings 
     	mgs.water = "1"
     	mgs.terrain_segmentation = "1"
     	mgs.starting_area = "big"
-    	mgs.autoplace_controls["iron-ore"].size = global.current_settings.iron_size
-    	mgs.autoplace_controls["iron-ore"].frequency = global.current_settings.iron_frequency
-    	mgs.autoplace_controls["iron-ore"].richness = global.current_settings.iron_richness
-    	mgs.autoplace_controls["copper-ore"].size = global.current_settings.copper_size
-    	mgs.autoplace_controls["copper-ore"].frequency = global.current_settings.copper_frequency
-    	mgs.autoplace_controls["copper-ore"].richness = global.current_settings.copper_richness
-    	mgs.autoplace_controls["coal"].size = global.current_settings.coal_size
-    	mgs.autoplace_controls["coal"].frequency = global.current_settings.coal_frequency
-    	mgs.autoplace_controls["coal"].richness = global.current_settings.coal_richness
-    	mgs.autoplace_controls["stone"].size = global.current_settings.stone_size
-    	mgs.autoplace_controls["stone"].frequency = global.current_settings.stone_frequency
-    	mgs.autoplace_controls["stone"].richness = global.current_settings.stone_richness
-    	mgs.autoplace_controls["crude-oil"].size = global.current_settings.oil_size
-    	mgs.autoplace_controls["crude-oil"].frequency = global.current_settings.oil_frequency
-    	mgs.autoplace_controls["crude-oil"].richness = global.current_settings.oil_richness
-    	mgs.autoplace_controls["uranium-ore"].size = global.current_settings.uranium_size
-    	mgs.autoplace_controls["uranium-ore"].frequency = global.current_settings.uranium_frequency
-    	mgs.autoplace_controls["uranium-ore"].richness = global.current_settings.uranium_richness
-    	mgs.autoplace_controls["trees"].size = global.current_settings.trees_size
-    	mgs.autoplace_controls["trees"].frequency = global.current_settings.trees_frequency
-    	mgs.autoplace_controls["trees"].richness = global.current_settings.trees_richness
-    	mgs.autoplace_controls["enemy-base"].size = global.current_settings.biter_size
-    	mgs.autoplace_controls["enemy-base"].frequency = global.current_settings.biter_frequency
+    	mgs.autoplace_controls["iron-ore"].size = storage.current_settings.iron_size
+    	mgs.autoplace_controls["iron-ore"].frequency = storage.current_settings.iron_frequency
+    	mgs.autoplace_controls["iron-ore"].richness = storage.current_settings.iron_richness
+    	mgs.autoplace_controls["copper-ore"].size = storage.current_settings.copper_size
+    	mgs.autoplace_controls["copper-ore"].frequency = storage.current_settings.copper_frequency
+    	mgs.autoplace_controls["copper-ore"].richness = storage.current_settings.copper_richness
+    	mgs.autoplace_controls["coal"].size = storage.current_settings.coal_size
+    	mgs.autoplace_controls["coal"].frequency = storage.current_settings.coal_frequency
+    	mgs.autoplace_controls["coal"].richness = storage.current_settings.coal_richness
+    	mgs.autoplace_controls["stone"].size = storage.current_settings.stone_size
+    	mgs.autoplace_controls["stone"].frequency = storage.current_settings.stone_frequency
+    	mgs.autoplace_controls["stone"].richness = storage.current_settings.stone_richness
+    	mgs.autoplace_controls["crude-oil"].size = storage.current_settings.oil_size
+    	mgs.autoplace_controls["crude-oil"].frequency = storage.current_settings.oil_frequency
+    	mgs.autoplace_controls["crude-oil"].richness = storage.current_settings.oil_richness
+    	mgs.autoplace_controls["uranium-ore"].size = storage.current_settings.uranium_size
+    	mgs.autoplace_controls["uranium-ore"].frequency = storage.current_settings.uranium_frequency
+    	mgs.autoplace_controls["uranium-ore"].richness = storage.current_settings.uranium_richness
+    	mgs.autoplace_controls["trees"].size = storage.current_settings.trees_size
+    	mgs.autoplace_controls["trees"].frequency = storage.current_settings.trees_frequency
+    	mgs.autoplace_controls["trees"].richness = storage.current_settings.trees_richness
+    	mgs.autoplace_controls["enemy-base"].size = storage.current_settings.biter_size
+    	mgs.autoplace_controls["enemy-base"].frequency = storage.current_settings.biter_frequency
     	surface.map_gen_settings = mgs
 
-    if global.game_state  == "in_lobby" then
+    if storage.game_state  == "in_lobby" then
         local mgs = surface.map_gen_settings 
         mgs.seed = math.random(1111,999999999)
         mgs.width = 1
@@ -249,7 +250,7 @@ script.on_event(defines.events.on_surface_cleared,
       			player.character.destroy()
       		end
       	end
-    elseif global.game_state  == "in_preview_lobby" then
+    elseif storage.game_state  == "in_preview_lobby" then
      	game.reset_time_played()
       local mgs = surface.map_gen_settings 
       mgs.seed = math.random(1111,999999999)
@@ -258,15 +259,15 @@ script.on_event(defines.events.on_surface_cleared,
       surface.map_gen_settings = mgs
       surface.request_to_generate_chunks({0, 0}, 10)
       surface.force_generate_chunk_requests()
-    elseif global.game_state  == "in_game" then
+    elseif storage.game_state  == "in_game" then
     	for _, player in pairs(game.players) do
     		  player.teleport({0,0}, 1)
       end
 
       local mgs = surface.map_gen_settings 
-      if not global.has_seed_changed then
+      if not storage.has_seed_changed then
         mgs.seed = math.random(1111,999999999)
-        global.has_seed_changed = false
+        storage.has_seed_changed = false
       end
       mgs.width = 0
       mgs.height = 0
@@ -292,18 +293,16 @@ script.on_event(defines.events.on_surface_cleared,
       game.reset_game_state()
     	game.forces["enemy"].reset()
     	game.forces["enemy"].reset_evolution()
-    	game.pollution_statistics.clear()
-    	game.forces["player"].research_queue_enabled = true
+    	game.get_pollution_statistics(game.surfaces[1]).clear()
     	game.forces["player"].max_failed_attempts_per_tick_per_construction_queue = 2
     	game.forces["player"].max_successful_attempts_per_tick_per_construction_queue = 6
     	game.difficulty_settings.technology_price_multiplier = 1
-    	game.difficulty_settings.recipe_difficulty = 0
     	surface.solar_power_multiplier = 1
     	local ship_items = 	{ ["firearm-magazine"] = 30, ["gun-turret"] = 2 }
     	local debris_items = { ["iron-plate"] = 8, ["burner-mining-drill"] = 15, ["stone-furnace"] = 15 }
     	crash_site.create_crash_site(surface, {-5,-6}, ship_items, debris_items, crash_site.default_ship_parts())
 
-    	if global.current_settings.pitch_black then
+    	if storage.current_settings.pitch_black then
     		surface.brightness_visual_weights = { 1, 1, 1 }
     		surface.min_brightness = 0
     		surface.dawn = 0.80
@@ -316,7 +315,7 @@ script.on_event(defines.events.on_surface_cleared,
         set_normal_daytime(surface)
     	end
 
-    	if global.current_settings.robots == true then
+    	if storage.current_settings.robots == true then
     	  game.forces["player"].technologies["construction-robotics"].researched = true
     	  game.forces["player"].technologies["worker-robots-speed-1"].researched = true
     	  game.forces["player"].technologies["worker-robots-speed-2"].researched = true
@@ -348,9 +347,9 @@ end
 
 function give_player_items(player_index)
 	  local player = game.get_player(player_index)
-  	if global.current_settings.robots and global.has_player_recieved_robots[player_index] == nil or global.has_player_recieved_robots[player_index] == false then
+  	if storage.current_settings.robots and storage.has_player_recieved_robots[player_index] == nil or storage.has_player_recieved_robots[player_index] == false then
   	    give_player_robots(player)
-  	    global.has_player_recieved_robots[player_index] = true
+  	    storage.has_player_recieved_robots[player_index] = true
 	  end
     player.character.insert{ name = "pistol", count = 1 }
     player.character.insert{ name = "firearm-magazine", count = 5 }
@@ -365,7 +364,7 @@ script.on_event(defines.events.on_player_respawned,
 script.set_event_filter(defines.events.on_entity_damaged, {{filter = "type", type = "unit"}, {filter = "final-health", comparison = "=", value = 0, mode = "and"}})
 script.on_event(defines.events.on_entity_damaged,
 function(event)
-	if global.current_settings.biter_regen and event.final_health <= 0 and event.entity.name == "medium-biter" and math.random(1, global.biter_regen_odds) ~= global.biter_regen_odds then
+	if storage.current_settings.biter_regen and event.final_health <= 0 and event.entity.name == "medium-biter" and math.random(1, storage.biter_regen_odds) ~= storage.biter_regen_odds then
 		event.entity.health = 3000
 	end
 end
@@ -375,13 +374,13 @@ end
 script.on_nth_tick(
   36000,
   function(event)
-    if global.game_state == "in_game" then
+    if storage.game_state == "in_game" then
     	if game.ticks_played > 36288000 then
     		game.print("Game has reached its maximum playtime of 7 days.")
     	  go_to_lobby()
     	end
 
-    	if global.current_settings.biter_regen then 
+    	if storage.current_settings.biter_regen then 
     	  -- TODO: Test this scaling.
       	-- local red_sci = game.forces["player"].item_production_statistics.get_output_count "automation-science-pack" * 3
       	-- local green_sci = game.forces["player"].item_production_statistics.get_output_count "logistic-science-pack" * 7
@@ -389,7 +388,7 @@ script.on_nth_tick(
       	-- local purple_sci = game.forces["player"].item_production_statistics.get_output_count "production-science-pack" * 155
       	-- local yellow_sci = game.forces["player"].item_production_statistics.get_output_count "utility-science-pack" * 195
       	-- local adjusted_sci = math.ceil(math.min((((red_sci + green_sci + blue_sci + purple_sci + yellow_sci) * 0.0001) + 1.5), 77))
-      	-- global.biter_hp = math.max(adjusted_sci + math.ceil(math.max(((game.ticks_played - 1296000) * 0.00002777), 0)), 2)
+      	-- storage.biter_hp = math.max(adjusted_sci + math.ceil(math.max(((game.ticks_played - 1296000) * 0.00002777), 0)), 2)
     	end
   	end
   end
@@ -398,8 +397,8 @@ script.on_nth_tick(
 script.on_nth_tick(
   60,
   function(event)
-  	if not global.charted_surface then
-    	global.charted_surface = true
+  	if not storage.charted_surface then
+    	storage.charted_surface = true
     	local surface = game.surfaces[1]
       game.forces["player"].chart(1, {{-250, -250},{250,250}})
       game.forces["player"].rechart()
@@ -407,17 +406,17 @@ script.on_nth_tick(
   	end
 
     for _, player in pairs(game.connected_players) do 
-      if global.vote_tally.tick_to_finish_voting ~= nil then
-        if global.vote_tally.tick_to_finish_voting <= game.tick then
+      if storage.vote_tally.tick_to_finish_voting ~= nil then
+        if storage.vote_tally.tick_to_finish_voting <= game.tick then
             end_vote()
         else
-            global.main_elements[player.index].vote_results.caption = string.format("Yes/No: %d/%d, Time Remaining: %s", global.vote_tally.yes_total, global.vote_tally.no_total, ui.format_play_time(global.vote_tally.tick_to_finish_voting - game.tick))
+            storage.main_elements[player.index].vote_results.caption = string.format("Yes/No: %d/%d, Time Remaining: %s", storage.vote_tally.yes_total, storage.vote_tally.no_total, ui.format_play_time(storage.vote_tally.tick_to_finish_voting - game.tick))
         end
       end
-      if global.main_elements[player.index] ~= nil then
-        local percent_evo_factor = game.forces.enemy.evolution_factor * 100
-        global.main_elements[player.index].evo_value.caption = string.format("%.1f%%", percent_evo_factor)
-        global.main_elements[player.index].time_value.caption = ui.format_play_time(game.ticks_played) 
+      if storage.main_elements[player.index] ~= nil then
+        local percent_evo_factor = game.forces.enemy.get_evolution_factor(game.surfaces[1]) * 100
+        storage.main_elements[player.index].evo_value.caption = string.format("%.1f%%", percent_evo_factor)
+        storage.main_elements[player.index].time_value.caption = ui.format_play_time(game.ticks_played) 
       end
     end
   end
@@ -426,7 +425,7 @@ script.on_nth_tick(
 script.on_event(defines.events.on_chunk_generated, 
   function(event)
     -- Convert all water to shallow water
-    if global.current_settings.shallow_water then
+    if storage.current_settings.shallow_water then
     	local surface = game.surfaces[1]
     	local set_water_shallow = {}
     	local set_water_mud = {}
@@ -461,19 +460,19 @@ script.on_event(defines.events.on_player_left_game, refresh_all_players_list)
 script.on_event(defines.events.on_player_joined_game, 
   function(event)
     player = game.get_player(event.player_index)
-    if global.game_state == "in_game" then
-       global.main_elements[event.player_index].lobby_modal.visible = false 
+    if storage.game_state == "in_game" then
+       storage.main_elements[event.player_index].lobby_modal.visible = false 
       if tick_to_finish_voting == nil then 
-        global.main_elements[event.player_index].main_dialog.visible = false
+        storage.main_elements[event.player_index].main_dialog.visible = false
         ui.reset_main_ui(event.player_index)
       else
-        global.main_elements[player.index].main_dialog.visible = true
+        storage.main_elements[player.index].main_dialog.visible = true
       end
       player.gui.top.visible = true
     end 
-    if global.game_state == "in_lobby" or global.game_state == "in_preview_lobby" then
+    if storage.game_state == "in_lobby" or storage.game_state == "in_preview_lobby" then
         player.gui.top.visible = false
-        global.main_elements[event.player_index].main_dialog.visible = false
+        storage.main_elements[event.player_index].main_dialog.visible = false
     end
     refresh_all_players_list(event)
   end
@@ -486,10 +485,10 @@ script.on_event(defines.events.on_unit_group_finished_gathering,
 
 script.on_event(defines.events.on_player_created,
   function(event)
-    global.main_elements[event.player_index] = {}
+    storage.main_elements[event.player_index] = {}
     ui.add_gui_to_player(event.player_index)
     refresh_player_gui(event.player_index)
-    if global.game_state == "in_game" then
+    if storage.game_state == "in_game" then
   	  give_player_items(event.player_index)
 	  end
 	  player = game.get_player(event.player_index)
@@ -502,6 +501,14 @@ end)
 
 script.on_init(function()
     log("Initialising Scenario for the first time (on_init)")
+    log("**************************************************")
+    local list = {}
+    local num = 0
+
+    local info = prototypes.style -- you can use it
+    --local info = defines 	-- you can use it
+
+      log( serpent.line(list) )
   	game.map_settings.enemy_evolution.destroy_factor = 0
   	game.map_settings.enemy_evolution.pollution_factor = 0
   	game.map_settings.enemy_evolution.time_factor = 0.00004
@@ -522,3 +529,16 @@ script.on_init(function()
     surface.clear()
 end)
 
+
+function dump(o)
+   if type(o) == 'table' then
+      local s = '{ '
+      for k,v in pairs(o) do
+         if type(k) ~= 'number' then k = '"'..k..'"' end
+         s = s .. '['..k..'] = ' .. dump(v) .. ','
+      end
+      return s .. '} '
+   else
+      return tostring(o)
+   end
+end

@@ -5,7 +5,7 @@ ARG CURL_RETRIES=8
 
 ENV PORT=34197 \
     RCON_PORT=27015 \
-    VERSION=1.1.109 \
+    VERSION=2.0.42 \
     SAVES=/factorio/saves \
     CONFIG=/factorio/config \
     SCRIPTOUTPUT=/factorio/script-output
@@ -15,7 +15,7 @@ RUN set -ox pipefail \
     && archive="/tmp/factorio_headless_x64_$VERSION.tar.xz" \
     && mkdir -p /opt/factorio \
     && apt-get -q update \
-    && DEBIAN_FRONTEND=noninteractive apt-get -qy install ca-certificates curl jq pwgen xz-utils procps gettext-base --no-install-recommends \
+    && DEBIAN_FRONTEND=noninteractive apt-get -qy install luarocks ca-certificates curl jq pwgen xz-utils procps gettext-base --no-install-recommends \
     && curl -sSL "https://www.factorio.com/get-download/$VERSION/headless/linux64" -o "$archive" --retry $CURL_RETRIES\
     && tar xf "$archive" --directory /opt \
     && chmod ugo=rwx /opt/factorio \
