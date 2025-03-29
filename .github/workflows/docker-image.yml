@@ -16,7 +16,7 @@ jobs:
     - uses: actions/checkout@v4
     - name: Build the Docker image
       run: |
-        docker build . --file Dockerfile --tag survival-world:latest
+        docker build . --file Dockerfile --tag ghcr.io/dawid33/survival-world
         docker push ghcr.io/dawid33/survival-world:latest
       
     
