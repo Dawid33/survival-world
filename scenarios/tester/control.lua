@@ -31,6 +31,7 @@ storage.current_settings = {
 	biter_size = 6,
 	biter_frequency = 6,
 }
+storage.create_discord_link = 0
 storage.has_player_recieved_robots = {}
 storage.game_state  = "in_lobby"
 storage.has_seed_changed = false
@@ -402,8 +403,14 @@ script.on_nth_tick(
     	local surface = game.surfaces[1]
       game.forces["player"].chart(1, {{-250, -250},{250,250}})
       game.forces["player"].rechart()
-      game.forces["player"].add_chart_tag(1, {position={25, -25}, icon={type="virtual", name="signal-green"}, text="Discord Link: https://discord.gg/SavhUfjg6K"} )
   	end
+
+  	if not storage.created_discord_link then
+      tag = game.forces["player"].add_chart_tag(1, {position={25, -25}, icon={type="virtual", name="signal-green"}, text="Discord Link: https://discord.gg/SavhUfjg6K"} )
+      if tag ~= nil then
+        storage.create_discord_link = true
+      end
+    end
 
     for _, player in pairs(game.connected_players) do 
       if storage.vote_tally.tick_to_finish_voting ~= nil then
