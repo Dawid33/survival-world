@@ -14,8 +14,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - name: Build the Docker image
+    - name: Build and Push Docker Image
       run: |
+        docker login --username dawid33 --password ${{ secrets.GH_PAT }} ghcr.io
         docker build . --file Dockerfile --tag ghcr.io/dawid33/survival-world
         docker push ghcr.io/dawid33/survival-world:latest
       
