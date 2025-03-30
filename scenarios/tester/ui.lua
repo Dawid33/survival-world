@@ -182,157 +182,157 @@ ui.add_gui_to_player = function(player_index)
   end
 end
 
--- script.on_event(defines.events.on_gui_checked_state_changed, 
---   function(event)
---     if event.element.name == "biter_regen_checkbox" then
---       -- storage.current_settings.biter_regen =  event.element.state
---       game.print(game.get_player(event.player_index).name .. " toggled biter regen.")
+script.on_event(defines.events.on_gui_checked_state_changed, 
+  function(event)
+    if event.element.name == "biter_regen_checkbox" then
+      storage.current_settings.biter_regen =  event.element.state
+      game.print(game.get_player(event.player_index).name .. " toggled biter regen.")
 
---       for _, player in pairs(game.connected_players) do 
---         -- storage.main_elements[player.index].biter_regen_checkbox.state = event.element.state
---       end
---     elseif event.element.name == "pitch_black_checkbox" then
---       -- storage.current_settings.pitch_black =  event.element.state
---       game.print(game.get_player(event.player_index).name .. " toggled pitch black.")
+      for _, player in pairs(game.connected_players) do 
+        storage.main_elements[player.index].biter_regen_checkbox.state = event.element.state
+      end
+    elseif event.element.name == "pitch_black_checkbox" then
+      storage.current_settings.pitch_black =  event.element.state
+      game.print(game.get_player(event.player_index).name .. " toggled pitch black.")
 
---       for _, player in pairs(game.connected_players) do 
---         -- storage.main_elements[player.index].pitch_black_checkbox.state = event.element.state
---       end
---     elseif event.element.name == "robots_checkbox" then
---       -- storage.current_settings.robots = event.element.state
---       game.print(game.get_player(event.player_index).name .. " toggled construction robot start.")
+      for _, player in pairs(game.connected_players) do 
+        storage.main_elements[player.index].pitch_black_checkbox.state = event.element.state
+      end
+    elseif event.element.name == "robots_checkbox" then
+      storage.current_settings.robots = event.element.state
+      game.print(game.get_player(event.player_index).name .. " toggled construction robot start.")
 
---     elseif event.element.name == "shallow_water_checkbox" then
---       game.print(game.get_player(event.player_index).name .. " toggled shallow water.")
---       -- storage.current_settings.shallow_water = event.element.state
+    elseif event.element.name == "shallow_water_checkbox" then
+      game.print(game.get_player(event.player_index).name .. " toggled shallow water.")
+      storage.current_settings.shallow_water = event.element.state
 
---       for _, player in pairs(game.connected_players) do 
---         -- storage.main_elements[player.index].shallow_water_checkbox .state = event.element.state
---       end
---     end
+      for _, player in pairs(game.connected_players) do 
+        storage.main_elements[player.index].shallow_water_checkbox .state = event.element.state
+      end
+    end
 
---   end
--- )
+  end
+)
 
--- script.on_event(defines.events.on_gui_text_changed, 
---   function(event)
---     if event.element.index == storage.main_elements[event.player_index].iron_size_slider.index then
---       -- storage.current_settings.iron_size = storage.main_elements[event.player_index].iron_size_slider.text
---       for _, player in pairs(game.connected_players) do 
---       	-- storage.main_elements[player.index].iron_size_slider.text = storage.current_settings.iron_size 
---       end
---   	elseif event.element.index == storage.main_elements[event.player_index].iron_frequency_slider.index then
---     	-- storage.current_settings.iron_frequency = storage.main_elements[event.player_index].iron_frequency_slider.text
---       for _, player in pairs(game.connected_players) do 
---       	-- storage.main_elements[player.index].iron_frequency_slider.text = storage.current_settings.iron_frequency 
---       end
---   	elseif event.element.index == storage.main_elements[event.player_index].iron_richness_slider.index then
---     	storage.current_settings.iron_richness = storage.main_elements[event.player_index].iron_richness_slider.text
---       for _, player in pairs(game.connected_players) do 
---       	storage.main_elements[player.index].iron_richness_slider.text = storage.current_settings.iron_richness 
---       end
---   	elseif event.element.index == storage.main_elements[event.player_index].copper_size_slider.index then
---     	storage.current_settings.copper_size = storage.main_elements[event.player_index].copper_size_slider.text
---       for _, player in pairs(game.connected_players) do 
---       	storage.main_elements[player.index].copper_size_slider.text = storage.current_settings.copper_size 
---       end
---   	elseif event.element.index == storage.main_elements[event.player_index].copper_frequency_slider.index then
---       	storage.current_settings.copper_frequency = storage.main_elements[event.player_index].copper_frequency_slider.text
---       for _, player in pairs(game.connected_players) do 
---       	storage.main_elements[player.index].copper_frequency_slider.text = storage.current_settings.copper_frequency 
---       end
---   	elseif event.element.index == storage.main_elements[event.player_index].copper_richness_slider.index then
---       	storage.current_settings.copper_richness = storage.main_elements[event.player_index].copper_richness_slider.text
---       for _, player in pairs(game.connected_players) do 
---       	storage.main_elements[player.index].copper_richness_slider.text = storage.current_settings.copper_richness 
---       end
---   	elseif event.element.index == storage.main_elements[event.player_index].coal_size_slider.index then
---       	storage.current_settings.coal_size = storage.main_elements[event.player_index].coal_size_slider.text
---       for _, player in pairs(game.connected_players) do 
---       	storage.main_elements[player.index].coal_size_slider.text = storage.current_settings.coal_size 
---       end
---   	elseif event.element.index == storage.main_elements[event.player_index].coal_frequency_slider.index then
---       storage.current_settings.coal_frequency = storage.main_elements[event.player_index].coal_frequency_slider.text
---       for _, player in pairs(game.connected_players) do 
---       	storage.main_elements[player.index].coal_frequency_slider.text = storage.current_settings.coal_frequency 
---       end
---   	elseif event.element.index == storage.main_elements[event.player_index].coal_richness_slider.index then
---       	storage.current_settings.coal_richness = storage.main_elements[event.player_index].coal_richness_slider.text
---       for _, player in pairs(game.connected_players) do 
---       	storage.main_elements[player.index].coal_richness_slider.text = storage.current_settings.coal_richness 
---       end
---   	elseif event.element.index == storage.main_elements[event.player_index].stone_size_slider.index then
---       	storage.current_settings.stone_size = storage.main_elements[event.player_index].stone_size_slider.text
---       for _, player in pairs(game.connected_players) do 
---       	storage.main_elements[player.index].stone_size_slider.text = storage.current_settings.stone_size 
---       end
---   	elseif event.element.index == storage.main_elements[event.player_index].stone_frequency_slider.index then
---       	storage.current_settings.stone_frequency = storage.main_elements[event.player_index].stone_frequency_slider.text
---       for _, player in pairs(game.connected_players) do 
---       	storage.main_elements[player.index].stone_frequency_slider.text = storage.current_settings.stone_frequency 
---       end
---   	elseif event.element.index == storage.main_elements[event.player_index].stone_richness_slider.index then
---       	storage.current_settings.stone_richness = storage.main_elements[event.player_index].stone_richness_slider.text
---       for _, player in pairs(game.connected_players) do 
---       	storage.main_elements[player.index].stone_richness_slider.text = storage.current_settings.stone_richness 
---       end
---   	elseif event.element.index == storage.main_elements[event.player_index].oil_size_slider.index then
---       	storage.current_settings.oil_size = storage.main_elements[event.player_index].oil_size_slider.text
---       for _, player in pairs(game.connected_players) do 
---       	storage.main_elements[player.index].oil_size_slider.text = storage.current_settings.oil_size 
---       end
---   	elseif event.element.index == storage.main_elements[event.player_index].oil_frequency_slider.index then
---       	storage.current_settings.oil_frequency = storage.main_elements[event.player_index].oil_frequency_slider.text
---       for _, player in pairs(game.connected_players) do 
---       	storage.main_elements[player.index].oil_frequency_slider.text = storage.current_settings.oil_frequency 
---       end
---   	elseif event.element.index == storage.main_elements[event.player_index].oil_richness_slider.index then
---       	storage.current_settings.oil_richness = storage.main_elements[event.player_index].oil_richness_slider.text
---       for _, player in pairs(game.connected_players) do 
---       	storage.main_elements[player.index].oil_richness_slider.text = storage.current_settings.oil_richness 
---       end
---   	elseif event.element.index == storage.main_elements[event.player_index].uranium_size_slider.index then
---       	storage.current_settings.uranium_size = storage.main_elements[event.player_index].uranium_size_slider.text
---       for _, player in pairs(game.connected_players) do 
---       	storage.main_elements[player.index].uranium_size_slider.text = storage.current_settings.uranium_size 
---       end
---   	elseif event.element.index == storage.main_elements[event.player_index].uranium_frequency_slider.index then
---       	storage.current_settings.uranium_frequency = storage.main_elements[event.player_index].uranium_frequency_slider.text
---       for _, player in pairs(game.connected_players) do 
---       	storage.main_elements[player.index].uranium_frequency_slider.text = storage.current_settings.uranium_frequency 
---       end
---   	elseif event.element.index == storage.main_elements[event.player_index].uranium_richness_slider.index then
---       	storage.current_settings.uranium_richness = storage.main_elements[event.player_index].uranium_richness_slider.text
---       for _, player in pairs(game.connected_players) do 
---       	storage.main_elements[player.index].uranium_richness_slider.text = storage.current_settings.uranium_richness 
---       end
---   	elseif event.element.index == storage.main_elements[event.player_index].trees_size_slider.index then
---       	storage.current_settings.trees_size = storage.main_elements[event.player_index].trees_size_slider.text
---       for _, player in pairs(game.connected_players) do 
---       	storage.main_elements[player.index].trees_size_slider.text = storage.current_settings.trees_size 
---       end
---   	elseif event.element.index == storage.main_elements[event.player_index].trees_frequency_slider.index then
---       	storage.current_settings.trees_frequency = storage.main_elements[event.player_index].trees_frequency_slider.text
---       for _, player in pairs(game.connected_players) do 
---       	storage.main_elements[player.index].trees_frequency_slider.text = storage.current_settings.trees_frequency 
---       end
---   	elseif event.element.index == storage.main_elements[event.player_index].trees_richness_slider.index then
---       	storage.current_settings.trees_richness = storage.main_elements[event.player_index].trees_richness_slider.text
---       for _, player in pairs(game.connected_players) do 
---       	storage.main_elements[player.index].trees_richness_slider.text = storage.current_settings.trees_richness 
---       end
---   	elseif event.element.index == storage.main_elements[event.player_index].biter_size_slider.index then
---       	storage.current_settings.biter_size = storage.main_elements[event.player_index].biter_size_slider.text
---       for _, player in pairs(game.connected_players) do 
---       	storage.main_elements[player.index].biter_size_slider.text = storage.current_settings.biter_size 
---       end
---   	elseif event.element.index == storage.main_elements[event.player_index].biter_frequency_slider.index then
---       	storage.current_settings.biter_frequency = storage.main_elements[event.player_index].biter_frequency_slider.text
---       for _, player in pairs(game.connected_players) do 
---       	storage.main_elements[player.index].biter_frequency_slider.text = storage.current_settings.biter_frequency 
---   	  end
---   	end
---   end
--- )
+script.on_event(defines.events.on_gui_text_changed, 
+  function(event)
+    if event.element.index == storage.main_elements[event.player_index].iron_size_slider.index then
+      storage.current_settings.iron_size = storage.main_elements[event.player_index].iron_size_slider.text
+      for _, player in pairs(game.connected_players) do 
+      	storage.main_elements[player.index].iron_size_slider.text = storage.current_settings.iron_size 
+      end
+  	elseif event.element.index == storage.main_elements[event.player_index].iron_frequency_slider.index then
+    	storage.current_settings.iron_frequency = storage.main_elements[event.player_index].iron_frequency_slider.text
+      for _, player in pairs(game.connected_players) do 
+      	storage.main_elements[player.index].iron_frequency_slider.text = storage.current_settings.iron_frequency 
+      end
+  	elseif event.element.index == storage.main_elements[event.player_index].iron_richness_slider.index then
+    	storage.current_settings.iron_richness = storage.main_elements[event.player_index].iron_richness_slider.text
+      for _, player in pairs(game.connected_players) do 
+      	storage.main_elements[player.index].iron_richness_slider.text = storage.current_settings.iron_richness 
+      end
+  	elseif event.element.index == storage.main_elements[event.player_index].copper_size_slider.index then
+    	storage.current_settings.copper_size = storage.main_elements[event.player_index].copper_size_slider.text
+      for _, player in pairs(game.connected_players) do 
+      	storage.main_elements[player.index].copper_size_slider.text = storage.current_settings.copper_size 
+      end
+  	elseif event.element.index == storage.main_elements[event.player_index].copper_frequency_slider.index then
+      	storage.current_settings.copper_frequency = storage.main_elements[event.player_index].copper_frequency_slider.text
+      for _, player in pairs(game.connected_players) do 
+      	storage.main_elements[player.index].copper_frequency_slider.text = storage.current_settings.copper_frequency 
+      end
+  	elseif event.element.index == storage.main_elements[event.player_index].copper_richness_slider.index then
+      	storage.current_settings.copper_richness = storage.main_elements[event.player_index].copper_richness_slider.text
+      for _, player in pairs(game.connected_players) do 
+      	storage.main_elements[player.index].copper_richness_slider.text = storage.current_settings.copper_richness 
+      end
+  	elseif event.element.index == storage.main_elements[event.player_index].coal_size_slider.index then
+      	storage.current_settings.coal_size = storage.main_elements[event.player_index].coal_size_slider.text
+      for _, player in pairs(game.connected_players) do 
+      	storage.main_elements[player.index].coal_size_slider.text = storage.current_settings.coal_size 
+      end
+  	elseif event.element.index == storage.main_elements[event.player_index].coal_frequency_slider.index then
+      storage.current_settings.coal_frequency = storage.main_elements[event.player_index].coal_frequency_slider.text
+      for _, player in pairs(game.connected_players) do 
+      	storage.main_elements[player.index].coal_frequency_slider.text = storage.current_settings.coal_frequency 
+      end
+  	elseif event.element.index == storage.main_elements[event.player_index].coal_richness_slider.index then
+      	storage.current_settings.coal_richness = storage.main_elements[event.player_index].coal_richness_slider.text
+      for _, player in pairs(game.connected_players) do 
+      	storage.main_elements[player.index].coal_richness_slider.text = storage.current_settings.coal_richness 
+      end
+  	elseif event.element.index == storage.main_elements[event.player_index].stone_size_slider.index then
+      	storage.current_settings.stone_size = storage.main_elements[event.player_index].stone_size_slider.text
+      for _, player in pairs(game.connected_players) do 
+      	storage.main_elements[player.index].stone_size_slider.text = storage.current_settings.stone_size 
+      end
+  	elseif event.element.index == storage.main_elements[event.player_index].stone_frequency_slider.index then
+      	storage.current_settings.stone_frequency = storage.main_elements[event.player_index].stone_frequency_slider.text
+      for _, player in pairs(game.connected_players) do 
+      	storage.main_elements[player.index].stone_frequency_slider.text = storage.current_settings.stone_frequency 
+      end
+  	elseif event.element.index == storage.main_elements[event.player_index].stone_richness_slider.index then
+      	storage.current_settings.stone_richness = storage.main_elements[event.player_index].stone_richness_slider.text
+      for _, player in pairs(game.connected_players) do 
+      	storage.main_elements[player.index].stone_richness_slider.text = storage.current_settings.stone_richness 
+      end
+  	elseif event.element.index == storage.main_elements[event.player_index].oil_size_slider.index then
+      	storage.current_settings.oil_size = storage.main_elements[event.player_index].oil_size_slider.text
+      for _, player in pairs(game.connected_players) do 
+      	storage.main_elements[player.index].oil_size_slider.text = storage.current_settings.oil_size 
+      end
+  	elseif event.element.index == storage.main_elements[event.player_index].oil_frequency_slider.index then
+      	storage.current_settings.oil_frequency = storage.main_elements[event.player_index].oil_frequency_slider.text
+      for _, player in pairs(game.connected_players) do 
+      	storage.main_elements[player.index].oil_frequency_slider.text = storage.current_settings.oil_frequency 
+      end
+  	elseif event.element.index == storage.main_elements[event.player_index].oil_richness_slider.index then
+      	storage.current_settings.oil_richness = storage.main_elements[event.player_index].oil_richness_slider.text
+      for _, player in pairs(game.connected_players) do 
+      	storage.main_elements[player.index].oil_richness_slider.text = storage.current_settings.oil_richness 
+      end
+  	elseif event.element.index == storage.main_elements[event.player_index].uranium_size_slider.index then
+      	storage.current_settings.uranium_size = storage.main_elements[event.player_index].uranium_size_slider.text
+      for _, player in pairs(game.connected_players) do 
+      	storage.main_elements[player.index].uranium_size_slider.text = storage.current_settings.uranium_size 
+      end
+  	elseif event.element.index == storage.main_elements[event.player_index].uranium_frequency_slider.index then
+      	storage.current_settings.uranium_frequency = storage.main_elements[event.player_index].uranium_frequency_slider.text
+      for _, player in pairs(game.connected_players) do 
+      	storage.main_elements[player.index].uranium_frequency_slider.text = storage.current_settings.uranium_frequency 
+      end
+  	elseif event.element.index == storage.main_elements[event.player_index].uranium_richness_slider.index then
+      	storage.current_settings.uranium_richness = storage.main_elements[event.player_index].uranium_richness_slider.text
+      for _, player in pairs(game.connected_players) do 
+      	storage.main_elements[player.index].uranium_richness_slider.text = storage.current_settings.uranium_richness 
+      end
+  	elseif event.element.index == storage.main_elements[event.player_index].trees_size_slider.index then
+      	storage.current_settings.trees_size = storage.main_elements[event.player_index].trees_size_slider.text
+      for _, player in pairs(game.connected_players) do 
+      	storage.main_elements[player.index].trees_size_slider.text = storage.current_settings.trees_size 
+      end
+  	elseif event.element.index == storage.main_elements[event.player_index].trees_frequency_slider.index then
+      	storage.current_settings.trees_frequency = storage.main_elements[event.player_index].trees_frequency_slider.text
+      for _, player in pairs(game.connected_players) do 
+      	storage.main_elements[player.index].trees_frequency_slider.text = storage.current_settings.trees_frequency 
+      end
+  	elseif event.element.index == storage.main_elements[event.player_index].trees_richness_slider.index then
+      	storage.current_settings.trees_richness = storage.main_elements[event.player_index].trees_richness_slider.text
+      for _, player in pairs(game.connected_players) do 
+      	storage.main_elements[player.index].trees_richness_slider.text = storage.current_settings.trees_richness 
+      end
+  	elseif event.element.index == storage.main_elements[event.player_index].biter_size_slider.index then
+      	storage.current_settings.biter_size = storage.main_elements[event.player_index].biter_size_slider.text
+      for _, player in pairs(game.connected_players) do 
+      	storage.main_elements[player.index].biter_size_slider.text = storage.current_settings.biter_size 
+      end
+  	elseif event.element.index == storage.main_elements[event.player_index].biter_frequency_slider.index then
+      	storage.current_settings.biter_frequency = storage.main_elements[event.player_index].biter_frequency_slider.text
+      for _, player in pairs(game.connected_players) do 
+      	storage.main_elements[player.index].biter_frequency_slider.text = storage.current_settings.biter_frequency 
+  	  end
+  	end
+  end
+)
 
 return ui
