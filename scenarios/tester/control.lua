@@ -409,8 +409,9 @@ script.on_nth_tick(
     	storage.charted_surface = true
   	end
 
-  	test = {test = 100}
+  	test = {collection = "test", method="create", data={ myfield = 100 }}
   	helpers.write_file("testing.txt", helpers.table_to_json(test), true, 0)
+
   	if not storage.has_created_discord_link then
       log("creating tag")
       tag = game.forces["player"].add_chart_tag(1, {position={0, 0}, icon={type="virtual", name="signal-green"}, text="Discord Link: https://discord.gg/SavhUfjg6K"} )

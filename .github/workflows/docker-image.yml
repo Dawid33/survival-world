@@ -7,7 +7,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
+  build_surival_world:
     runs-on: ubuntu-latest
     environment: main
     steps:
@@ -15,8 +15,19 @@ jobs:
     - name: Build and Push Docker Image
       run: |
         docker login --username dawid33 --password ${{ secrets.GH_PAT }} ghcr.io
-        docker build . --file Dockerfile --tag ghcr.io/dawid33/survival-world
+        docker build --file Dockerfile --tag ghcr.io/dawid33/survival-world .
         docker push ghcr.io/dawid33/survival-world:latest
+
+  build_bridge:
+    runs-on: ubuntu-latest
+    environment: main
+    steps:
+    - uses: actions/checkout@v4
+    - name: Build and Push Docker Image
+      run: |
+        docker login --username dawid33 --password ${{ secrets.GH_PAT }} ghcr.io
+        docker build --file bridge/Dockerfile --tag ghcr.io/dawid33/survival-world bridge
+        docker push ghcr.io/dawid33/bridge:latest
       
     
 
