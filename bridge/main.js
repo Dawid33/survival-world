@@ -19,6 +19,12 @@ if (!process.env.db_password) {
   return;
 }
 
+function api_failed(err) {
+    console.error("Failed api call: ", err);
+}
+
+pb.autoCancellation(false)
+
 const authData = pb.collection("users").authWithPassword(process.env.db_username, process.env.db_password);
 let watching_files = {}
 fs.watch(process.env.script_output_path, (eventType, filename) => {
@@ -43,13 +49,28 @@ fs.watch(process.env.script_output_path, (eventType, filename) => {
       }
 
       try {
+        console.log(value)
         if(value.collection && value.method) {
-          switch(value.method) {
-            case "create":
-              const record = pb.collection('test').create(value.data);
-              break;
-            default:
-              break;
+          if(value.collection === "chatlogs") {
+              // Get username Id
+              if (!value.data.username) {
+                console.log("Bad username.")
+                return
+              }
+
+              const record = pb.collection('factorio_usernames').getFirstListItem(`username="${value.data.username}"`, {}).catch((err) => {
+                if(err.status === 404) {
+                  return pb.collection('factorio_usernames').create({username: value.data.username})
+                } else {
+                  return Promise.reject(err);
+                }
+              }).then((record) => {
+                value.data.username_id = record.id;
+                delete value.data["username"]
+                return pb.collection("chat_logs").create(value.data)
+              }).catch(api_failed);
+          } else {
+              pb.collection(value.collection).create(value.data).catch(api_failed);
           }
         }
       } catch(error){

@@ -409,9 +409,6 @@ script.on_nth_tick(
     	storage.charted_surface = true
   	end
 
-  	test = {collection = "test", method="create", data={ myfield = 100 }}
-  	helpers.write_file("testing.txt", helpers.table_to_json(test), true, 0)
-
   	if not storage.has_created_discord_link then
       log("creating tag")
       tag = game.forces["player"].add_chart_tag(1, {position={0, 0}, icon={type="virtual", name="signal-green"}, text="Discord Link: https://discord.gg/SavhUfjg6K"} )
@@ -510,6 +507,13 @@ script.on_event(defines.events.on_player_created,
   	  give_player_items(event.player_index)
 	  end
 	  player = game.get_player(event.player_index)
+  end
+)
+
+script.on_event(defines.events.on_console_chat,
+  function(event)
+  	dto = {collection = "chatlogs", method="create", data = { username = game.players[event.player_index].name, message = event.message, tick = event.tick}}
+  	helpers.write_file("apicalls.txt", helpers.table_to_json(dto), true, 0)
   end
 )
 
