@@ -512,7 +512,7 @@ script.on_event(defines.events.on_player_created,
 
 script.on_event(defines.events.on_console_chat,
   function(event)
-  	dto = {collection = "chatlogs", method="create", data = { username = game.players[event.player_index].name, message = event.message, tick = event.tick}}
+  	dto = {collection = "chatlogs", method="create", data = { username = game.players[event.player_index].name, message = event.message, game_tick = event.tick}}
   	helpers.write_file("apicalls.txt", helpers.table_to_json(dto), true, 0)
   end
 )
