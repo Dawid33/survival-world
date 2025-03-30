@@ -14,6 +14,7 @@ ui.format_play_time = function (ticks)
 end
 
 ui.reset_main_ui = function(player_index)
+    local player_ui = storage.main_elements[player_index]
     player_ui.vote_frame.visible = false
     player_ui.reset_button.visible = true
 end
@@ -22,7 +23,7 @@ ui.add_gui_to_player = function(player_index)
   player = game.get_player(player_index)
   local button_flow = mod_gui.get_button_flow(player)
   button_flow.add{type="sprite-button", name="interface_toggle", sprite="item/iron-gear-wheel"}
-  player_ui = storage.main_elements[player_index]
+  local player_ui = storage.main_elements[player_index]
 
   -- Main in-game panel that shows stats, current settings and can be used to go back to the lobby.
   player_ui.main_dialog = player.gui.left.add{type="frame", visible=false, name="main_dialog", direction="vertical"}
