@@ -1,731 +1,578 @@
-a_inner_frame
-a_inner_frame_for_subheader_with_paddings
-a_inner_paddingless_frame
-achievement_card_progressbar
-achievement_description_label
-achievement_failed_description_label
-achievement_failed_reason_label
-achievement_failed_title_label
-achievement_image
-achievement_locked_description_label
-achievement_locked_progress_label
-achievement_locked_title_label
-achievement_notification_frame
-achievement_percent_label
-achievement_pinned_card_progressbar
-achievement_progressbar
-achievement_title_label
-achievement_unlocked_description_label
-achievement_unlocked_title_label
-achievements_vertical_flow
-activity_bar
-add_to_map_buttons_frame
-armor_frame
-armor_info_table
-auto_trash_frame
-available_preview_technology_slot
-available_technology_slot
-b_inner_frame
-b_inner_frame_for_subheader_with_paddings
-back_button
-battery_progressbar
-black_clickable_label
-black_clickable_squashable_label
-black_label
-black_label_with_left_padding
-black_squashable_label
-black_squashable_label_with_left_padding
-blue_slider
-blue_slot
-blueprint_book_edit_frame
-blueprint_drop_slot_button
-blueprint_header_frame
-blueprint_header_holder_frame
-blueprint_icon_preview
-blueprint_library_frame
-blueprint_preview
-blueprint_record_selection_background_frame
-blueprint_record_selection_button
-blueprint_record_slot_button
-blueprint_settings_frame
-blurry_panel_horizontal_line
-blurry_scroll_pane
-bold_black_label
-bold_green_label
-bold_label
-bold_red_label
-bonus_card_flow
-bonus_card_frame
-bonus_card_labels_flow_with_scroll_pane
-bonus_card_related_items_frame
-bonus_card_with_scroll_frame
-bonus_list_scroll_pane
-bonus_progressbar
-bordered_frame
-bordered_frame_with_extra_side_margins
-bordered_table
-borderless_frame
-browse_games_filter_frame
-browse_games_gui_favorites_header_image
-browse_games_gui_toggle_favorite_off_button
-browse_games_gui_toggle_favorite_on_button
-browse_games_info_frame
-browse_games_on_lan_table
-browse_games_scroll_pane
-browse_games_table
-burning_progressbar
-button
-camera
-campaign_levels_list_box
-campaigns_list_box
-cancel_close_button
-caption_checkbox
-caption_label
-car_top_part_frame
-centering_flow
-centering_horizontal_flow
-changelog_dropdown
-changelog_frame
-changelog_scroll_pane
-changelog_subheader_frame
-changelog_subheader_space
-changelog_tabbed_pane
-changelog_textbox
-character_gui_entity_button
-character_gui_left_side
-character_info_scroll_pane
-character_info_top_frame
-character_inventory_frame
-character_inventory_scroll_pane
-character_logistics_frame
-checkbox
-choose_chat_icon_button
-choose_chat_icon_in_textbox_button
-circuit_condition_comparator_dropdown
-clickable_empty_technology_slot
-clickable_label
-clickable_squashable_label
-close_button
-closed_inventory_slot
-color_indicator
-color_picker_label
-combinator_settings_invisible_frame
-compact_flow
-compact_red_slot
-compact_slot
-compact_slot_sized_button
-compact_slot_table
-conditionally_available_preview_technology_slot
-conditionally_available_technology_slot
-confirm_button
-confirm_button_without_tooltip
-confirm_double_arrow_button
-confirm_in_load_game_button
-connect_gui_frame
-console_input_textfield
-constant_combinator_invisible_frame_with_title
-constant_combinator_logistics_scroll_pane
-container_equipment_grid_flow
-container_inside_shallow_frame
-container_invisible_frame_with_title
-container_logistics_scroll_pane
-control_behavior_window_line
-control_input_shortcut_label
-control_settings_bordered_table
-control_settings_button
-control_settings_scroll_pane
-control_settings_section_button
-control_settings_section_frame
-controller_logistics_scroll_pane
-count_label
-crafting_frame
-crafting_queue_flow
-crafting_queue_flow_standalone
-crafting_queue_scroll_pane
-crafting_queue_slot
-current_research_info_button
-current_research_info_image
-current_research_info_percent_label_black
-current_research_info_percent_label_white
-custom_games_list_box
-dark_line
-deconstruction_planner_tabbed_pane
-deep_frame_in_shallow_frame
-deep_frame_in_shallow_frame_for_tabs
-deep_frame_in_shallow_frame_with_margin
-default_permission_group_list_box_item
-description_label
-description_property_name_label
-description_title_indented_label
-description_title_label
-description_value_label
-dialog_button
-dialog_buttons_horizontal_flow
-disabled_index_technology_slot
-disabled_preview_index_technology_slot
-disabled_preview_technology_slot
-disabled_technology_slot
-disk_usage_progressbar
-double_slider
-draggable_space
-draggable_space_in_shortcut_list
-draggable_space_in_temporary_train_station
-draggable_space_in_train_schedule
-draggable_space_with_no_left_margin
-draggable_space_with_no_right_margin
-drop_target_button
-dropdown
-edit_blueprint_description_textbox
-editor_inner_frame
-editor_lua_textbox
-editor_mode_selection_frame
-editor_mode_selection_table
-electric_gui_search_textfield
-electric_satisfaction_in_description_progressbar
-electric_satisfaction_progressbar
-electric_satisfaction_statistics_progressbar
-electric_satisfaction_table
-electric_statistics_progressbar
-electric_usage_label
-empty_bonus_card_frame
-empty_widget
-entity_button_base
-entity_button_frame
-entity_button_frame_with_extra_right_margin
-entity_frame
-entity_frame_without_padding
-entity_frame_without_right_padding
-entity_frame_without_side_paddings
-entity_info_frame
-entity_info_frame_on_cursor
-entity_inventory_scroll_pane
-entity_variation_button
-equipment_grid_scroll_pane
-failed_achievement_frame
-failed_achievement_in_sidebar_frame
-fake_slot
-featured_technology_description_label
-featured_technology_description_scroll_pane
-featured_technology_effects_flow
-featured_technology_inner_table
-filter_frame
-filter_group_button_tab
-filter_group_button_tab_slightly_larger
-filter_group_tab
-filter_group_table
-filter_inventory_slot
-filter_scroll_pane
-filter_scroll_pane_background_frame
-filter_scroll_pane_background_frame_no_background
-filter_scroll_pane_in_tab
-filter_slot_table
-filter_tabbed_pane
-finished_game_subheader_frame
-finished_game_table
-floating_train_station_list_box
-flow
-flow_with_no_spacing
-forward_button
-frame
-frame_action_button
-frame_division_fake_horizontal_line
-frame_subheading_label
-frame_tab
-frame_tabbed_pane
-frame_tabbed_pane_corner
-frame_tabbed_pane_frame_header
-frame_title
-frame_with_even_paddings
-frame_without_left_and_right_side
-frame_without_left_side
-frame_without_right_side
-fulfilled_draggable_space_in_train_schedule
-game_controller_icons_dropdown
-game_info_name_and_description_flow
-glow
-goal_frame
-goal_holder_vertical_flow
-goal_inner_frame
-goal_label
-graph
-graphicless_frame
-graphics_settings_table
-green_button
-green_circuit_network_content_slot
-green_slider
-green_slot
-heading_1_label
-heading_2_label
-heading_3_label
-heading_3_label_yellow
-health_progressbar
-heat_progressbar
-highlighted_tool_button
-highlighted_value_textfield
-horizontal_flow
-horizontal_flow_with_extra_right_margin
-horizontal_scrollbar
-horizontal_slots_filler
-horizontally_limited_equipment_grid_scroll_pane
-hyperlink_label
-image
-image_tab_selected_slot
-image_tab_slot
-info_label
-inner_frame
-inner_frame_in_outer_frame
-inner_frame_scroll_pane
-inset_frame_container_frame
-inset_frame_container_horizontal_flow
-inset_frame_container_horizontal_flow_in_tabbed_pane
-inset_frame_container_table
-inset_frame_container_vertical_flow
-inside_deep_frame
-inside_deep_frame_for_tabs
-inside_shallow_frame
-inside_shallow_frame_with_padding
-inside_shallow_frame_with_padding_line
-install_mod_status_image
-invalid_hovered_mod_label
-invalid_label
-invalid_mod_label
-invalid_selected_mod_label
-invalid_value_short_number_textfield
-invalid_value_textfield
-inventory_frame
-inventory_in_tab_scroll_pane
-inventory_label
-inventory_limit_slot_button
-inventory_scroll_pane
-inventory_scroll_pane_without_background_tiling
-inventory_slot
-invisible_frame
-invisible_frame_in_tab_with_title_for_inventory
-invisible_frame_with_title
-invisible_frame_with_title_for_inventory
-item_and_count_select_background
-item_and_count_select_confirm
-lab_progress_and_slot_divider
-lab_technology_frame
-label
-label_dividing_inside_frames
-label_under_widget
-label_with_left_padding
-line
-list_box
-list_box_item
-list_box_under_subheader
-load_game_mod_invalid_label
-locale_dropdown
-locked_achievement_frame
-locked_achievement_in_sidebar_frame
-locomotive_minimap_button
-locomotive_minimap_widget
-logistic_gui_scroll_pane
-logistic_gui_tabbed_pane
-logistic_gui_table
-logistic_networks_dropdown
-logistic_slot_button
-logistics_scroll_pane
-logistics_scroll_pane_background_frame
-logistics_slot_table
-long_number_textfield
-machine_frame
-machine_ingredients_scroll_pane
-machine_outputs_scroll_pane
-machine_slots_scroll_pane
-main_menu_login_notice_label
-main_menu_version_label
-main_progressbar_frame
-manage_players_table
-map_details_frame
-map_gen_row_label
-map_generator_13_notch_slider
-map_generator_close_preview_button
-map_generator_confirm_button
-map_generator_frequency_table
-map_generator_notched_slider
-map_generator_notched_slider_wide
-map_generator_preset_description
-map_generator_preview_button
-map_info_image
-map_preview_scroll_pane
-map_view_add_button
-map_view_options_button
-map_view_options_table
-map_view_options_table_holder
-market_scroll_pane
-menu_button
-menu_button_continue
-menu_message
-mini_button
-mini_button_aligned_to_text_vertically
-mini_button_aligned_to_text_vertically_when_centered
-mini_tool_button_red
-minimap
-minimap_frame
-mining_progressbar
-mod_dependency_invalid_label
-mod_disabled_label
-mod_info_frame
-mod_info_table
-mod_manager_label
-mod_optional_dependency_invalid_label
-mod_startup_settings_mismatch_notice_box
-mod_thumbnail_image
-mod_updates_status_image
-mods_gui_left_pane_vertical_flow
-mods_gui_right_pane_vertical_flow
-mods_list_box
-mods_scroll_pane
-mods_table
-module_inventory_scroll_pane
-multi_tooltip_invisible_frame
-naked_frame
-naked_frame_with_no_spacing
-naked_frame_with_simple_header
-naked_scroll_pane
-negative_message_frame
-negative_subheader_frame
-neutral_message_frame
-new_game_difficulty_vertical_flow
-new_game_header_list_box_item
-new_game_info_image
-new_game_subfooter
-no_header_filler_frame
-no_path_station_in_schedule_in_train_view_list_box_item
-non_draggable_frame
-not_accessible_station_in_station_selection
-not_working_tool_equip_virtual_slot
-not_working_weapon_button
-notched_double_slider
-notched_slider
-notice_scroll_pane
-notice_textbox
-number_input_frame
-omitted_technology_slot
-only_inner_shadow_scroll_pane
-open_armor_button
-orange_label
-other_player_inventory_frame
-other_settings_gui_button
-other_settings_gui_textbox
-other_settings_slider
-outer_frame
-outer_frame_without_shadow
-outer_frame_without_top_shadow
-packed_horizontal_flow
-packed_vertical_flow
-padded_container_equipment_grid_flow
-padded_vertical_flow
-partially_accessible_station_in_station_selection
-permissions_groups_list_box
-permissions_players_list_box
-player_input_horizontal_flow
-player_input_table
-player_not_in_game_state_label
-player_offline_label
-player_online_label
-positive_message_frame
-production_graph
-production_gui_search_textfield
-production_gui_tabbed_pane
-production_progressbar
-programmable_speaker_invisible_frame
-progressbar
-promised_crafting_queue_slot
-quick_bar_inner_panel
-quick_bar_naked_frame
-quick_bar_page_button
-quick_bar_slot_button
-quick_bar_slot_table
-quick_bar_window_frame
-quick_panel_slot_button_deep_frame
-quick_panel_tabbed_pane
-quickbar_holder_flow
-radiobutton
-reader_textbox
-recipe_count_label
-recipe_slot_button
-recipe_tooltip_cannot_craft_count_label
-recipe_tooltip_cannot_craft_label
-recipe_tooltip_transitive_craft_count_label
-recipe_tooltip_transitive_craft_label
-red_back_button
-red_button
-red_circuit_network_content_slot
-red_confirm_button
-red_inventory_slot
-red_logistic_slot_button
-red_slider
-red_slot
-red_slot_button
-relative_gui_bottom_flow
-relative_gui_left_flow
-relative_gui_right_flow
-relative_gui_table
-relative_gui_top_flow
-removed_content_scroll_pane
-removed_content_table
-rename_train_stop_frame
-research_progress_inner_frame_active
-research_progress_inner_frame_inactive
-research_progressbar
-research_queue_active_glow_dark
-research_queue_active_glow_light
-research_queue_active_glow_outer
-research_queue_cancel_button
-research_queue_first_slot_flow
-research_queue_inner_frame
-research_queue_table
-researched_preview_technology_slot
-researched_technology_slot
-right_bottom_container_frame
-right_container_frame
-right_side_frame
-save_as_horizontal_flow
-saved_research_label
-saves_list_box
-saves_list_box_under_subheader
-schedule_in_train_view_list_box
-scroll_pane
-scroll_pane_in_shallow_frame
-scroll_pane_in_shallow_frame_with_extra_padding_when_activated
-scroll_pane_under_subheader
-search_bar_horizontal_flow
-search_popup_frame
-search_popup_textfield
-search_textfield_with_fixed_width
-shield_progressbar
-short_number_textfield
-shortcut_bar_button
-shortcut_bar_button_blue
-shortcut_bar_button_green
-shortcut_bar_button_red
-shortcut_bar_button_small
-shortcut_bar_button_small_blue
-shortcut_bar_button_small_green
-shortcut_bar_button_small_red
-shortcut_bar_column
-shortcut_bar_expand_button
-shortcut_bar_inner_panel
-shortcut_bar_selection_scroll_pane
-shortcut_bar_window_frame
-shortcut_selection_row
-side_menu_button
-side_menu_frame
-side_progressbar_frame
-slider
-slider_value_textfield
-slightly_smaller_tab
-slot
-slot_button
-slot_button_deep_frame
-slot_button_deep_scroll_pane
-slot_button_in_shallow_frame
-slot_button_that_fits_textline
-slot_container_frame
-slot_group_frame
-slot_sized_button
-slot_sized_button_blue
-slot_sized_button_green
-slot_sized_button_red
-slot_table
-slot_table_spacing_horizontal_flow
-slot_table_spacing_vertical_flow
-spaced_horizontal_flow
-special_label_under_widget
-speech_bubble
-splitter_settings_table
-squashable_label
-squashable_label_with_left_padding
-station_train_status_button
-stations_scroll_pane
-stations_trains_scroll_pane
-statistics_element_table
-statistics_frame
-statistics_progressbar
-statistics_scroll_pane
-statistics_slot_button
-statistics_table_item_frame
-statistics_time_buttons_frame
-status_flow
-status_image
-steam_friend_label
-stretchable_textfield
-subfooter_frame
-subfooter_frame_with_left_edge
-subheader_caption_label
-subheader_frame
-subheader_frame_that_cuts_to_sides
-subheader_frame_with_text_on_the_right
-subheader_frame_with_top_border
-subheader_right_aligned_label
-subpanel_frame
-subpanel_frame_packed
-subpanel_inset_frame
-subpanel_inset_frame_packed
-switch
-sync_mods_default_status_frame
-sync_mods_downloading_status_frame
-sync_mods_table
-tab
-tab_scroll_pane
-tab_scroll_pane_with_extra_padding
-tabbed_pane
-tabbed_pane_with_extra_padding
-tabbed_pane_with_no_side_padding
-tabbed_pane_with_no_side_padding_and_tabs_hidden
-table
-table_with_extra_margins
-target_station_in_schedule_in_train_view_list_box_item
-technology_card
-technology_card_frame
-technology_gui_inner_frame
-technology_gui_left_frame
-technology_gui_outer_frame
-technology_gui_right_top_frame
-technology_list_scroll_pane
-technology_slot
-technology_slot_table
-technology_tooltip_effects_flow
-text_holding_scroll_pane
-textbox
-tile_variation_button
-tip_notice_button
-tip_notice_close_button
-tip_notice_inner_panel
-tips_and_tricks_image
-tips_and_tricks_info_frame
-tips_and_tricks_info_frame_small_screen
-tips_and_tricks_simulation
-tips_and_tricks_subfooter
-title_tip_item
-titlebar_search_textfield
-tool_bar_empty_slot
-tool_bar_open_button
-tool_button
-tool_button_blue
-tool_button_green
-tool_button_red
-tool_equip_ammo_slot
-tool_equip_equipment_image
-tool_equip_inner_panel
-tool_equip_virtual_slot
-tooltip_category_line
-tooltip_frame
-tooltip_generated_from_description_blueprint_frame
-tooltip_generated_from_description_frame
-tooltip_heading_label
-tooltip_heading_label_category
-tooltip_horizontal_line
-tooltip_item_label
-tooltip_label
-tooltip_panel_background
-tooltip_title_frame_light
-tooltip_title_label
-tracked_achievements_vertical_flow
-tracking_off_button
-tracking_on_button
-train_inventory_fake_window
-train_inventory_frame
-train_schedule_action_button
-train_schedule_add_station_button
-train_schedule_add_wait_condition_button
-train_schedule_comparison_type_button
-train_schedule_comparison_type_frame
-train_schedule_comparison_type_frame_extra_indented
-train_schedule_comparison_type_frame_indented
-train_schedule_condition_frame
-train_schedule_condition_time_selection_button
-train_schedule_delete_button
-train_schedule_fulfilled_delete_button
-train_schedule_fulfilled_item_select_button
-train_schedule_fullfilled_condition_frame
-train_schedule_item_select_button
-train_schedule_mode_switch_horizontal_flow
-train_schedule_non_existent_stop_label
-train_schedule_scroll_pane
-train_schedule_station_frame
-train_schedule_temporary_station_delete_button
-train_schedule_temporary_station_frame
-train_schedule_unavailable_stop_label
-train_station_list_box
-train_status_button
-train_stop_entity_button
-train_stop_frame
-train_stop_trains_frame
-train_with_minimap_frame
-trains_gui_deep_frame
-trains_gui_deep_frame_small_screen
-trains_gui_frame
-trains_list_table
-trains_scroll_pane
-trains_table
-transparent_slot
-trash_slots_scroll_pane
-trash_slots_scroll_pane_in_tab
-trunk_inventory_scroll_pane
-unavailable_preview_technology_slot
-unavailable_technology_slot
-unlocked_achievement_frame
-unlocked_achievement_in_sidebar_frame
-valid_hovered_mod_label
-valid_mod_label
-valid_selected_mod_label
-vehicle_health_progressbar
-vehicle_tabbed_pane
-vehicle_tabbed_pane_with_logistics
-vertical_flow
-vertical_flow_in_entity_frame_without_side_paddings
-vertical_flow_under_subheader
-vertical_flow_with_extra_margins
-vertical_lines_slots_filler
-vertical_scrollbar
-very_short_number_textfield
-void_inventory_frame
-wide_activity_bar
-wide_entity_button
-wide_slider_value_textfield
-window_content_frame
-window_content_frame_deep
-window_content_frame_in_tabbed_panne
-window_content_frame_packed
-working_tool_equip_virtual_slot
-working_weapon_button
-yellow_inventory_slot
-yellow_label
-yellow_logistic_slot_button
-yellow_slot
-yellow_slot_button
-big_slot_button
-blurry_frame
-borderless_deep_frame
-button_with_shadow
-captionless_frame
-compilatron_gui_message
-compilatron_speech_bubble
-compilatron_speech_bubble_wrapper
-dark_button
-dark_frame
-dark_rounded_button
-draggable_space_header
-dropdown_button
-frame_button
-left_slider_button
-list_box_in_shallow_frame
-list_box_in_shallow_frame_scroll_pane
-list_box_scroll_pane
-mod_gui_button
-mod_gui_inside_deep_frame
-mod_gui_spacing_horizontal_flow
-research_progress_inner_frame
-right_slider_button
-rounded_button
-scroll_pane_with_dark_background_under_subheader
-slider_button
-slot_sized_button_pressed
-small_text_image
-subheader_label
-tabbed_pane_frame
-table_with_selection
+
+achievement_card_progressbar | progressbar_style
+achievement_failed_description_label | label_style
+achievement_failed_reason_label | label_style
+achievement_failed_title_label | label_style
+achievement_frame | frame_style
+
+   0.743 Script @__level__/control.lua:514: achievement_image | image_style
+   0.743 Script @__level__/control.lua:514: achievement_locked_title_label | label_style
+   0.743 Script @__level__/control.lua:514: achievement_notification_frame | frame_style
+   0.743 Script @__level__/control.lua:514: achievement_progressbar | progressbar_style
+   0.743 Script @__level__/control.lua:514: achievement_slots_scroll_pane | scroll_pane_style
+   0.743 Script @__level__/control.lua:514: achievement_unlocked_title_label | label_style
+   0.743 Script @__level__/control.lua:514: achievement_warning_image | image_style
+   0.743 Script @__level__/control.lua:514: activity_bar | activity_bar_style
+   0.743 Script @__level__/control.lua:514: add_logistic_section_button | button_style
+   0.743 Script @__level__/control.lua:514: available_preview_technology_slot | technology_slot_style
+   0.743 Script @__level__/control.lua:514: available_technology_slot | technology_slot_style
+   0.743 Script @__level__/control.lua:514: back_button | button_style
+   0.743 Script @__level__/control.lua:514: battery_progressbar | progressbar_style
+   0.743 Script @__level__/control.lua:514: big_notice_textbox | textbox_style
+   0.743 Script @__level__/control.lua:514: black_checkbox | checkbox_style
+   0.743 Script @__level__/control.lua:514: black_clickable_label | label_style
+   0.743 Script @__level__/control.lua:514: black_clickable_squashable_label | label_style
+   0.743 Script @__level__/control.lua:514: black_label | label_style
+   0.743 Script @__level__/control.lua:514: black_label_with_left_padding | label_style
+   0.743 Script @__level__/control.lua:514: black_squashable_label | label_style
+   0.743 Script @__level__/control.lua:514: black_squashable_label_with_left_padding | label_style
+   0.743 Script @__level__/control.lua:514: blue_slider | slider_style
+   0.743 Script @__level__/control.lua:514: blue_slot | button_style
+   0.743 Script @__level__/control.lua:514: blueprint_book_edit_frame | frame_style
+   0.743 Script @__level__/control.lua:514: blueprint_drop_slot_button | empty_widget_style
+   0.743 Script @__level__/control.lua:514: blueprint_icon_preview | empty_widget_style
+   0.743 Script @__level__/control.lua:514: blueprint_parameter_frame | frame_style
+   0.743 Script @__level__/control.lua:514: blueprint_preview | empty_widget_style
+   0.743 Script @__level__/control.lua:514: blueprint_record_selection_button | button_style
+   0.743 Script @__level__/control.lua:514: blueprint_record_slot_button | button_style
+   0.743 Script @__level__/control.lua:514: blueprint_tooltip_description_frame | frame_style
+   0.743 Script @__level__/control.lua:514: blurry_panel_horizontal_line | line_style
+   0.743 Script @__level__/control.lua:514: blurry_scroll_pane | scroll_pane_style
+   0.743 Script @__level__/control.lua:514: bold_black_label | label_style
+   0.743 Script @__level__/control.lua:514: bold_green_label | label_style
+   0.743 Script @__level__/control.lua:514: bold_grey_label | label_style
+   0.743 Script @__level__/control.lua:514: bold_label | label_style
+   0.743 Script @__level__/control.lua:514: bold_orange_label | label_style
+   0.743 Script @__level__/control.lua:514: bold_red_label | label_style
+   0.743 Script @__level__/control.lua:514: bonus_card_frame | frame_style
+   0.743 Script @__level__/control.lua:514: bonus_progressbar | progressbar_style
+   0.743 Script @__level__/control.lua:514: bordered_frame | frame_style
+   0.743 Script @__level__/control.lua:514: bordered_table | table_style
+   0.743 Script @__level__/control.lua:514: browse_games_gui_toggle_favorite_off_button | button_style
+   0.743 Script @__level__/control.lua:514: browse_games_gui_toggle_favorite_on_button | button_style
+   0.743 Script @__level__/control.lua:514: browse_games_on_lan_table | table_style
+   0.743 Script @__level__/control.lua:514: browse_games_table | table_style
+   0.743 Script @__level__/control.lua:514: burning_progressbar | progressbar_style
+   0.743 Script @__level__/control.lua:514: button | button_style
+   0.743 Script @__level__/control.lua:514: camera | camera_style
+   0.743 Script @__level__/control.lua:514: campaign_levels_list_box | list_box_style
+   0.743 Script @__level__/control.lua:514: campaigns_list_box | list_box_style
+   0.743 Script @__level__/control.lua:514: cancel_close_button | button_style
+   0.743 Script @__level__/control.lua:514: caption_checkbox | checkbox_style
+   0.743 Script @__level__/control.lua:514: caption_label | label_style
+   0.743 Script @__level__/control.lua:514: caption_radiobutton | radiobutton_style
+   0.743 Script @__level__/control.lua:514: changelog_textbox | textbox_style
+   0.743 Script @__level__/control.lua:514: character_crafting_queue_scroll_pane | scroll_pane_style
+   0.743 Script @__level__/control.lua:514: character_gui_left_side | frame_style
+   0.743 Script @__level__/control.lua:514: chart_search_result_frame | frame_style
+   0.743 Script @__level__/control.lua:514: checkbox | checkbox_style
+   0.743 Script @__level__/control.lua:514: choose_chat_icon_button | button_style
+   0.743 Script @__level__/control.lua:514: choose_chat_icon_in_textbox_button | button_style
+   0.743 Script @__level__/control.lua:514: circuit_condition_comparator_dropdown | dropdown_style
+   0.743 Script @__level__/control.lua:514: clickable_empty_technology_slot | technology_slot_style
+   0.743 Script @__level__/control.lua:514: clickable_label | label_style
+   0.743 Script @__level__/control.lua:514: clickable_squashable_label | label_style
+   0.743 Script @__level__/control.lua:514: close_button | button_style
+   0.743 Script @__level__/control.lua:514: closed_inventory_slot | button_style
+   0.743 Script @__level__/control.lua:514: color_indicator | empty_widget_style
+   0.743 Script @__level__/control.lua:514: color_picker_label | label_style
+   0.743 Script @__level__/control.lua:514: compact_horizontal_flow | horizontal_flow_style
+   0.743 Script @__level__/control.lua:514: compact_red_slot | button_style
+   0.743 Script @__level__/control.lua:514: compact_slot | button_style
+   0.743 Script @__level__/control.lua:514: compact_slot_sized_button | button_style
+   0.743 Script @__level__/control.lua:514: compact_slot_table | table_style
+   0.743 Script @__level__/control.lua:514: completed_achievement_frame | frame_style
+   0.743 Script @__level__/control.lua:514: conditionally_available_preview_technology_slot | technology_slot_style
+   0.743 Script @__level__/control.lua:514: conditionally_available_technology_slot | technology_slot_style
+   0.743 Script @__level__/control.lua:514: confirm_button | button_style
+   0.743 Script @__level__/control.lua:514: confirm_button_without_tooltip | button_style
+   0.743 Script @__level__/control.lua:514: confirm_double_arrow_button | button_style
+   0.743 Script @__level__/control.lua:514: confirm_in_load_game_button | button_style
+   0.743 Script @__level__/control.lua:514: console_input_textfield | textbox_style
+   0.743 Script @__level__/control.lua:514: control_input_shortcut_label | label_style
+   0.743 Script @__level__/control.lua:514: control_settings_bordered_table | table_style
+   0.743 Script @__level__/control.lua:514: control_settings_button | button_style
+   0.743 Script @__level__/control.lua:514: control_settings_section_button | button_style
+   0.743 Script @__level__/control.lua:514: control_settings_section_frame | frame_style
+   0.743 Script @__level__/control.lua:514: count_label | label_style
+   0.743 Script @__level__/control.lua:514: crafting_queue_flow | flow_style
+   0.743 Script @__level__/control.lua:514: crafting_queue_slot | button_style
+   0.743 Script @__level__/control.lua:514: current_research_info_button | button_style
+   0.743 Script @__level__/control.lua:514: current_research_info_image | image_style
+   0.743 Script @__level__/control.lua:514: current_research_info_percent_label | label_style
+   0.743 Script @__level__/control.lua:514: custom_games_list_box | list_box_style
+   0.743 Script @__level__/control.lua:514: dark_line | line_style
+   0.743 Script @__level__/control.lua:514: decider_combinator_condition_frame | frame_style
+   0.743 Script @__level__/control.lua:514: decider_combinator_conditions_scroll_pane | scroll_pane_style
+   0.743 Script @__level__/control.lua:514: decider_combinator_frame | frame_style
+   0.743 Script @__level__/control.lua:514: decider_combinator_fulfilled_condition_frame | frame_style
+   0.743 Script @__level__/control.lua:514: decider_combinator_fulfilled_signal_select_button | button_style
+   0.743 Script @__level__/control.lua:514: decider_combinator_outputs_scroll_pane | scroll_pane_style
+   0.743 Script @__level__/control.lua:514: decider_combinator_signal_select_button | button_style
+   0.743 Script @__level__/control.lua:514: deep_frame_in_shallow_frame | frame_style
+   0.743 Script @__level__/control.lua:514: deep_frame_in_shallow_frame_for_description | frame_style
+   0.743 Script @__level__/control.lua:514: deep_frame_in_shallow_frame_for_description_with_fixed_width | frame_style
+   0.743 Script @__level__/control.lua:514: deep_frame_in_tabbed_pane | frame_style
+   0.743 Script @__level__/control.lua:514: deep_scroll_pane | scroll_pane_style
+   0.743 Script @__level__/control.lua:514: deep_scroll_pane_with_padding | scroll_pane_style
+   0.743 Script @__level__/control.lua:514: deep_slots_scroll_pane | scroll_pane_style
+   0.743 Script @__level__/control.lua:514: default_permission_group_list_box_item | button_style
+   0.743 Script @__level__/control.lua:514: dialog_button | button_style
+   0.743 Script @__level__/control.lua:514: dialog_buttons_horizontal_flow | horizontal_flow_style
+   0.743 Script @__level__/control.lua:514: disabled_index_technology_slot | technology_slot_style
+   0.743 Script @__level__/control.lua:514: disabled_preview_index_technology_slot | technology_slot_style
+   0.743 Script @__level__/control.lua:514: disabled_preview_technology_slot | technology_slot_style
+   0.743 Script @__level__/control.lua:514: disabled_technology_slot | technology_slot_style
+   0.743 Script @__level__/control.lua:514: disk_usage_progressbar | progressbar_style
+   0.743 Script @__level__/control.lua:514: double_slider | double_slider_style
+   0.743 Script @__level__/control.lua:514: draggable_space | empty_widget_style
+   0.743 Script @__level__/control.lua:514: draggable_space_in_shortcut_list | empty_widget_style
+   0.743 Script @__level__/control.lua:514: draggable_space_in_temporary_train_station | empty_widget_style
+   0.743 Script @__level__/control.lua:514: draggable_space_in_train_schedule | empty_widget_style
+   0.743 Script @__level__/control.lua:514: drop_target_button | button_style
+   0.743 Script @__level__/control.lua:514: dropdown | dropdown_style
+   0.743 Script @__level__/control.lua:514: edit_blueprint_description_textbox | textbox_style
+   0.743 Script @__level__/control.lua:514: editor_inner_frame | frame_style
+   0.743 Script @__level__/control.lua:514: editor_lua_textbox | textbox_style
+   0.743 Script @__level__/control.lua:514: editor_mode_selection_frame | frame_style
+   0.743 Script @__level__/control.lua:514: editor_mode_selection_table | table_style
+   0.743 Script @__level__/control.lua:514: electric_satisfaction_in_description_progressbar | progressbar_style
+   0.743 Script @__level__/control.lua:514: electric_satisfaction_progressbar | progressbar_style
+   0.743 Script @__level__/control.lua:514: electric_satisfaction_statistics_progressbar | progressbar_style
+   0.743 Script @__level__/control.lua:514: electric_statistics_progressbar | progressbar_style
+   0.743 Script @__level__/control.lua:514: electric_usage_label | label_style
+   0.743 Script @__level__/control.lua:514: empty_bonus_card_frame | frame_style
+   0.743 Script @__level__/control.lua:514: empty_widget | empty_widget_style
+   0.743 Script @__level__/control.lua:514: entity_button_base | empty_widget_style
+   0.743 Script @__level__/control.lua:514: entity_button_frame | frame_style
+   0.743 Script @__level__/control.lua:514: entity_frame | frame_style
+   0.743 Script @__level__/control.lua:514: entity_frame_filler | empty_widget_style
+   0.743 Script @__level__/control.lua:514: entity_frame_scroll_pane | scroll_pane_style
+   0.743 Script @__level__/control.lua:514: entity_variation_button | button_style
+   0.743 Script @__level__/control.lua:514: factoriopedia_contents_scroll_pane | scroll_pane_style
+   0.743 Script @__level__/control.lua:514: factoriopedia_icon_grid_scroll_pane | scroll_pane_style
+   0.743 Script @__level__/control.lua:514: failed_achievement_frame | frame_style
+   0.743 Script @__level__/control.lua:514: featured_technology_description_scroll_pane | scroll_pane_style
+   0.743 Script @__level__/control.lua:514: filter_frame | frame_style
+   0.743 Script @__level__/control.lua:514: filter_group_button_tab_slightly_larger | button_style
+   0.743 Script @__level__/control.lua:514: filter_group_slot_tab | tab_style
+   0.743 Script @__level__/control.lua:514: filter_group_tab | tab_style
+   0.743 Script @__level__/control.lua:514: filter_inventory_slot | button_style
+   0.743 Script @__level__/control.lua:514: filter_slot_table | table_style
+   0.743 Script @__level__/control.lua:514: filter_tabbed_pane | tabbed_pane_style
+   0.743 Script @__level__/control.lua:514: finished_game_label | label_style
+   0.743 Script @__level__/control.lua:514: finished_game_table | table_style
+   0.743 Script @__level__/control.lua:514: floating_train_station_list_box | list_box_style
+   0.743 Script @__level__/control.lua:514: flow | flow_style
+   0.743 Script @__level__/control.lua:514: forward_button | button_style
+   0.743 Script @__level__/control.lua:514: frame | frame_style
+   0.743 Script @__level__/control.lua:514: frame_action_button | button_style
+   0.743 Script @__level__/control.lua:514: frame_around_bottom | frame_style
+   0.743 Script @__level__/control.lua:514: frame_around_center | frame_style
+   0.743 Script @__level__/control.lua:514: frame_around_left | frame_style
+   0.743 Script @__level__/control.lua:514: frame_around_right | frame_style
+   0.743 Script @__level__/control.lua:514: frame_around_top | frame_style
+   0.743 Script @__level__/control.lua:514: frame_subheading_label | label_style
+   0.743 Script @__level__/control.lua:514: frame_tab | tab_style
+   0.743 Script @__level__/control.lua:514: frame_tabbed_pane | tabbed_pane_style
+   0.743 Script @__level__/control.lua:514: frame_tabbed_pane_corner | frame_style
+   0.743 Script @__level__/control.lua:514: frame_tabbed_pane_frame_header | frame_style
+   0.743 Script @__level__/control.lua:514: frame_title | label_style
+   0.743 Script @__level__/control.lua:514: frame_with_even_paddings | frame_style
+   0.743 Script @__level__/control.lua:514: frame_without_left_and_right_side | frame_style
+   0.743 Script @__level__/control.lua:514: frame_without_left_side | frame_style
+   0.743 Script @__level__/control.lua:514: fulfilled_draggable_space_in_train_schedule | empty_widget_style
+   0.743 Script @__level__/control.lua:514: game_controller_icons_dropdown | dropdown_style
+   0.743 Script @__level__/control.lua:514: glow | glow_style
+   0.743 Script @__level__/control.lua:514: goal_frame | frame_style
+   0.743 Script @__level__/control.lua:514: goal_inner_frame | frame_style
+   0.743 Script @__level__/control.lua:514: graph | graph_style
+   0.743 Script @__level__/control.lua:514: graphics_settings_table | table_style
+   0.743 Script @__level__/control.lua:514: green_button | button_style
+   0.743 Script @__level__/control.lua:514: green_circuit_network_content_slot | button_style
+   0.743 Script @__level__/control.lua:514: green_label | label_style
+   0.743 Script @__level__/control.lua:514: green_slider | slider_style
+   0.743 Script @__level__/control.lua:514: green_slot | button_style
+   0.743 Script @__level__/control.lua:514: grey_label | label_style
+   0.743 Script @__level__/control.lua:514: heading_2_label | label_style
+   0.743 Script @__level__/control.lua:514: health_progressbar | progressbar_style
+   0.743 Script @__level__/control.lua:514: heat_progressbar | progressbar_style
+   0.743 Script @__level__/control.lua:514: highlighted_tool_button | button_style
+   0.743 Script @__level__/control.lua:514: highlighted_value_textfield | textbox_style
+   0.743 Script @__level__/control.lua:514: horizontal_flow | horizontal_flow_style
+   0.743 Script @__level__/control.lua:514: horizontal_flow_with_extra_right_margin | horizontal_flow_style
+   0.743 Script @__level__/control.lua:514: horizontal_scrollbar | horizontal_scrollbar_style
+   0.743 Script @__level__/control.lua:514: horizontally_limited_equipment_grid_scroll_pane | scroll_pane_style
+   0.743 Script @__level__/control.lua:514: hyperlink_label | label_style
+   0.743 Script @__level__/control.lua:514: image | image_style
+   0.743 Script @__level__/control.lua:514: image_tab_selected_slot | button_style
+   0.743 Script @__level__/control.lua:514: image_tab_slot | button_style
+   0.743 Script @__level__/control.lua:514: info_label | label_style
+   0.743 Script @__level__/control.lua:514: inset_frame_container_frame | frame_style
+   0.743 Script @__level__/control.lua:514: inset_frame_container_horizontal_flow | horizontal_flow_style
+   0.743 Script @__level__/control.lua:514: inset_frame_container_horizontal_flow_in_tabbed_pane | horizontal_flow_style
+   0.743 Script @__level__/control.lua:514: inset_frame_container_table | table_style
+   0.743 Script @__level__/control.lua:514: inset_frame_container_vertical_flow | vertical_flow_style
+   0.743 Script @__level__/control.lua:514: inside_deep_frame | frame_style
+   0.743 Script @__level__/control.lua:514: inside_shallow_frame | frame_style
+   0.743 Script @__level__/control.lua:514: inside_shallow_frame_packed | frame_style
+   0.743 Script @__level__/control.lua:514: inside_shallow_frame_with_padding | frame_style
+   0.743 Script @__level__/control.lua:514: inside_shallow_frame_with_padding_and_vertical_spacing | frame_style
+   0.743 Script @__level__/control.lua:514: inside_shallow_frame_with_padding_line | line_style
+   0.743 Script @__level__/control.lua:514: install_mod_status_image | image_style
+   0.743 Script @__level__/control.lua:514: invalid_value_short_number_textfield | textbox_style
+   0.743 Script @__level__/control.lua:514: invalid_value_textfield | textbox_style
+   0.743 Script @__level__/control.lua:514: inventory_frame | frame_style
+   0.743 Script @__level__/control.lua:514: inventory_frame_title_style | label_style
+   0.743 Script @__level__/control.lua:514: inventory_limit_slot_button | button_style
+   0.743 Script @__level__/control.lua:514: inventory_slot | button_style
+   0.743 Script @__level__/control.lua:514: invisible_frame | frame_style
+   0.743 Script @__level__/control.lua:514: item_and_count_select_confirm | button_style
+   0.743 Script @__level__/control.lua:514: item_spoilage_in_description_progress_bar | progressbar_style
+   0.743 Script @__level__/control.lua:514: lab_progress_and_slot_divider | line_style
+   0.743 Script @__level__/control.lua:514: lab_progress_and_slot_divider_empty | line_style
+   0.743 Script @__level__/control.lua:514: lab_technology_frame | frame_style
+   0.743 Script @__level__/control.lua:514: lab_technology_frame_empty | frame_style
+   0.743 Script @__level__/control.lua:514: label | label_style
+   0.743 Script @__level__/control.lua:514: label_under_widget | label_style
+   0.743 Script @__level__/control.lua:514: label_with_left_padding | label_style
+   0.743 Script @__level__/control.lua:514: line | line_style
+   0.743 Script @__level__/control.lua:514: list_box | list_box_style
+   0.743 Script @__level__/control.lua:514: list_box_item | button_style
+   0.743 Script @__level__/control.lua:514: list_box_under_subheader | list_box_style
+   0.743 Script @__level__/control.lua:514: locale_dropdown | dropdown_style
+   0.743 Script @__level__/control.lua:514: locomotive_minimap_button | button_style
+   0.743 Script @__level__/control.lua:514: logistic_gui_items_scroll_pane | scroll_pane_style
+   0.743 Script @__level__/control.lua:514: logistic_section_repeated_subheader_frame | frame_style
+   0.743 Script @__level__/control.lua:514: logistic_section_subheader_frame | frame_style
+   0.743 Script @__level__/control.lua:514: logistic_sections_scroll_pane | scroll_pane_style
+   0.743 Script @__level__/control.lua:514: logistics_diode | image_style
+   0.743 Script @__level__/control.lua:514: long_number_textfield | textbox_style
+   0.743 Script @__level__/control.lua:514: main_menu_version_label | label_style
+   0.743 Script @__level__/control.lua:514: main_progressbar_frame | frame_style
+   0.743 Script @__level__/control.lua:514: map_details_frame | frame_style
+   0.743 Script @__level__/control.lua:514: map_generator_13_notch_slider | slider_style
+   0.743 Script @__level__/control.lua:514: map_generator_close_preview_button | button_style
+   0.743 Script @__level__/control.lua:514: map_generator_confirm_button | button_style
+   0.743 Script @__level__/control.lua:514: map_generator_frequency_table | table_style
+   0.743 Script @__level__/control.lua:514: map_generator_notched_slider | slider_style
+   0.743 Script @__level__/control.lua:514: map_generator_notched_slider_wide | slider_style
+   0.743 Script @__level__/control.lua:514: map_generator_preview_button | button_style
+   0.743 Script @__level__/control.lua:514: map_info_image | image_style
+   0.743 Script @__level__/control.lua:514: map_preview_scroll_pane | scroll_pane_style
+   0.743 Script @__level__/control.lua:514: map_view_add_button | button_style
+   0.743 Script @__level__/control.lua:514: mappers_scroll_pane | scroll_pane_style
+   0.743 Script @__level__/control.lua:514: mappers_table | table_style
+   0.743 Script @__level__/control.lua:514: menu_button | button_style
+   0.743 Script @__level__/control.lua:514: menu_button_continue | button_style
+   0.743 Script @__level__/control.lua:514: mini_button | button_style
+   0.743 Script @__level__/control.lua:514: mini_button_aligned_to_text_vertically | button_style
+   0.743 Script @__level__/control.lua:514: mini_button_aligned_to_text_vertically_when_centered | button_style
+   0.743 Script @__level__/control.lua:514: mini_tool_button_red | button_style
+   0.743 Script @__level__/control.lua:514: minimap | minimap_style
+   0.743 Script @__level__/control.lua:514: minimap_frame | frame_style
+   0.743 Script @__level__/control.lua:514: minimap_widget_under_subheader | empty_widget_style
+   0.743 Script @__level__/control.lua:514: mining_progressbar | progressbar_style
+   0.743 Script @__level__/control.lua:514: mod_attribute_image | image_style
+   0.743 Script @__level__/control.lua:514: mod_explore_thumbnail_image | image_style
+   0.743 Script @__level__/control.lua:514: mod_startup_settings_mismatch_notice_box | textbox_style
+   0.743 Script @__level__/control.lua:514: mod_thumbnail_image | image_style
+   0.743 Script @__level__/control.lua:514: mod_updates_status_image | image_style
+   0.743 Script @__level__/control.lua:514: mods_explore_results_table | table_style
+   0.743 Script @__level__/control.lua:514: mods_filter_exclude_button | button_style
+   0.743 Script @__level__/control.lua:514: mods_filter_hit_count_label | label_style
+   0.743 Script @__level__/control.lua:514: mods_scroll_pane | scroll_pane_style
+   0.743 Script @__level__/control.lua:514: mods_sorting_image | image_style
+   0.744 Script @__level__/control.lua:514: naked_list_box | list_box_style
+   0.744 Script @__level__/control.lua:514: naked_scroll_pane | scroll_pane_style
+   0.744 Script @__level__/control.lua:514: negative_message_frame | frame_style
+   0.744 Script @__level__/control.lua:514: negative_subheader_frame | frame_style
+   0.744 Script @__level__/control.lua:514: neutral_message_frame | frame_style
+   0.744 Script @__level__/control.lua:514: new_game_difficulty_vertical_flow | vertical_flow_style
+   0.744 Script @__level__/control.lua:514: new_game_header_list_box_item | button_style
+   0.744 Script @__level__/control.lua:514: new_game_info_image | image_style
+   0.744 Script @__level__/control.lua:514: new_game_subfooter | frame_style
+   0.744 Script @__level__/control.lua:514: no_header_filler_frame | frame_style
+   0.744 Script @__level__/control.lua:514: no_path_station_in_schedule_in_train_view_list_box_item | button_style
+   0.744 Script @__level__/control.lua:514: non_draggable_frame | frame_style
+   0.744 Script @__level__/control.lua:514: not_accessible_station_in_station_selection | button_style
+   0.744 Script @__level__/control.lua:514: not_working_weapon_button | button_style
+   0.744 Script @__level__/control.lua:514: notched_double_slider | double_slider_style
+   0.744 Script @__level__/control.lua:514: notched_slider | slider_style
+   0.744 Script @__level__/control.lua:514: notice_scroll_pane | scroll_pane_style
+   0.744 Script @__level__/control.lua:514: notice_textbox | textbox_style
+   0.744 Script @__level__/control.lua:514: number_input_frame | frame_style
+   0.744 Script @__level__/control.lua:514: omitted_technology_slot | button_style
+   0.744 Script @__level__/control.lua:514: open_armor_button | button_style
+   0.744 Script @__level__/control.lua:514: orange_label | label_style
+   0.744 Script @__level__/control.lua:514: other_settings_gui_button | button_style
+   0.744 Script @__level__/control.lua:514: other_settings_gui_textbox | textbox_style
+   0.744 Script @__level__/control.lua:514: other_settings_slider | slider_style
+   0.744 Script @__level__/control.lua:514: packed_horizontal_flow | horizontal_flow_style
+   0.744 Script @__level__/control.lua:514: packed_vertical_flow | vertical_flow_style
+   0.744 Script @__level__/control.lua:514: padded_vertical_flow | vertical_flow_style
+   0.744 Script @__level__/control.lua:514: partially_accessible_station_in_station_selection | button_style
+   0.744 Script @__level__/control.lua:514: permissions_groups_list_box | list_box_style
+   0.744 Script @__level__/control.lua:514: permissions_players_list_box | list_box_style
+   0.744 Script @__level__/control.lua:514: pins_frame | frame_style
+   0.744 Script @__level__/control.lua:514: pins_scroll_pane | scroll_pane_style
+   0.744 Script @__level__/control.lua:514: player_input_horizontal_flow | horizontal_flow_style
+   0.744 Script @__level__/control.lua:514: player_input_table | table_style
+   0.744 Script @__level__/control.lua:514: players_table | table_style
+   0.744 Script @__level__/control.lua:514: positive_message_frame | frame_style
+   0.744 Script @__level__/control.lua:514: production_graph | graph_style
+   0.744 Script @__level__/control.lua:514: production_progressbar | progressbar_style
+   0.744 Script @__level__/control.lua:514: progressbar | progressbar_style
+   0.744 Script @__level__/control.lua:514: promised_crafting_queue_slot | button_style
+   0.744 Script @__level__/control.lua:514: quick_bar_inner_panel | frame_style
+   0.744 Script @__level__/control.lua:514: quick_bar_page_button | button_style
+   0.744 Script @__level__/control.lua:514: quick_bar_slot_window_frame | frame_style
+   0.744 Script @__level__/control.lua:514: quick_panel_slot_button_deep_frame | frame_style
+   0.744 Script @__level__/control.lua:514: quick_panel_tabbed_pane | tabbed_pane_style
+   0.744 Script @__level__/control.lua:514: quickbar_holder_flow | vertical_flow_style
+   0.744 Script @__level__/control.lua:514: radiobutton | radiobutton_style
+   0.744 Script @__level__/control.lua:514: recipe_count_line_label | label_style
+   0.744 Script @__level__/control.lua:514: recipe_tooltip_horizontal_image | image_style
+   0.744 Script @__level__/control.lua:514: red_back_button | button_style
+   0.744 Script @__level__/control.lua:514: red_button | button_style
+   0.744 Script @__level__/control.lua:514: red_circuit_network_content_slot | button_style
+   0.744 Script @__level__/control.lua:514: red_confirm_button | button_style
+   0.744 Script @__level__/control.lua:514: red_inventory_slot | button_style
+   0.744 Script @__level__/control.lua:514: red_label | label_style
+   0.744 Script @__level__/control.lua:514: red_slider | slider_style
+   0.744 Script @__level__/control.lua:514: red_slot | button_style
+   0.744 Script @__level__/control.lua:514: red_slot_button | button_style
+   0.744 Script @__level__/control.lua:514: relative_gui_bottom_flow | horizontal_flow_style
+   0.744 Script @__level__/control.lua:514: relative_gui_left_flow | vertical_flow_style
+   0.744 Script @__level__/control.lua:514: relative_gui_right_flow | vertical_flow_style
+   0.744 Script @__level__/control.lua:514: relative_gui_top_flow | horizontal_flow_style
+   0.744 Script @__level__/control.lua:514: removed_content_table | table_style
+   0.744 Script @__level__/control.lua:514: repeated_subheader_frame | frame_style
+   0.744 Script @__level__/control.lua:514: research_info_tooltip_graph | graph_style
+   0.744 Script @__level__/control.lua:514: research_progress_inner_frame_active | frame_style
+   0.744 Script @__level__/control.lua:514: research_progress_inner_frame_inactive | frame_style
+   0.744 Script @__level__/control.lua:514: research_queue_active_glow_dark | glow_style
+   0.744 Script @__level__/control.lua:514: research_queue_active_glow_light | glow_style
+   0.744 Script @__level__/control.lua:514: research_queue_active_glow_outer | glow_style
+   0.744 Script @__level__/control.lua:514: research_queue_cancel_button | button_style
+   0.744 Script @__level__/control.lua:514: research_queue_drag_handle | empty_widget_style
+   0.744 Script @__level__/control.lua:514: research_queue_table | table_style
+   0.744 Script @__level__/control.lua:514: researched_preview_technology_slot | technology_slot_style
+   0.744 Script @__level__/control.lua:514: researched_technology_slot | technology_slot_style
+   0.744 Script @__level__/control.lua:514: right_container_frame | frame_style
+   0.744 Script @__level__/control.lua:514: right_side_frame | frame_style
+   0.744 Script @__level__/control.lua:514: rocket_weight_used_progress_bar | progressbar_style
+   0.744 Script @__level__/control.lua:514: schedule_in_train_view_list_box | list_box_style
+   0.744 Script @__level__/control.lua:514: scroll_pane | scroll_pane_style
+   0.744 Script @__level__/control.lua:514: scroll_pane_in_shallow_frame | scroll_pane_style
+   0.744 Script @__level__/control.lua:514: scroll_pane_under_subheader | scroll_pane_style
+   0.744 Script @__level__/control.lua:514: search_popup_frame | frame_style
+   0.744 Script @__level__/control.lua:514: search_popup_textfield | textbox_style
+   0.744 Script @__level__/control.lua:514: semibold_caption_label | label_style
+   0.744 Script @__level__/control.lua:514: semibold_label | label_style
+   0.744 Script @__level__/control.lua:514: shallow_frame | frame_style
+   0.744 Script @__level__/control.lua:514: shallow_frame_in_shallow_frame | frame_style
+   0.744 Script @__level__/control.lua:514: shallow_scroll_pane | scroll_pane_style
+   0.744 Script @__level__/control.lua:514: shallow_slots_scroll_pane | scroll_pane_style
+   0.744 Script @__level__/control.lua:514: shield_progressbar | progressbar_style
+   0.744 Script @__level__/control.lua:514: short_number_textfield | textbox_style
+   0.744 Script @__level__/control.lua:514: shortcut_bar_button | button_style
+   0.744 Script @__level__/control.lua:514: shortcut_bar_button_blue | button_style
+   0.744 Script @__level__/control.lua:514: shortcut_bar_button_green | button_style
+   0.744 Script @__level__/control.lua:514: shortcut_bar_button_red | button_style
+   0.744 Script @__level__/control.lua:514: shortcut_bar_button_small | button_style
+   0.744 Script @__level__/control.lua:514: shortcut_bar_button_small_blue | button_style
+   0.744 Script @__level__/control.lua:514: shortcut_bar_button_small_green | button_style
+   0.744 Script @__level__/control.lua:514: shortcut_bar_button_small_red | button_style
+   0.744 Script @__level__/control.lua:514: shortcut_bar_expand_button | button_style
+   0.744 Script @__level__/control.lua:514: shortcut_bar_inner_panel | frame_style
+   0.744 Script @__level__/control.lua:514: shortcut_bar_selection_scroll_pane | scroll_pane_style
+   0.744 Script @__level__/control.lua:514: shortcut_bar_window_frame | frame_style
+   0.744 Script @__level__/control.lua:514: shortcut_selection_row | frame_style
+   0.744 Script @__level__/control.lua:514: side_menu_button | button_style
+   0.744 Script @__level__/control.lua:514: side_menu_frame | frame_style
+   0.744 Script @__level__/control.lua:514: slider | slider_style
+   0.744 Script @__level__/control.lua:514: slider_value_textfield | textbox_style
+   0.744 Script @__level__/control.lua:514: slightly_smaller_tab | tab_style
+   0.744 Script @__level__/control.lua:514: slot | button_style
+   0.744 Script @__level__/control.lua:514: slot_button | button_style
+   0.744 Script @__level__/control.lua:514: slot_button_deep_frame | frame_style
+   0.744 Script @__level__/control.lua:514: slot_button_in_shallow_frame | button_style
+   0.744 Script @__level__/control.lua:514: slot_column_header_label | label_style
+   0.744 Script @__level__/control.lua:514: slot_group_frame | frame_style
+   0.744 Script @__level__/control.lua:514: slot_sized_button | button_style
+   0.744 Script @__level__/control.lua:514: slot_sized_button_blue | button_style
+   0.744 Script @__level__/control.lua:514: slot_sized_button_green | button_style
+   0.744 Script @__level__/control.lua:514: slot_sized_button_red | button_style
+   0.744 Script @__level__/control.lua:514: slot_table | table_style
+   0.744 Script @__level__/control.lua:514: slot_window_frame | frame_style
+   0.744 Script @__level__/control.lua:514: small_notice_textbox | textbox_style
+   0.744 Script @__level__/control.lua:514: speech_bubble | speech_bubble_style
+   0.744 Script @__level__/control.lua:514: splitter_settings_table | table_style
+   0.744 Script @__level__/control.lua:514: squashable_label | label_style
+   0.744 Script @__level__/control.lua:514: squashable_label_with_left_padding | label_style
+   0.744 Script @__level__/control.lua:514: station_train_status_button | button_style
+   0.744 Script @__level__/control.lua:514: stations_scroll_pane | scroll_pane_style
+   0.744 Script @__level__/control.lua:514: stations_scroll_pane_small_screen | scroll_pane_style
+   0.744 Script @__level__/control.lua:514: stations_trains_scroll_pane | scroll_pane_style
+   0.744 Script @__level__/control.lua:514: statistics_scroll_pane | scroll_pane_style
+   0.744 Script @__level__/control.lua:514: status_image | image_style
+   0.744 Script @__level__/control.lua:514: steam_friend_label | label_style
+   0.744 Script @__level__/control.lua:514: stretchable_textfield | textbox_style
+   0.744 Script @__level__/control.lua:514: subfooter_frame | frame_style
+   0.744 Script @__level__/control.lua:514: subfooter_frame_with_left_edge | frame_style
+   0.744 Script @__level__/control.lua:514: subheader_caption_checkbox | checkbox_style
+   0.744 Script @__level__/control.lua:514: subheader_caption_label | label_style
+   0.744 Script @__level__/control.lua:514: subheader_frame | frame_style
+   0.744 Script @__level__/control.lua:514: subheader_frame_with_text_on_the_right | frame_style
+   0.744 Script @__level__/control.lua:514: subheader_label | label_style
+   0.744 Script @__level__/control.lua:514: subheader_right_aligned_label | label_style
+   0.744 Script @__level__/control.lua:514: subheader_semibold_label | label_style
+   0.744 Script @__level__/control.lua:514: switch | switch_style
+   0.744 Script @__level__/control.lua:514: sync_mods_default_status_frame | frame_style
+   0.744 Script @__level__/control.lua:514: sync_mods_downloading_status_frame | frame_style
+   0.744 Script @__level__/control.lua:514: sync_mods_table | table_style
+   0.744 Script @__level__/control.lua:514: tab | tab_style
+   0.744 Script @__level__/control.lua:514: tab_deep_frame_in_entity_frame | frame_style
+   0.744 Script @__level__/control.lua:514: tab_scroll_pane | scroll_pane_style
+   0.744 Script @__level__/control.lua:514: tab_shallow_scroll_pane | scroll_pane_style
+   0.744 Script @__level__/control.lua:514: tabbed_pane | tabbed_pane_style
+   0.744 Script @__level__/control.lua:514: tabbed_pane_frame | frame_style
+   0.744 Script @__level__/control.lua:514: tabbed_pane_with_extra_padding | tabbed_pane_style
+   0.744 Script @__level__/control.lua:514: tabbed_pane_with_no_side_padding | tabbed_pane_style
+   0.744 Script @__level__/control.lua:514: table | table_style
+   0.744 Script @__level__/control.lua:514: table_with_selection | table_style
+   0.744 Script @__level__/control.lua:514: target_station_in_schedule_in_train_view_list_box_item | button_style
+   0.744 Script @__level__/control.lua:514: technology_card_frame | frame_style
+   0.744 Script @__level__/control.lua:514: technology_graph_title_frame | frame_style
+   0.744 Script @__level__/control.lua:514: technology_gui_left_frame | frame_style
+   0.744 Script @__level__/control.lua:514: technology_gui_outer_frame | frame_style
+   0.744 Script @__level__/control.lua:514: technology_list_scroll_pane | scroll_pane_style
+   0.744 Script @__level__/control.lua:514: technology_slot | technology_slot_style
+   0.744 Script @__level__/control.lua:514: text_holding_scroll_pane | scroll_pane_style
+   0.744 Script @__level__/control.lua:514: textbox | textbox_style
+   0.744 Script @__level__/control.lua:514: thick_progressbar | progressbar_style
+   0.744 Script @__level__/control.lua:514: tile_variation_button | button_style
+   0.744 Script @__level__/control.lua:514: tips_and_tricks_frame | frame_style
+   0.744 Script @__level__/control.lua:514: tips_and_tricks_image | image_style
+   0.744 Script @__level__/control.lua:514: tips_and_tricks_info_frame | frame_style
+   0.744 Script @__level__/control.lua:514: tips_and_tricks_info_frame_small_screen | frame_style
+   0.744 Script @__level__/control.lua:514: tips_and_tricks_notification_button | button_style
+   0.744 Script @__level__/control.lua:514: tips_and_tricks_notification_frame | frame_style
+   0.744 Script @__level__/control.lua:514: tips_and_tricks_simulation | empty_widget_style
+   0.744 Script @__level__/control.lua:514: tips_and_tricks_subfooter | frame_style
+   0.744 Script @__level__/control.lua:514: tips_and_tricks_title_label | label_style
+   0.744 Script @__level__/control.lua:514: title_tip_item | button_style
+   0.744 Script @__level__/control.lua:514: tool_bar_empty_slot | empty_widget_style
+   0.744 Script @__level__/control.lua:514: tool_bar_open_button | button_style
+   0.744 Script @__level__/control.lua:514: tool_button | button_style
+   0.744 Script @__level__/control.lua:514: tool_button_blue | button_style
+   0.744 Script @__level__/control.lua:514: tool_button_flush_fluid | button_style
+   0.744 Script @__level__/control.lua:514: tool_button_green | button_style
+   0.744 Script @__level__/control.lua:514: tool_button_red | button_style
+   0.744 Script @__level__/control.lua:514: tool_button_without_padding | button_style
+   0.744 Script @__level__/control.lua:514: tool_equip_ammo_slot | button_style
+   0.744 Script @__level__/control.lua:514: tool_equip_equipment_image | image_style
+   0.744 Script @__level__/control.lua:514: tool_equip_inner_panel | frame_style
+   0.744 Script @__level__/control.lua:514: tooltip_camera | empty_widget_style
+   0.744 Script @__level__/control.lua:514: tooltip_category_line | line_style
+   0.744 Script @__level__/control.lua:514: tooltip_description_frame | frame_style
+   0.744 Script @__level__/control.lua:514: tooltip_frame | frame_style
+   0.744 Script @__level__/control.lua:514: tooltip_heading_label | label_style
+   0.744 Script @__level__/control.lua:514: tooltip_heading_label_category | label_style
+   0.744 Script @__level__/control.lua:514: tooltip_horizontal_line | line_style
+   0.744 Script @__level__/control.lua:514: tooltip_item_label | label_style
+   0.744 Script @__level__/control.lua:514: tooltip_label | label_style
+   0.744 Script @__level__/control.lua:514: tooltip_panel_background | frame_style
+   0.744 Script @__level__/control.lua:514: tooltip_title_frame_light | frame_style
+   0.744 Script @__level__/control.lua:514: tooltip_title_label | label_style
+   0.744 Script @__level__/control.lua:514: train_interrupts_scroll_pane | scroll_pane_style
+   0.744 Script @__level__/control.lua:514: train_inventory_frame | frame_style
+   0.744 Script @__level__/control.lua:514: train_schedule_action_button | button_style
+   0.744 Script @__level__/control.lua:514: train_schedule_add_interrupt_station_button | button_style
+   0.744 Script @__level__/control.lua:514: train_schedule_add_station_button | button_style
+   0.744 Script @__level__/control.lua:514: train_schedule_add_wait_condition_button | button_style
+   0.744 Script @__level__/control.lua:514: train_schedule_circuit_condition_comparator_dropdown | dropdown_style
+   0.744 Script @__level__/control.lua:514: train_schedule_collapse_button | button_style
+   0.744 Script @__level__/control.lua:514: train_schedule_comparison_type_button | button_style
+   0.744 Script @__level__/control.lua:514: train_schedule_comparison_type_frame | frame_style
+   0.744 Script @__level__/control.lua:514: train_schedule_comparison_type_frame_extra_indented | frame_style
+   0.744 Script @__level__/control.lua:514: train_schedule_comparison_type_frame_indented | frame_style
+   0.744 Script @__level__/control.lua:514: train_schedule_condition_frame | frame_style
+   0.744 Script @__level__/control.lua:514: train_schedule_condition_time_selection_button | button_style
+   0.744 Script @__level__/control.lua:514: train_schedule_delete_button | button_style
+   0.744 Script @__level__/control.lua:514: train_schedule_fulfilled_delete_button | button_style
+   0.744 Script @__level__/control.lua:514: train_schedule_fulfilled_item_select_button | button_style
+   0.744 Script @__level__/control.lua:514: train_schedule_fullfilled_condition_frame | frame_style
+   0.744 Script @__level__/control.lua:514: train_schedule_item_select_button | button_style
+   0.744 Script @__level__/control.lua:514: train_schedule_mode_switch_horizontal_flow | horizontal_flow_style
+   0.744 Script @__level__/control.lua:514: train_schedule_non_existent_stop_label | label_style
+   0.744 Script @__level__/control.lua:514: train_schedule_scroll_pane | scroll_pane_style
+   0.744 Script @__level__/control.lua:514: train_schedule_station_frame | frame_style
+   0.744 Script @__level__/control.lua:514: train_schedule_station_in_interrupt_frame | frame_style
+   0.744 Script @__level__/control.lua:514: train_schedule_temporary_station_delete_button | button_style
+   0.744 Script @__level__/control.lua:514: train_schedule_temporary_station_frame | frame_style
+   0.744 Script @__level__/control.lua:514: train_schedule_unavailable_stop_label | label_style
+   0.744 Script @__level__/control.lua:514: train_station_list_box | list_box_style
+   0.744 Script @__level__/control.lua:514: train_status_button | button_style
+   0.744 Script @__level__/control.lua:514: train_stop_subheader | label_style
+   0.744 Script @__level__/control.lua:514: train_with_minimap_frame | frame_style
+   0.744 Script @__level__/control.lua:514: trains_scroll_pane | scroll_pane_style
+   0.744 Script @__level__/control.lua:514: trains_scroll_pane_with_side_margin | scroll_pane_style
+   0.744 Script @__level__/control.lua:514: trains_widget_table | table_style
+   0.744 Script @__level__/control.lua:514: transparent_button | button_style
+   0.744 Script @__level__/control.lua:514: transparent_slot | button_style
+   0.744 Script @__level__/control.lua:514: two_module_spacing_horizontal_flow | horizontal_flow_style
+   0.744 Script @__level__/control.lua:514: two_module_spacing_vertical_flow | vertical_flow_style
+   0.744 Script @__level__/control.lua:514: unavailable_preview_technology_slot | technology_slot_style
+   0.744 Script @__level__/control.lua:514: unavailable_technology_slot | technology_slot_style
+   0.744 Script @__level__/control.lua:514: undelete_space_platforms_table | table_style
+   0.744 Script @__level__/control.lua:514: undo_camera | empty_widget_style
+   0.744 Script @__level__/control.lua:514: universe_connection_button | button_style
+   0.744 Script @__level__/control.lua:514: universe_frame | frame_style
+   0.744 Script @__level__/control.lua:514: universe_platform_button | button_style
+   0.744 Script @__level__/control.lua:514: universe_widget | empty_widget_style
+   0.744 Script @__level__/control.lua:514: vehicle_health_progressbar | progressbar_style
+   0.744 Script @__level__/control.lua:514: vertical_flow | vertical_flow_style
+   0.744 Script @__level__/control.lua:514: vertical_scrollbar | vertical_scrollbar_style
+   0.744 Script @__level__/control.lua:514: very_short_number_textfield | textbox_style
+   0.744 Script @__level__/control.lua:514: wide_activity_bar | activity_bar_style
+   0.744 Script @__level__/control.lua:514: wide_entity_button | empty_widget_style
+   0.744 Script @__level__/control.lua:514: wide_list_box | list_box_style
+   0.744 Script @__level__/control.lua:514: wide_list_box_in_shallow_frame | list_box_style
+   0.744 Script @__level__/control.lua:514: wide_list_box_in_shallow_frame_under_subheader | list_box_style
+   0.744 Script @__level__/control.lua:514: wide_list_box_under_subheader | list_box_style
+   0.744 Script @__level__/control.lua:514: wide_slider_value_textfield | textbox_style
+   0.744 Script @__level__/control.lua:514: working_weapon_button | button_style
+   0.744 Script @__level__/control.lua:514: yellow_inventory_slot | button_style
+   0.744 Script @__level__/control.lua:514: yellow_slot | button_style
+   0.744 Script @__level__/control.lua:514: yellow_slot_button | button_style
+   0.744 Script @__level__/control.lua:514: big_slot_button | button_style
+   0.744 Script @__level__/control.lua:514: blurry_frame | frame_style
+   0.744 Script @__level__/control.lua:514: button_with_shadow | button_style
+   0.744 Script @__level__/control.lua:514: compilatron_gui_message | speech_bubble_style
+   0.744 Script @__level__/control.lua:514: compilatron_speech_bubble | speech_bubble_style
+   0.744 Script @__level__/control.lua:514: compilatron_speech_bubble_wrapper | flow_style
+   0.744 Script @__level__/control.lua:514: dark_button | button_style
+   0.744 Script @__level__/control.lua:514: dark_rounded_button | button_style
+   0.744 Script @__level__/control.lua:514: decider_combinator_scroll_pane | scroll_pane_style
+   0.744 Script @__level__/control.lua:514: draggable_space_header | empty_widget_style
+   0.744 Script @__level__/control.lua:514: dropdown_button | button_style
+   0.744 Script @__level__/control.lua:514: frame_button | button_style
+   0.744 Script @__level__/control.lua:514: frame_header_flow | horizontal_flow_style
+   0.744 Script @__level__/control.lua:514: left_slider_button | button_style
+   0.744 Script @__level__/control.lua:514: list_box_in_shallow_frame | list_box_style
+   0.744 Script @__level__/control.lua:514: list_box_in_shallow_frame_scroll_pane | scroll_pane_style
+   0.744 Script @__level__/control.lua:514: list_box_in_shallow_frame_under_subheader_scroll_pane | scroll_pane_style
+   0.744 Script @__level__/control.lua:514: list_box_scroll_pane | scroll_pane_style
+   0.744 Script @__level__/control.lua:514: list_box_under_subheader_scroll_pane | scroll_pane_style
+   0.744 Script @__level__/control.lua:514: mod_gui_button | button_style
+   0.744 Script @__level__/control.lua:514: mod_gui_inside_deep_frame | frame_style
+   0.744 Script @__level__/control.lua:514: mod_gui_spacing_horizontal_flow | horizontal_flow_style
+   0.744 Script @__level__/control.lua:514: right_slider_button | button_style
+   0.744 Script @__level__/control.lua:514: rounded_button | button_style
+   0.744 Script @__level__/control.lua:514: sign_post_speech_bubble | speech_bubble_style
+   0.744 Script @__level__/control.lua:514: slider_button | button_style
+   0.744 Script @__level__/control.lua:514: slot_sized_button_pressed | button_style
+   0.744 Script @__level__/control.lua:514: small_text_image | image_style
+   0.744 Script @__level__/control.lua:514: universe_planet_button | button_style

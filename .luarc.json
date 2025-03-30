@@ -4,6 +4,11 @@
         "log",
         "defines",
         "script",
-        "game"
+        "game",
+        "lfs"
+    ],
+    "workspace.library": [
+        "/home/dawids/Software/vscode-factoriomod-debug/luals-addon/factorio",
+        "${3rd}/lfs/library"
     ]
 }

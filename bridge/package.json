@@ -1,0 +1,14 @@
+{
+  "name": "bridge",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "main": "node main.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "tailing-stream": "^0.2.0"
+  }
+}

@@ -204,6 +204,8 @@ script.on_event(defines.events.on_surface_cleared,
   function(event)
       local surface = game.surfaces[1]
   		storage.charted_surface = false
+      storage.has_created_discord_link = false
+      -- all_tags = game.find_chart_tags(game.surface[1], {{-100, -100}, {100, 100}})
       storage.has_player_recieved_robots = {}
       set_normal_daytime(surface)
 
@@ -403,12 +405,21 @@ script.on_nth_tick(
     	local surface = game.surfaces[1]
       game.forces["player"].chart(1, {{-250, -250},{250,250}})
       game.forces["player"].rechart()
-  	  log("charting surface")
-    	if not storage.has_created_discord_link then
-    	  log("creating chart tag")
-        game.forces["player"].add_chart_tag(1, {position={0, 0}, icon={type="virtual", name="signal-green"}, text="Discord Link: https://discord.gg/SavhUfjg6K"} )
-        storage.has_created_discord_link = true
-    	end
+      log("Charted surface, dlink is " .. tostring(storage.has_created_discord_link))
+    	storage.charted_surface = true
+  	end
+
+  	test = {test = 100}
+  	helpers.write_file("testing.txt", helpers.table_to_json(test), true, 0)
+  	if not storage.has_created_discord_link then
+      log("creating tag")
+      tag = game.forces["player"].add_chart_tag(1, {position={0, 0}, icon={type="virtual", name="signal-green"}, text="Discord Link: https://discord.gg/SavhUfjg6K"} )
+      if tag ~= nil then
+        log("tag is nil")
+      else
+        log("tag is not nil")
+      end
+      storage.has_created_discord_link = true
   	end
 
     for _, player in pairs(game.connected_players) do 
@@ -508,13 +519,6 @@ end)
 script.on_init(function()
     log("Initialising Scenario for the first time (on_init)")
     log("**************************************************")
-    local list = {}
-    local num = 0
-
-    local info = prototypes.style -- you can use it
-    --local info = defines 	-- you can use it
-
-      log( serpent.line(list) )
   	game.map_settings.enemy_evolution.destroy_factor = 0
   	game.map_settings.enemy_evolution.pollution_factor = 0
   	game.map_settings.enemy_evolution.time_factor = 0.00004
