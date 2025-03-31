@@ -1,0 +1,54 @@
+.panel {
+  background: var(--panel-bg);
+  padding: 1em;
+  z-index: 1;
+  box-shadow:
+    0 0 25px 0 #000,
+    /* inset 12px 0 3px -11px var(--shadow-color), */
+    /* inset -12px 0 3px -11px var(--shadow-color), */
+    /* inset 0 -12px 2.5px -9px var(--shadow-color), */
+    inset 0 12px 4px -9px rgba(230, 240, 255, 0.25),
+    inset 0 2px 8px 2px var(--blur-color);
+}
+
+.panel::after {
+  content: '';
+  height: calc(64px * var(--font-scale));
+  width: 100%;
+  background-image: var(--end-marks);
+}
+
+.panel::before {
+  content: '';
+  position: absolute;
+  top: 35px;
+  height: calc(48px * var(--font-scale));
+  width: calc(100% - 70px);
+  background-image: var(--end-marks);
+}
+
+.frame {
+  background: var(--frame-bg);
+  box-shadow:
+    0 -3px 2px 0 #000,
+    0 -4px 0.5px -1px #000,
+    0 3.8px 3px -1.2px var(--lit-surface-color),
+    inset 0 0 6px 1px var(--shadow-color);
+  ;
+}
+
+.frame_list_item {
+  background: var(--frame-bg);
+  color: var(--body-color);
+  text-decoration: none;
+  padding: 0.5em;
+  box-shadow:
+    /* 0 -4px 1px 0.1px var(--lit-surface-color), */
+    inset 0 -1px 3px 1px var(--frame-shadow-color);
+  ;
+}
+
+.frame_list_item:hover {
+  background: var(--factorio-orange);
+  color: var(--frame-bg);
+}

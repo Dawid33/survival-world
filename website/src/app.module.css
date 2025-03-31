@@ -1,0 +1,202 @@
+:root,
+:root body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+.main {
+  height: 100%;
+  padding: 1em;
+  box-sizing: border-box;
+
+  display: grid;
+  flex-direction: row;
+  grid-template-rows: min-content 1fr;
+  grid-template-columns: 10em 1fr;
+  grid-gap: 1em;
+}
+
+.header {
+  grid-row: 1;
+  grid-column: span 2;
+}
+
+.nav {
+  grid-row: 2;
+  grid-column: 1;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.navLink {}
+
+.content {
+  flex-grow: 1;
+  grid-row: 2;
+  grid-column: 2;
+}
+
+
+strong,
+h1,
+h2 {
+  font-weight: bold;
+}
+
+h1,
+h2 {
+  color: var(--title-color);
+  margin: 0;
+}
+
+h1 {
+  background-color: var(--panel-bg);
+}
+
+p {
+  /* margin: 1em 0 0; */
+}
+
+.fio_row {
+  display: flex;
+  flex-direction: row;
+}
+
+hr {
+  border: none;
+  overflow: visible;
+  --hr-width: 10px;
+  width: calc(100% + var(--hr-width) * 2);
+  /* margin-left: calc(var(--hr-width) * -1); */
+  height: 4px;
+  background-image: linear-gradient(#111, #686868);
+}
+
+hr.fio_full-width {
+  --hr-width: 20px;
+}
+
+/* Containers: panel, frame, section, blue-frame */
+
+
+
+/* Input types: text, checkbox, checkbox.fio_switch, radio */
+input[type=checkbox].fio_switch::before {
+  content: attr(data-off);
+}
+
+input[type=checkbox].fio_switch::after {
+  content: attr(data-on);
+}
+
+/*  Buttons: normal, confirm, back, cancel
+    States: idle, disabled, hover, press */
+/* a { */
+/* box-shadow: */
+/* var(--dusty-blur), */
+/* var(--inset-shadow); */
+/* --inset-shadow: */
+/* inset 0 6px 4px -4px #fff, */
+/* inset 0 -6px 3px -4px #000, */
+/* inset 0 0 10px 0 #000; */
+/* color: #1d1c1d; */
+/* font-family: inherit; */
+/* --rel-size: 36px; */
+/* font-weight: bold; */
+/* line-height: calc(var(--font-scale) * 64px); */
+/* margin: 0.3em; */
+/* border: none; */
+/* padding: 0.1em; */
+/* background: #8e8e8e; */
+/* transition-duration: 0.05s; */
+/* } */
+
+/* a:hover:not(:disabled), */
+/* a.hover:not(:disabled) { */
+/* --blur-color: var(--factorio-orange); */
+/* } */
+
+/* a:disabled { */
+/* color: #b3b1b3; */
+/* font-weight: normal; */
+/* background: #272727; */
+/* } */
+
+/* a:active, */
+/* a.active { */
+/* background: var(--factorio-orange-light); */
+/* outline: none; */
+/* padding-top: 4px; */
+/* padding-bottom: 0; */
+/* } */
+
+/* a:disabled, */
+/* a:active, */
+/* a.active { */
+/* --inset-shadow: */
+/* inset 0 2px 6px 2px rgba(0, 0, 0, 0.8); */
+/* } */
+
+/*  Selection color. Keeping this above 50% luminosity,
+    since this is a dark theme. The 0.8 alpha is needed
+    because anything with alpha 1 becomes alpha 0.5-ish
+    but not really alpha more like multiply or something,
+    and looks really dirty. */
+::selection {
+  background: rgba(241, 190, 100, 0.8);
+  color: #000;
+}
+
+/* Fun part: scrollbars */
+::-webkit-scrollbar {
+  width: 25px;
+  height: 25px;
+}
+
+::-webkit-scrollbar-thumb {
+  min-height: 32px;
+  background-color: #858585;
+  background-image:
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.2) 3px, transparent 8px),
+    linear-gradient(to top, #111, #111 1px, transparent 4px),
+    linear-gradient(to right, #5e5e5e, transparent 4px),
+    linear-gradient(to left, #5e5e5e, transparent 4px),
+    linear-gradient(to bottom, #858585, #858585 8px, transparent 8px),
+    linear-gradient(to top, #858585, #858585 8px, transparent 8px),
+    linear-gradient(to right, #858585, #858585 4px, transparent 4px),
+    linear-gradient(to left, #858585, #858585 4px, transparent 4px),
+    repeating-linear-gradient(to bottom, #626262, #a9a9a9 5px, #626262 8px);
+  background-clip: padding-box;
+  border: 3px solid transparent;
+}
+
+::-webkit-scrollbar-thumb:horizontal {
+  min-width: 32px;
+  background-image:
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.8), transparent 3px),
+    linear-gradient(to top, #111, transparent 3px),
+    linear-gradient(to right, #5e5e5e, transparent 4px),
+    linear-gradient(to left, #5e5e5e, transparent 4px),
+    linear-gradient(to bottom, #858585, #858585 4px, transparent 4px),
+    linear-gradient(to top, #858585, #858585 4px, transparent 4px),
+    linear-gradient(to right, #858585, #858585 8px, transparent 8px),
+    linear-gradient(to left, #858585, #858585 8px, transparent 8px),
+    repeating-linear-gradient(to right, #626262, #a9a9a9 5px, #626262 8px);
+}
+
+::-webkit-scrollbar-track {
+  background: #333030;
+  box-shadow:
+    -5px 0 10px -3px var(--shadow-color),
+    inset 0 1px 3px 1px var(--shadow-color),
+    inset 0 -4px 3px -1px var(--lit-surface-color);
+}
+
+::-webkit-scrollbar-corner {
+  background: var(--panel-bg);
+  box-shadow:
+    inset 0 -1px 3px 1px var(--shadow-color),
+    inset 0 4px 3px -1px var(--lit-surface-color);
+}

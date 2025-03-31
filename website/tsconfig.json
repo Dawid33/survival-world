@@ -1,17 +1,35 @@
 {
   "compilerOptions": {
+    "esModuleInterop": true,
     "jsxImportSource": "preact",
     "jsx": "react-jsx",
     "baseUrl": "./",
     "skipLibCheck": true,
     "paths": {
-      "react": ["node_modules/preact/compat"],
-      "react-dom": ["./node_modules/preact/compat/"]
+      "react": [
+        "node_modules/preact/compat"
+      ],
+      "react-dom": [
+        "./node_modules/preact/compat/"
+      ]
     },
-    "typeRoots": ["src/types", "./node_modules/@types"]
+    "typeRoots": [
+      "src/types",
+      "./node_modules/@types"
+    ]
   },
   "resolve": {
-    "extensions": [".js", ".jsx", ".ts", ".tsx", ".json", ".svg", ".css"]
+    "extensions": [
+      ".js",
+      ".jsx",
+      ".ts",
+      ".tsx",
+      ".json",
+      ".svg",
+      ".css"
+    ]
   },
-  "include": ["src"]
+  "include": [
+    "src"
+  ]
 }

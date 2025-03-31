@@ -1,0 +1,31 @@
+:root * {
+  --panel-bg: #313031;
+  --frame-bg: #242324;
+  --title-color: #ffe6c0;
+  --body-color: #fff;
+  --input-color: #1d1c1d;
+  --infotext-color: #75dafb;
+  --disabled-color: #b3b1b3;
+  --factorio-orange: #ffae00;
+  --factorio-orange-light: #f1be64;
+  --cancel-red: #fe4d4d;
+  --orange-border: 2px solid var(--factorio-orange);
+  --blur-color: #251c13;
+  --dusty-blur: 0 0 10px 2px var(--blur-color);
+  --end-marks:
+    linear-gradient(to top, rgba(0, 0, 0, 0.4), transparent 4px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.15), transparent 4px),
+    repeating-linear-gradient(to right, transparent, transparent 4px, #373637 4px, #3b3a3b 6px, #373637 8px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.1), transparent 4px),
+    linear-gradient(to top, rgba(255, 255, 255, 0.15), transparent 4px),
+    repeating-linear-gradient(to right, #2a2a2a, #2d2c2d 2px, #2a2a2a 4px);
+  --lit-surface-color: rgba(255, 255, 255, 0.3);
+  --shadow-color: rgba(0, 0, 0, 0.5);
+  --frame-shadow-color: rgba(0, 0, 0, 0.8);
+  outline-color: var(--factorio-orange);
+  font-family: "Titillium Web", sans-serif;
+}
+
+p {
+  color: var(--body-color);
+}

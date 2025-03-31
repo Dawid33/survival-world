@@ -7,7 +7,8 @@
   },
   "dependencies": {
     "pocketbase": "^0.25.2",
-    "preact": "^10.13.0"
+    "preact": "^10.13.0",
+    "preact-router": "^4.1.2"
   },
   "scripts": {
     "start": "bun dev"
