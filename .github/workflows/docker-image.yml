@@ -37,7 +37,7 @@ jobs:
     - name: Build and Push Docker Image
       run: |
         docker login --username dawid33 --password ${{ secrets.GH_PAT }} ghcr.io
-        docker build --file bridge/Dockerfile --tag ghcr.io/dawid33/gateway:latest bridge
+        docker build --file website/Dockerfile --tag ghcr.io/dawid33/gateway:latest website
         docker push ghcr.io/dawid33/gateway:latest
       
     

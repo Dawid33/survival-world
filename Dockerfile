@@ -10,18 +10,15 @@ ENV PORT=34197 \
     CONFIG=/factorio/config \
     SCRIPTOUTPUT=/factorio/script-output
 
-SHELL ["/bin/bash", "-eo", "pipefail", "-c"]
-RUN set -ox pipefail \
-    && archive="/tmp/factorio_headless_x64_$VERSION.tar.xz" \
-    && mkdir -p /opt/factorio \
-    && apt-get -q update \
-    && DEBIAN_FRONTEND=noninteractive apt-get -qy install luarocks ca-certificates curl jq pwgen xz-utils procps gettext-base --no-install-recommends \
-    && curl -sSL "https://www.factorio.com/get-download/$VERSION/headless/linux64" -o "$archive" --retry $CURL_RETRIES\
-    && tar xf "$archive" --directory /opt \
-    && chmod ugo=rwx /opt/factorio \
-    && rm "$archive" \
-    && rm -rf /var/lib/apt/lists/* \
-    && ln -s "$SAVES" /opt/factorio/saves
+RUN apt-get -q update 
+RUN DEBIAN_FRONTEND=noninteractive apt-get -qy install luarocks ca-certificates curl jq pwgen xz-utils procps gettext-base --no-install-recommends 
+
+RUN curl -sSL "https://www.factorio.com/get-download/$VERSION/headless/linux64" -o "/tmp/factorio_headless_x64_$VERSION.tar.xz" --retry $CURL_RETRIES
+RUN mkdir -p /opt/factorio 
+RUN chmod ugo=rwx /opt/factorio 
+RUN tar xf "/tmp/factorio_headless_x64_$VERSION.tar.xz" --directory /opt 
+RUN rm "/tmp/factorio_headless_x64_$VERSION.tar.xz" 
+RUN ln -s "$SAVES" /opt/factorio/saves
 
 COPY scenarios/tester /opt/factorio/scenarios/tester
 COPY scenario.sh scenario.sh 
