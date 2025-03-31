@@ -1,0 +1,25 @@
+{
+  "lockfileVersion": 1,
+  "workspaces": {
+    "": {
+      "name": "bun-preact-ts",
+      "dependencies": {
+        "pocketbase": "^0.25.2",
+        "preact": "^10.13.0",
+        "preact-router": "^4.1.2",
+      },
+      "devDependencies": {
+        "bun-types": "^0.5.0",
+      },
+    },
+  },
+  "packages": {
+    "bun-types": ["bun-types@0.5.8", "", {}, "sha512-VHwD0MAHo3wraYAeqTWH2NDmXOdGfC3wWWOnZvK93ytI6yq/LkgsCjDudWNmN7MlfPvJb2zoLMnkzhjxNwLsLw=="],
+
+    "pocketbase": ["pocketbase@0.25.2", "", {}, "sha512-ONZl1+qHJMnhR2uacBlBJ90lm7njtL/zy0606+1ROfK9hSL4LRBRc8r89rMcNRzPzRqCNyoFTh2Qg/lYXdEC1w=="],
+
+    "preact": ["preact@10.26.4", "", {}, "sha512-KJhO7LBFTjP71d83trW+Ilnjbo+ySsaAgCfXOXUlmGzJ4ygYPWmysm77yg4emwfmoz3b22yvH5IsVFHbhUaH5w=="],
+
+    "preact-router": ["preact-router@4.1.2", "", { "peerDependencies": { "preact": ">=10" } }, "sha512-uICUaUFYh+XQ+6vZtQn1q+X6rSqwq+zorWOCLWPF5FAsQh3EJ+RsDQ9Ee+fjk545YWQHfUxhrBAaemfxEnMOUg=="],
+  }
+}
