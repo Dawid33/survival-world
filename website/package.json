@@ -1,0 +1,15 @@
+{
+  "name": "bun-preact-ts",
+  "version": "0.0.5",
+  "type": "module",
+  "devDependencies": {
+    "bun-types": "^0.5.0"
+  },
+  "dependencies": {
+    "pocketbase": "^0.25.2",
+    "preact": "^10.13.0"
+  },
+  "scripts": {
+    "start": "bun dev"
+  }
+}
