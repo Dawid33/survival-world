@@ -21,8 +21,8 @@ local function start_vote()
   end
     
   for _, elements in pairs(storage.main_elements) do
-    storage.next_valid_vote_time = game.tick + 100
-    storage.vote_tally.tick_to_finish_voting = game.tick + 100
+    storage.next_valid_vote_time = game.tick + 3600
+    storage.vote_tally.tick_to_finish_voting = game.tick + 3600
     elements.reset_button.visible = false
     elements.vote_frame.visible = true
     elements.main_dialog.visible = true
