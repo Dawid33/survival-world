@@ -5,7 +5,7 @@ ARG CURL_RETRIES=8
 
 ENV PORT=34197 \
     RCON_PORT=27015 \
-    VERSION=2.0.42 \
+    VERSION=2.0.43 \
     SAVES=/factorio/saves \
     CONFIG=/factorio/config \
     SCRIPTOUTPUT=/factorio/script-output
