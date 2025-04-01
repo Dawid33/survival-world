@@ -26,6 +26,12 @@
   font-family: "Titillium Web", sans-serif;
 }
 
+dd,
+dl,
+h3,
+th,
+td,
+tr,
 p {
   color: var(--body-color);
 }

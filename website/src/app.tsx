@@ -1,10 +1,13 @@
-import { Component } from 'preact'
+import { Component, createContext } from 'preact'
 import { Router, Route } from 'preact-router';
+import PocketBase from 'pocketbase';
 import Home from './home';
 import Login from './login';
 import styles from "./app.module.css"
 import generic from "./generic.module.css"
 import './index.css'
+
+export const pb = new PocketBase('https://factoriosurvivalworld.com/db');
 
 export function Header() {
   return (
