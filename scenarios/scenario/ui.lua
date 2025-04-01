@@ -60,16 +60,7 @@ ui.add_gui_to_player = function(player_index)
   player_ui.vote_results.style.font = "heading-2"
 
   player_ui.no_button = table.add{type="button", caption={"sw.no_button"}, name="no_button", style="back_button"}
-  -- player_ui.abstain_button = table.add{type="button", caption={"sw.abstain_button"}, name="abstain_button", style="button"}
   player_ui.yes_button = table.add{type="button", caption={"sw.yes_button"}, name="yes_button", style="confirm_button_without_tooltip"}
-  -- player_ui.yes_button.style.top_padding = -2
-  -- player_ui.abstain_button.style.top_padding = -2
-  -- player_ui.no_button.style.top_padding = -2
-  -- player_ui.vote_results.style.vertical_align = "center"
-  -- player_ui.vote_label.style.vertical_align = "center"
-  -- player_ui.yes_button.style.vertical_align = "center"
-  -- player_ui.abstain_button.style.vertical_align = "center"
-  -- player_ui.no_button.style.vertical_align = "center"
 
   -- Lobby modal for setting map settings and starting the game.
   player_ui.lobby_modal = player.gui.screen.add{type="frame", visible=true, name="lobby_modal", caption={"sw.lobby"}, direction="vertical"}

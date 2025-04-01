@@ -20,7 +20,7 @@ RUN tar xf "/tmp/factorio_headless_x64_$VERSION.tar.xz" --directory /opt
 RUN rm "/tmp/factorio_headless_x64_$VERSION.tar.xz" 
 RUN ln -s "$SAVES" /opt/factorio/saves
 
-COPY scenarios/tester /opt/factorio/scenarios/tester
+COPY scenarios/scenario /opt/factorio/scenarios/scenario
 COPY scenario.sh scenario.sh 
 COPY config.ini /opt/factorio/config/config.ini
 
