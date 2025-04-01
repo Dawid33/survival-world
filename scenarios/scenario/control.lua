@@ -1,6 +1,6 @@
 ---@diagnostic disable
 local crash_site = require('crash-site')
--- Game State
+
 function generate_game_id()
   return storage.generator(100000000000000, 999999999999999)
 end
@@ -27,7 +27,7 @@ local function start_vote()
     elements.vote_frame.visible = true
     elements.main_dialog.visible = true
     elements.vote_frame.visible = true
-    elements.vote_results.caption = string.format("Yes/No: %d/%d, Time Remaining: %s", storage.vote_tally.yes_total, storage.vote_tally.no_total, ui.format_play_time(storage.vote_tally.tick_to_finish_voting - game.tick))
+    elements.vote_results.caption = string.format("%d/%d | %s", storage.vote_tally.no_total, storage.vote_tally.yes_total, ui.format_play_time_seconds(storage.vote_tally.tick_to_finish_voting - game.tick))
   end
 end
 
@@ -63,7 +63,7 @@ local function vote(value, player_index)
 
   if storage.vote_tally.tick_to_finish_voting ~= nil and storage.vote_tally.tick_to_finish_voting > game.tick then
     for _, player in pairs(game.connected_players) do 
-        storage.main_elements[player.index].vote_results.caption = string.format("Yes/No: %d/%d, Time Remaining: %s", storage.vote_tally.yes_total, storage.vote_tally.no_total, ui.format_play_time(storage.vote_tally.tick_to_finish_voting - game.tick))
+        storage.main_elements[player.index].vote_results.caption = string.format("%d/%d | %s", storage.vote_tally.no_total, storage.vote_tally.yes_total, ui.format_play_time_seconds(storage.vote_tally.tick_to_finish_voting - game.tick))
     end
   end
 end
@@ -126,8 +126,6 @@ script.on_event(defines.events.on_gui_click,
       game.surfaces[1].clear()
     elseif event.element.name == "no_button" then
       vote(false, event.player_index)
-    elseif event.element.name == "abstain_button" then
-      vote(nil, event.player_index)
     elseif event.element.name == "yes_button" then
       vote(true, event.player_index)
     elseif event.element.name == "reset_button" then
@@ -390,7 +388,7 @@ script.on_nth_tick(
         if storage.vote_tally.tick_to_finish_voting <= game.tick then
             end_vote()
         else
-            storage.main_elements[player.index].vote_results.caption = string.format("Yes/No: %d/%d, Time Remaining: %s", storage.vote_tally.yes_total, storage.vote_tally.no_total, ui.format_play_time(storage.vote_tally.tick_to_finish_voting - game.tick))
+            storage.main_elements[player.index].vote_results.caption = string.format("%d/%d | %s", storage.vote_tally.no_total, storage.vote_tally.yes_total, ui.format_play_time_seconds(storage.vote_tally.tick_to_finish_voting - game.tick))
         end
       end
       if storage.main_elements[player.index] ~= nil then
@@ -489,6 +487,7 @@ end)
 script.on_init(function()
     log("Initialising Scenario for the first time (on_init)")
     log("**************************************************")
+    -- Game State
     storage.main_elements = {}
     storage.current_game_id = {}
     storage.current_settings = {

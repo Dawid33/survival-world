@@ -25,4 +25,4 @@ COPY scenario.sh scenario.sh
 COPY config.ini /opt/factorio/config/config.ini
 
 EXPOSE $PORT/udp $RCON_PORT/tcp
-CMD ["/scenario.sh", "tester"]
+CMD ["/scenario.sh", "scenario"]

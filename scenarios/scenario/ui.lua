@@ -13,6 +13,11 @@ ui.format_play_time = function (ticks)
     return result
 end
 
+ui.format_play_time_seconds = function (ticks)
+    local seconds = math.floor(ticks / 60)
+    return string.format("%d", seconds % 60)
+end
+
 ui.reset_main_ui = function(player_index)
     local player_ui = storage.main_elements[player_index]
     player_ui.vote_frame.visible = false
@@ -27,6 +32,7 @@ ui.add_gui_to_player = function(player_index)
 
   -- Main in-game panel that shows stats, current settings and can be used to go back to the lobby.
   player_ui.main_dialog = player.gui.left.add{type="frame", visible=false, name="main_dialog", direction="vertical"}
+  player_ui.main_dialog.style.horizontally_stretchable = false
   player_ui.main_dialog.caption = {"sw.main_dialog_caption"}
   player_ui.main_dialog_inner_frame = player_ui.main_dialog.add{type="frame", style="inside_shallow_frame_with_padding",name="game_info", direction="vertical"}
   local time_row = player_ui.main_dialog_inner_frame.add{type="flow"}
@@ -42,20 +48,28 @@ ui.add_gui_to_player = function(player_index)
   player_ui.reset_button.style.top_margin = 10
   player_ui.reset_button.style.vertically_stretchable = true
 
-  player_ui.vote_frame = player_ui.main_dialog.add{type="frame", direction="vertical", visible=false, style="inside_shallow_frame_with_padding"}
-  player_ui.vote_frame.style.top_margin = 10
-  player_ui.vote_label = player_ui.vote_frame.add{type="label", caption={"sw.vote_label"}}
-  player_ui.vote_results = player_ui.vote_frame.add{type="label", caption=""}
-  player_ui.vote_flow= player_ui.vote_frame.add{type="frame", style="invisible_frame"}
-  player_ui.yes_button = player_ui.vote_flow.add{type="button", caption={"sw.yes_button"}, name="yes_button"}
-  player_ui.abstain_button = player_ui.vote_flow.add{type="button", caption={"sw.abstain_button"}, name="abstain_button"}
-  player_ui.no_button = player_ui.vote_flow.add{type="button", caption={"sw.no_button"}, name="no_button"}
-  player_ui.yes_button.style.top_margin = 10
-  player_ui.yes_button.style.horizontally_stretchable = true
-  player_ui.abstain_button.style.top_margin = 10
-  player_ui.abstain_button.style.horizontally_stretchable = true
-  player_ui.no_button.style.top_margin = 10
-  player_ui.no_button.style.horizontally_stretchable = true
+  player_ui.vote_frame = button_flow.add{type="frame", visible=false, style="subheader_frame"}
+  player_ui.vote_frame.style.vertical_align = "center"
+  player_ui.vote_frame.style.vertically_stretchable = true
+  player_ui.vote_frame.add{type="line", direction="vertical"}
+  local flow = player_ui.vote_frame.add{type="flow", direction="horizontal"}
+  local table = flow.add{type="table", column_count = 5, vertical_centering=true}
+  player_ui.vote_label = table.add{type="label", caption={"sw.vote_label"}}
+  player_ui.vote_label.style.font = "heading-2"
+  player_ui.vote_results = table.add{type="label", caption=""}
+  player_ui.vote_results.style.font = "heading-2"
+
+  player_ui.no_button = table.add{type="button", caption={"sw.no_button"}, name="no_button", style="back_button"}
+  -- player_ui.abstain_button = table.add{type="button", caption={"sw.abstain_button"}, name="abstain_button", style="button"}
+  player_ui.yes_button = table.add{type="button", caption={"sw.yes_button"}, name="yes_button", style="confirm_button_without_tooltip"}
+  -- player_ui.yes_button.style.top_padding = -2
+  -- player_ui.abstain_button.style.top_padding = -2
+  -- player_ui.no_button.style.top_padding = -2
+  -- player_ui.vote_results.style.vertical_align = "center"
+  -- player_ui.vote_label.style.vertical_align = "center"
+  -- player_ui.yes_button.style.vertical_align = "center"
+  -- player_ui.abstain_button.style.vertical_align = "center"
+  -- player_ui.no_button.style.vertical_align = "center"
 
   -- Lobby modal for setting map settings and starting the game.
   player_ui.lobby_modal = player.gui.screen.add{type="frame", visible=true, name="lobby_modal", caption={"sw.lobby"}, direction="vertical"}
