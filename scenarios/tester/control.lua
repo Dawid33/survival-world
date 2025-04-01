@@ -1,50 +1,9 @@
 ---@diagnostic disable
 local crash_site = require('crash-site')
 -- Game State
-storage.main_elements = {}
-storage.current_settings = {
-  biter_regen = false,
-  pitch_black = false,
-  shallow_water = false,
-  robots = false,
-	iron_size = 3,
-	iron_frequency = 3,
-	iron_richness = 3,
-	copper_size = 3,
-	copper_frequency = 3,
-	copper_richness = 3,
-	coal_size = 3,
-	coal_frequency = 3,
-	coal_richness = 3,
-	stone_size = 3,
-	stone_frequency = 3,
-	stone_richness = 3,
-	oil_size = 3,
-	oil_frequency = 3,
-	oil_richness = 3,
-	uranium_size = 3,
-	uranium_frequency = 3,
-	uranium_richness = 3,
-	trees_size = 1,
-	trees_frequency = 1,
-	trees_richness = 1,
-	biter_size = 6,
-	biter_frequency = 6,
-}
-storage.has_created_discord_link = false
-storage.has_player_recieved_robots = {}
-storage.game_state  = "in_lobby"
-storage.has_seed_changed = false
-storage.charted_surface = false
-storage.biter_regen_odds = 2
-storage.next_valid_vote_time = 0
-storage.vote_tally = {
-  tick_to_finish_voting = nil,
-  yes_total = 0,
-  no_total = 0,
-  yes = {},
-  no = {},
-}
+function generate_game_id()
+  return storage.generator(100000000000000, 999999999999999)
+end
 
 local ui = require('ui')
 
@@ -62,8 +21,8 @@ local function start_vote()
   end
     
   for _, elements in pairs(storage.main_elements) do
-    storage.next_valid_vote_time = game.tick + 36000
-    storage.vote_tally.tick_to_finish_voting = game.tick + 3600
+    storage.next_valid_vote_time = game.tick + 100
+    storage.vote_tally.tick_to_finish_voting = game.tick + 100
     elements.reset_button.visible = false
     elements.vote_frame.visible = true
     elements.main_dialog.visible = true
@@ -239,6 +198,9 @@ script.on_event(defines.events.on_surface_cleared,
     	surface.map_gen_settings = mgs
 
     if storage.game_state  == "in_lobby" then
+      	dto = {collection = "games", method="update", data = { finished = true, time_played = game.tick, id = storage.current_game_id }}
+      	helpers.write_file("apicalls.txt", helpers.table_to_json(dto), true, 0)
+
         local mgs = surface.map_gen_settings 
         mgs.seed = math.random(1111,999999999)
         mgs.width = 1
@@ -263,6 +225,10 @@ script.on_event(defines.events.on_surface_cleared,
       surface.request_to_generate_chunks({0, 0}, 10)
       surface.force_generate_chunk_requests()
     elseif storage.game_state  == "in_game" then
+      storage.current_game_id = generate_game_id()
+    	dto = {collection = "games", method="create", data = { finished = false, time_played = 0, rockets_launched = 0, id = storage.current_game_id }}
+    	helpers.write_file("apicalls.txt", helpers.table_to_json(dto), true, 0)
+
     	for _, player in pairs(game.players) do
     		  player.teleport({0,0}, 1)
       end
@@ -405,20 +371,19 @@ script.on_nth_tick(
     	local surface = game.surfaces[1]
       game.forces["player"].chart(1, {{-250, -250},{250,250}})
       game.forces["player"].rechart()
-      log("Charted surface, dlink is " .. tostring(storage.has_created_discord_link))
     	storage.charted_surface = true
   	end
 
-  	if not storage.has_created_discord_link then
-      log("creating tag")
-      tag = game.forces["player"].add_chart_tag(1, {position={0, 0}, icon={type="virtual", name="signal-green"}, text="Discord Link: https://discord.gg/SavhUfjg6K"} )
-      if tag ~= nil then
-        log("tag is nil")
-      else
-        log("tag is not nil")
-      end
-      storage.has_created_discord_link = true
-  	end
+  	-- if not storage.has_created_discord_link then
+   --    log("creating tag")
+   --    tag = game.forces["player"].add_chart_tag(1, {position={0, 0}, icon={type="virtual", name="signal-green"}, text="Discord Link: https://discord.gg/SavhUfjg6K"} )
+   --    if tag ~= nil then
+   --      log("tag is nil")
+   --    else
+   --      log("tag is not nil")
+   --    end
+   --    storage.has_created_discord_link = true
+  	-- end
 
     for _, player in pairs(game.connected_players) do 
       if storage.vote_tally.tick_to_finish_voting ~= nil then
@@ -524,6 +489,53 @@ end)
 script.on_init(function()
     log("Initialising Scenario for the first time (on_init)")
     log("**************************************************")
+    storage.main_elements = {}
+    storage.current_game_id = {}
+    storage.current_settings = {
+      biter_regen = false,
+      pitch_black = false,
+      shallow_water = false,
+      robots = false,
+    	iron_size = 3,
+    	iron_frequency = 3,
+    	iron_richness = 3,
+    	copper_size = 3,
+    	copper_frequency = 3,
+    	copper_richness = 3,
+    	coal_size = 3,
+    	coal_frequency = 3,
+    	coal_richness = 3,
+    	stone_size = 3,
+    	stone_frequency = 3,
+    	stone_richness = 3,
+    	oil_size = 3,
+    	oil_frequency = 3,
+    	oil_richness = 3,
+    	uranium_size = 3,
+    	uranium_frequency = 3,
+    	uranium_richness = 3,
+    	trees_size = 1,
+    	trees_frequency = 1,
+    	trees_richness = 1,
+    	biter_size = 6,
+    	biter_frequency = 6,
+    }
+    storage.has_created_discord_link = false
+    storage.has_player_recieved_robots = {}
+    storage.game_state  = "in_lobby"
+    storage.has_seed_changed = false
+    storage.charted_surface = false
+    storage.biter_regen_odds = 2
+    storage.next_valid_vote_time = 0
+    storage.vote_tally = {
+      tick_to_finish_voting = nil,
+      yes_total = 0,
+      no_total = 0,
+      yes = {},
+      no = {},
+    }
+
+    storage.generator = game.create_random_generator()
   	game.map_settings.enemy_evolution.destroy_factor = 0
   	game.map_settings.enemy_evolution.pollution_factor = 0
   	game.map_settings.enemy_evolution.time_factor = 0.00004

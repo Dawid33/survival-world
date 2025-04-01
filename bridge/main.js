@@ -1,6 +1,7 @@
 const fs = require('fs');
 const TailingReadableStream = require('tailing-stream');
 const PocketBase = require('pocketbase/cjs');
+require('dotenv').config()
 
 const pb = new PocketBase('https://factoriosurvivalworld.com/db');
 
@@ -9,7 +10,7 @@ if (!process.env.script_output_path) {
   return;
 }
 
-if (!process.env.db_password) {
+if (!process.env.db_username) {
   console.log("Must supply db_username env variable.");
   return;
 }
@@ -50,6 +51,7 @@ fs.watch(process.env.script_output_path, (eventType, filename) => {
 
       try {
         console.log(value)
+        value.data.created_by = pb.authStore.record.id
         if(value.collection && value.method) {
           if(value.collection === "chatlogs") {
               // Get username Id
@@ -69,6 +71,19 @@ fs.watch(process.env.script_output_path, (eventType, filename) => {
                 delete value.data["username"]
                 return pb.collection("chat_logs").create(value.data)
               }).catch(api_failed);
+          } else if(value.collection === "games") {
+              if (value.data.finished === true) {
+                value.data.finished = new Date();
+              } else {
+                value.data.finished = null;
+              }
+              console.log(value)
+
+              if (value.method === "update") {
+                pb.collection('games').update(value.data.id, value.data).catch(api_failed);
+              } else if (value.method === "create") {
+                pb.collection('games').create(value.data).catch(api_failed);
+              }
           } else {
               pb.collection(value.collection).create(value.data).catch(api_failed);
           }
