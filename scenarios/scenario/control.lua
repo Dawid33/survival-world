@@ -147,6 +147,10 @@ script.on_event(defines.events.on_gui_click,
 function go_to_lobby()
     storage.has_seed_changed = false
     storage.game_state = "in_lobby"
+
+  	dto = {collection = "games", method="update", data = { finished = true, time_played = game.tick, id = storage.current_game_id }}
+  	helpers.write_file("apicalls.txt", helpers.table_to_json(dto) .. "\n", true, 0)
+
     game.surfaces[1].clear()
     for _, player in pairs(game.connected_players) do 
       if storage.main_elements[player.index] ~= nil then
@@ -196,9 +200,6 @@ script.on_event(defines.events.on_surface_cleared,
     	surface.map_gen_settings = mgs
 
     if storage.game_state  == "in_lobby" then
-      	dto = {collection = "games", method="update", data = { finished = true, time_played = game.tick, id = storage.current_game_id }}
-      	helpers.write_file("apicalls.txt", helpers.table_to_json(dto), true, 0)
-
         local mgs = surface.map_gen_settings 
         mgs.seed = math.random(1111,999999999)
         mgs.width = 1
@@ -225,7 +226,7 @@ script.on_event(defines.events.on_surface_cleared,
     elseif storage.game_state  == "in_game" then
       storage.current_game_id = generate_game_id()
     	dto = {collection = "games", method="create", data = { finished = false, time_played = 0, rockets_launched = 0, id = storage.current_game_id }}
-    	helpers.write_file("apicalls.txt", helpers.table_to_json(dto), true, 0)
+    	helpers.write_file("apicalls.txt", helpers.table_to_json(dto) .. "\n", true, 0)
 
     	for _, player in pairs(game.players) do
     		  player.teleport({0,0}, 1)
@@ -372,16 +373,16 @@ script.on_nth_tick(
     	storage.charted_surface = true
   	end
 
-  	-- if not storage.has_created_discord_link then
-   --    log("creating tag")
-   --    tag = game.forces["player"].add_chart_tag(1, {position={0, 0}, icon={type="virtual", name="signal-green"}, text="Discord Link: https://discord.gg/SavhUfjg6K"} )
-   --    if tag ~= nil then
-   --      log("tag is nil")
-   --    else
-   --      log("tag is not nil")
-   --    end
-   --    storage.has_created_discord_link = true
-  	-- end
+  	if not storage.has_created_discord_link then
+      log("creating tag")
+      tag = game.forces["player"].add_chart_tag(1, {position={0, 0}, icon={type="virtual", name="signal-green"}, text="Discord Link: https://discord.gg/SavhUfjg6K"} )
+      if tag ~= nil then
+        log("tag is nil")
+      else
+        log("tag is not nil")
+      end
+      storage.has_created_discord_link = true
+  	end
 
     for _, player in pairs(game.connected_players) do 
       if storage.vote_tally.tick_to_finish_voting ~= nil then
@@ -428,15 +429,26 @@ script.on_event(defines.events.on_biter_base_built,
   end
 )
 
-local function refresh_all_players_list(event)
+local function on_player_left(event)
+  	local dto = {collection = "player_join_log", method="create", data = { username = game.players[event.player_index].name, action = "left", game_tick = event.tick}}
+    if storage.current_game_id ~= nil then
+      dto.game_id = storage.current_game_id
+    end
+  	helpers.write_file("apicalls.txt", helpers.table_to_json(dto) .. "\n", true, 0)
     for _, p in pairs(game.connected_players) do
       refresh_player_gui(p.index)
     end
 end
 
-script.on_event(defines.events.on_player_left_game, refresh_all_players_list)
+script.on_event(defines.events.on_player_left_game, on_player_left)
 script.on_event(defines.events.on_player_joined_game, 
   function(event)
+  	local dto = {collection = "player_join_log", method="create", data = { username = game.players[event.player_index].name, action = "joined", game_tick = event.tick}}
+    if storage.current_game_id ~= nil then
+      dto.game_id = storage.current_game_id
+    end
+  	helpers.write_file("apicalls.txt", helpers.table_to_json(dto) .. "\n", true, 0)
+
     player = game.get_player(event.player_index)
     if storage.game_state == "in_game" then
        storage.main_elements[event.player_index].lobby_modal.visible = false 
@@ -452,7 +464,7 @@ script.on_event(defines.events.on_player_joined_game,
         player.gui.top.visible = false
         storage.main_elements[event.player_index].main_dialog.visible = false
     end
-    refresh_all_players_list(event)
+    on_player_left(event)
   end
 )
 
@@ -476,7 +488,10 @@ script.on_event(defines.events.on_player_created,
 script.on_event(defines.events.on_console_chat,
   function(event)
   	dto = {collection = "chatlogs", method="create", data = { username = game.players[event.player_index].name, message = event.message, game_tick = event.tick}}
-  	helpers.write_file("apicalls.txt", helpers.table_to_json(dto), true, 0)
+    if storage.current_game_id ~= nil then
+      dto.game_id = storage.current_game_id
+    end
+  	helpers.write_file("apicalls.txt", helpers.table_to_json(dto) .. "\n", true, 0)
   end
 )
 
@@ -489,7 +504,7 @@ script.on_init(function()
     log("**************************************************")
     -- Game State
     storage.main_elements = {}
-    storage.current_game_id = {}
+    storage.current_game_id = nil
     storage.current_settings = {
       biter_regen = false,
       pitch_black = false,

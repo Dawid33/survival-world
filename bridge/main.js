@@ -21,7 +21,12 @@ if (!process.env.db_password) {
 }
 
 function api_failed(err) {
-    console.error("Failed api call: ", err);
+  console.error("Failed api call: ", err);
+}
+
+function create_user(err) { }
+
+function create_user(err) {
 }
 
 pb.autoCancellation(false)
@@ -29,31 +34,58 @@ pb.autoCancellation(false)
 const authData = pb.collection("users").authWithPassword(process.env.db_username, process.env.db_password);
 let watching_files = {}
 fs.watch(process.env.script_output_path, (eventType, filename) => {
-  if(!watching_files[filename]) {
+  if (!watching_files[filename]) {
     console.log("Starting to watch file ", filename);
     watching_files[filename] = true;
-    const stream = TailingReadableStream.createReadStream(process.env.script_output_path + "/" + filename, {timeout: 0});
+    const stream = TailingReadableStream.createReadStream(process.env.script_output_path + "/" + filename, { timeout: 0 });
 
     let first = true;
     stream.on('data', buffer => {
       // Whole file is read first time it is called.
-      if(first) {
+      if (first) {
         first = false;
         return;
       }
 
-      let value = null;
-      try {
-        value = JSON.parse(buffer.toString());
-      } catch {
-        console.log("Failed to parse data: " + buffer.toString())
-      }
+      for (apicall of buffer.toString().split('\n')) {
+        if (apicall == "") {
+          continue
+        }
 
-      try {
-        console.log(value)
-        value.data.created_by = pb.authStore.record.id
-        if(value.collection && value.method) {
-          if(value.collection === "chatlogs") {
+        let value = null;
+        try {
+          value = JSON.parse(apicall);
+        } catch {
+          console.log("Failed to parse data: " + buffer.toString())
+        }
+
+        try {
+          console.log(value)
+          value.data.created_by = pb.authStore.record.id
+          if (value.collection && value.method) {
+            if (value.collection === "chatlogs") {
+              // Get username Id
+              if (!value.data.username) {
+                console.log("Bad username.")
+                return
+              }
+
+              const record = pb.collection('factorio_usernames')
+                .getFirstListItem(`username="${value.data.username}"`, {})
+                .catch((err) => {
+                    if (err.status === 404) {
+                      return pb.collection('factorio_usernames').create({ username: value.data.username, created_by: value.data.created_by })
+                    } else {
+                      return Promise.reject(err);
+                    }
+                  }
+                ).then((record) => {
+                  value.data.username_id = record.id;
+                  delete value.data["username"]
+                  return pb.collection("chat_logs").create(value.data)
+                })
+                .catch(api_failed);
+            } else if (value.collection === "player_join_log") {
               // Get username Id
               if (!value.data.username) {
                 console.log("Bad username.")
@@ -61,17 +93,17 @@ fs.watch(process.env.script_output_path, (eventType, filename) => {
               }
 
               const record = pb.collection('factorio_usernames').getFirstListItem(`username="${value.data.username}"`, {}).catch((err) => {
-                if(err.status === 404) {
-                  return pb.collection('factorio_usernames').create({username: value.data.username})
+                if (err.status === 404) {
+                  return pb.collection('factorio_usernames').create({ username: value.data.username, created_by: value.data.created_by })
                 } else {
                   return Promise.reject(err);
                 }
               }).then((record) => {
                 value.data.username_id = record.id;
                 delete value.data["username"]
-                return pb.collection("chat_logs").create(value.data)
+                return pb.collection("player_join_log").create(value.data)
               }).catch(api_failed);
-          } else if(value.collection === "games") {
+            } else if (value.collection === "games") {
               if (value.data.finished === true) {
                 value.data.finished = new Date();
               } else {
@@ -84,12 +116,13 @@ fs.watch(process.env.script_output_path, (eventType, filename) => {
               } else if (value.method === "create") {
                 pb.collection('games').create(value.data).catch(api_failed);
               }
-          } else {
+            } else {
               pb.collection(value.collection).create(value.data).catch(api_failed);
+            }
           }
+        } catch (error) {
+          console.log("failed to process ", JSON.stringify(value), " because ", error);
         }
-      } catch(error){
-        console.log("failed to process ", JSON.stringify(value), " because ", error);
       }
     });
 
